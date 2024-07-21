@@ -4,31 +4,66 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
+enum CollisionType { Floor, LeftWall, RightWall, Ceiling }
+
 [RequireComponent(typeof(Rigidbody2D))]
 public class CharacterBody2D : MonoBehaviour
 {
-    [SerializeField] private Vector2 upDirection = Vector2.up;
+    // Up direction and maxAngles define what is considered a floor, a left or right wall or a ceiling
+    // A left direction is defined as being counterclockwise from up. Similarly, right when clockwise.
+    // In case Up is Vector2.zero, all collisions will be recognized as Left Walls
+    [SerializeField] private Vector2 up = Vector2.up;
+    
+    public Vector2 Up => up;
+    public Vector2 Left => new(-up.y, up.x);
+    public Vector2 Right => new(up.y, -up.x);
+    public Vector2 Down => -up;
+    
     [SerializeField, Range(0, 90)] private float maxFloorAngle = 45;
     [SerializeField, Range(0, 90)] private float maxCeilingAngle = 45;
+    
+    // Lists containing contact information from last physics frame.
+    // Cannot use current physics frame has there is no guarantee all collision events have been notified
+    private readonly List<ContactPoint2D> floors = new();
+    private readonly List<ContactPoint2D> leftWalls = new();
+    private readonly List<ContactPoint2D> rightWalls = new();
+    private readonly List<ContactPoint2D> ceilings = new();
+    
+    // Normals calculated from lists above.
+    // A zero vector means there is no contact points.
+    private Vector2 floorNormal = Vector2.zero;
+    private Vector2 wallNormal = Vector2.zero;
+    private Vector2 leftWallNormal = Vector2.zero;
+    private Vector2 rightWallNormal = Vector2.zero;
+    private Vector2 ceilingNormal = Vector2.zero;
 
-    private readonly List<CharacterCollision2D> lastFloors = new List<CharacterCollision2D>();
-    private readonly List<CharacterCollision2D> lastWalls = new List<CharacterCollision2D>();
-    private readonly List<CharacterCollision2D> lastCeilings = new List<CharacterCollision2D>();
-
-    private readonly List<CharacterCollision2D> floors = new List<CharacterCollision2D>();
-    private readonly List<CharacterCollision2D> walls = new List<CharacterCollision2D>();
-    private readonly List<CharacterCollision2D> ceilings = new List<CharacterCollision2D>();
-
+    // Lists used to buffer incoming collisions from current frame
+    // Cannot use this buffer directly has there is no guarantee all collision events for this frame have been notified
+    // WIP means Work In Progress 
+    private readonly List<ContactPoint2D> wipFloors = new();
+    private readonly List<ContactPoint2D> wipLeftWalls = new();
+    private readonly List<ContactPoint2D> wipRightWalls = new();
+    private readonly List<ContactPoint2D> wipCeilings = new();
+    
+    // Events for Collision
+    // Enter events are only called if previously there were no correspondent colliders
+    // A new collider entering will not call Enter Events if there was already another collider
     [SerializeField] private UnityEvent onFloorEnter;
     [SerializeField] private UnityEvent onWallEnter;
+    [SerializeField] private UnityEvent onLeftWallEnter;
+    [SerializeField] private UnityEvent onRightWallEnter;
     [SerializeField] private UnityEvent onCeilingEnter;
 
+    // Exit events are only called if currently there are no correspondent colliders
+    // A collider exiting will not call Exit Events if there still one or more colliders remaining
     [SerializeField] private UnityEvent onFloorExit;
     [SerializeField] private UnityEvent onWallExit;
+    [SerializeField] private UnityEvent onLeftWallExit;
+    [SerializeField] private UnityEvent onRightWallExit;
     [SerializeField] private UnityEvent onCeilingExit;
-
+    
+    // RigidBody2D used by movement functions.
     private Rigidbody2D body;
-    private bool updatedCollisions;
 
     private void Start()
     {
@@ -270,20 +305,24 @@ public class CharacterBody2D : MonoBehaviour
 
         foreach (var point in contacts)
         {
-            var collision = new CharacterCollision2D(point, GetContactType);
-
-            switch (collision.type)
+            var type = GetContactType(point);
+            
+            switch (type)
             {
                 case CollisionType.Floor:
-                    floors.Add(collision);
+                    wipFloors.Add(point);
                     break;
 
-                case CollisionType.Wall:
-                    walls.Add(collision);
+                case CollisionType.LeftWall:
+                    wipLeftWalls.Add(point);
+                    break;
+                
+                case CollisionType.RightWall:
+                    wipRightWalls.Add(point);
                     break;
 
                 case CollisionType.Ceiling:
-                    ceilings.Add(collision);
+                    wipCeilings.Add(point);
                     break;
             }
         }
@@ -294,108 +333,156 @@ public class CharacterBody2D : MonoBehaviour
         var maxFloorCosine = Mathf.Cos(maxFloorAngle * Mathf.Deg2Rad);
         var maxCeilingCosine = Mathf.Cos(maxCeilingAngle * Mathf.Deg2Rad);
 
-        if (Vector2.Dot(upDirection, contact.normal) > maxFloorCosine)
+        if (Vector2.Dot(up, contact.normal) > maxFloorCosine)
             return CollisionType.Floor;
 
-        if (Vector2.Dot(-upDirection, contact.normal) > maxCeilingCosine)
+        if (Vector2.Dot(-up, contact.normal) > maxCeilingCosine)
             return CollisionType.Ceiling;
 
-        return CollisionType.Wall;
+        return IsNormalLeft(contact.normal) ? CollisionType.LeftWall : CollisionType.RightWall;
     }
 
     private void UpdateCollisions()
     {
-        var lastFloorCount = lastFloors.Count;
-        var lastWallCount = lastWalls.Count;
-        var lastCeilingCount = lastCeilings.Count;
+        var lastFloorCount = floors.Count;
+        var lastLeftWallCount = leftWalls.Count;
+        var lastRightWallCount = rightWalls.Count;
+        var lastWallCount = leftWalls.Count + rightWalls.Count;
+        var lastCeilingCount = ceilings.Count;
 
         CascadeCollisionLists();
+        CalculateNormals();
+        
+        var currentFloorCount = floors.Count;
+        var currentLeftWallCount = leftWalls.Count;
+        var currentRightWallCount = rightWalls.Count;
+        var currentWallCount = leftWalls.Count + rightWalls.Count;
+        var currentCeilingCount = ceilings.Count;
+        
+        CheckAndCallEvent(lastFloorCount, currentFloorCount, onFloorEnter, onFloorExit);
+        
+        CheckAndCallEvent(lastWallCount, currentWallCount, onWallEnter, onWallExit);
+        CheckAndCallEvent(lastLeftWallCount, currentLeftWallCount, onLeftWallEnter, onLeftWallExit);
+        CheckAndCallEvent(lastRightWallCount, currentRightWallCount, onRightWallEnter, onRightWallExit);
+        
+        CheckAndCallEvent(lastCeilingCount, currentCeilingCount, onCeilingEnter, onCeilingExit);
+    }
 
-        // onEnter
-        if (lastFloorCount == 0 && lastFloors.Count > 0)
-            onFloorEnter.Invoke();
+    private void CheckAndCallEvent(int lastCount, int currentCount, UnityEvent enter, UnityEvent exit)
+    {
+        if (lastCount == 0 && currentCount > 0) enter.Invoke();
+        else if (lastCount > 0 && currentCount == 0) exit.Invoke();
+    }
 
-        if (lastWallCount == 0 && lastWalls.Count > 0)
-            onWallEnter.Invoke();
+    private void CalculateNormals()
+    {
+        floorNormal = AvarageNormal(GetFloorNormals());
+        wallNormal = AvarageNormal(GetWallNormals());
+        leftWallNormal = AvarageNormal(GetLeftWallNormals());
+        rightWallNormal = AvarageNormal(GetRightWallNormals());
+        ceilingNormal = AvarageNormal(GetCeilingNormals());
+    }
 
-        if (lastCeilingCount == 0 && lastCeilings.Count > 0)
-            onCeilingEnter.Invoke();
-
-        // onExit
-        if (lastFloorCount > 0 && lastFloors.Count == 0)
-            onFloorExit.Invoke();
-
-        if (lastWallCount > 0 && lastWalls.Count == 0)
-            onWallExit.Invoke();
-
-        if (lastCeilingCount > 0 && lastCeilings.Count == 0)
-            onCeilingExit.Invoke();
+    private Vector2 AvarageNormal(List<Vector2> vectors)
+    {
+        var count = vectors.Count;
+        var avarage = vectors.Aggregate(Vector2.zero, (current, next) => current + next) / count;
+        return avarage.normalized;
     }
 
     private void CascadeCollisionLists()
     {
-        ClearLastCollisions();
-
-        lastFloors.AddRange(floors);
-        lastWalls.AddRange(walls);
-        lastCeilings.AddRange(ceilings);
-
         ClearCollisions();
+
+        floors.AddRange(wipFloors);
+        leftWalls.AddRange(wipLeftWalls);
+        rightWalls.AddRange(wipRightWalls);
+        ceilings.AddRange(wipCeilings);
+
+        ClearWipCollisions();
+    }
+
+    private void ClearWipCollisions()
+    {
+        wipFloors.Clear();
+        wipLeftWalls.Clear();
+        wipRightWalls.Clear();
+        wipCeilings.Clear();
     }
 
     private void ClearCollisions()
     {
         floors.Clear();
-        walls.Clear();
+        leftWalls.Clear();
+        rightWalls.Clear();
         ceilings.Clear();
     }
 
-    private void ClearLastCollisions()
+    public List<ContactPoint2D> GetFloorPoints() => floors;
+
+    public List<ContactPoint2D> GetWallPoints()
     {
-        lastFloors.Clear();
-        lastWalls.Clear();
-        lastCeilings.Clear();
+        var combinedList = new List<ContactPoint2D>(leftWalls);
+        combinedList.AddRange(rightWalls);
+        return combinedList;
     }
-
-    public List<CharacterCollision2D> GetFloorPoints() => lastFloors;
-    public List<CharacterCollision2D> GetWallPoints() => lastWalls;
-    public List<CharacterCollision2D> GetCeilingPoints() => lastCeilings;
     
-    public List<Vector2> GetFloorNormals() => lastFloors.ConvertAll(point => point.normal);
-    public List<Vector2> GetWallNormals() => lastWalls.ConvertAll(point => point.normal);
-    public List<Vector2> GetCeilingNormals() => lastCeilings.ConvertAll(point => point.normal);
-
-    public int GetFloorContactCount() => lastFloors.Count;
-    public int GetWallContactCount() => lastFloors.Count;
-    public int GetCeilingContactCount() => lastFloors.Count;
-
-    public Vector2 GetAverageFloorNormal() =>
-        GetFloorPoints().ConvertAll(point => point.normal)
-            .Aggregate(Vector2.zero, (current, next) => current + next) / GetFloorContactCount();
+    public List<ContactPoint2D> GetLeftWallPoints() => leftWalls;
+    public List<ContactPoint2D> GetRightWallPoints() => rightWalls;
+    public List<ContactPoint2D> GetCeilingPoints() => ceilings;
     
-    public Vector2 GetAverageWallNormal() =>
-        GetWallPoints().ConvertAll(point => point.normal)
-            .Aggregate(Vector2.zero, (current, next) => current + next) / GetWallContactCount();
+    public List<Vector2> GetFloorNormals() => GetFloorPoints().ConvertAll(point => point.normal);
+    public List<Vector2> GetWallNormals() => GetWallPoints().ConvertAll(point => point.normal);
+    public List<Vector2> GetLeftWallNormals() => GetLeftWallPoints().ConvertAll(point => point.normal);    
+    public List<Vector2> GetRightWallNormals() => GetRightWallPoints().ConvertAll(point => point.normal);
+    public List<Vector2> GetCeilingNormals() => GetCeilingPoints().ConvertAll(point => point.normal);
+
+    public int GetFloorContactCount() => GetFloorPoints().Count;
+    public int GetWallContactCount() => GetWallPoints().Count;
+    public int GetLeftWallContactCount() => GetLeftWallPoints().Count;
+    public int GetRightWallContactCount() => GetRightWallPoints().Count;
+    public int GetCeilingContactCount() => GetCeilingPoints().Count;
+
+    public Vector2 GetFloorNormal() => floorNormal;
+    public Vector2 GetWallNormal() => wallNormal;
+    public Vector2 GetLeftWallNormal() => leftWallNormal;
+    public Vector2 GetRightWallNormal() => rightWallNormal;
+    public Vector2 GetCeilingNormal() => ceilingNormal;
+
+    public bool IsOnFloor() => floors.Count > 0;
+    public bool IsOnWall() => IsOnLeftWall() || IsOnRightWall();
+    public bool IsOnLeftWall() => leftWalls.Count > 0;
+    public bool IsOnRightWall() => rightWalls.Count > 0;
+    public bool IsOnCeiling() => ceilings.Count > 0;
     
-    public Vector2 GetCeilingFloorNormal() =>
-        GetCeilingPoints().ConvertAll(point => point.normal)
-            .Aggregate(Vector2.zero, (current, next) => current + next) / GetCeilingContactCount();
-
-    public bool IsOnFloor() => lastFloors.Count > 0;
-    public bool IsOnWall() => lastWalls.Count > 0;
-    public bool IsOnCeiling() => lastCeilings.Count > 0;
-
     public bool IsOnFloorOnly() => IsOnFloor() && !IsOnWall() && !IsOnCeiling();
     public bool IsOnWallOnly() => !IsOnFloor() && IsOnWall() && !IsOnCeiling();
     public bool IsOnCeilingOnly() => !IsOnFloor() && !IsOnWall() && IsOnCeiling();
+    public bool IsOnLeftWallOnly() => !IsOnFloor() && IsOnLeftWall() && !IsOnRightWall() && !IsOnCeiling();
+    public bool IsOnRightWallOnly() => !IsOnFloor() && !IsOnLeftWall() && IsOnRightWall() && !IsOnCeiling();
 
-    public bool IsLeavingFloor() => IsOnFloor() && IsRising();
-    public bool IsLeavingCeiling() => IsOnCeiling() && IsFalling();
+    public bool IsLeavingFloor() => IsOnFloor() && Vector2.Dot(GetFloorNormal(), GetVelocity()) > 0.001f;
+    public bool IsLeavingWall() => IsOnWall() && Vector2.Dot(GetWallNormal(), GetVelocity()) > 0.001f;
+    public bool IsLeavingLeftWall() => IsOnLeftWall() && Vector2.Dot(GetLeftWallNormal(), GetVelocity()) > 0.001f;
+    public bool IsLeavingRightWall() => IsOnRightWall() && Vector2.Dot(GetRightWallNormal(), GetVelocity()) > 0.001f;
+    public bool IsLeavingCeiling() => IsOnCeiling() && Vector2.Dot(GetCeilingNormal(), GetVelocity()) > 0.001f;
+    
+    public bool IsOnFloorStable() => IsOnFloor() && Vector2.Dot(GetFloorNormal(), GetVelocity()) <= 0.001f;
+    public bool IsOnWallStable() => IsOnWall() && Vector2.Dot(GetWallNormal(), GetVelocity()) <= 0.001f;
+    public bool IsOnLeftWallStable() => IsOnLeftWall() && Vector2.Dot(GetLeftWallNormal(), GetVelocity()) <= 0.001f;
+    public bool IsOnRightWallStable() => IsOnRightWall() && Vector2.Dot(GetRightWallNormal(), GetVelocity()) <= 0.001f;
+    public bool IsOnCeilingStable() => IsOnCeiling() && Vector2.Dot(GetCeilingNormal(), GetVelocity()) <= 0.001f;
 
-    public bool IsRising() => Vector2.Dot(body.velocity, upDirection) > 0.001f;
-    public bool IsFalling() => Vector2.Dot(body.velocity, -upDirection) > 0.001f;
-    public bool HasNoVerticalSpeed() => Mathf.Approximately(0f, Vector2.Dot(body.velocity, upDirection));
+    public bool IsGoingUp() => Vector2.Dot(body.velocity, up) > 0.001f;
+    public bool IsGoingDown() => Vector2.Dot(body.velocity, Down) > 0.001f;
+    public bool HasNoVerticalSpeed() => Mathf.Approximately(0f, Vector2.Dot(body.velocity, up));
+    public bool IsGoingLeft() => Vector2.Dot(body.velocity, Left) > 0.001f;
+    public bool IsGoingRight() => Vector2.Dot(body.velocity, Right) > 0.001f;
+    public bool HasNoHorizontalSpeed() => Mathf.Approximately(0f, Vector2.Dot(body.velocity, Left));
 
     public Vector2 GetVelocity() => body.velocity;
     public float GetSpeedOnAxis(Vector2 axis) => Vector2.Dot(axis, body.velocity);
+
+    private bool IsNormalLeft(Vector2 normal) => Vector2.Dot(normal, Left) > 0.001f;
+    private bool IsNormalRight(Vector2 normal) => Vector2.Dot(normal, Right) > 0.001f;
 }

@@ -27,32 +27,15 @@ public class Mario : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(body.IsOnFloor() && !body.IsRising());
-        
-        if (body.IsOnFloor() && !body.IsRising() && WantsToJump())
+        if (body.IsOnFloorStable() && WantsToJump())
             Jump();
     }
 
     private void FixedUpdate()
     {
-        body.MoveSmoothly(Vector2.right, GetDirection(), acceleration, turnAcceleration, deceleration, maxSpeed);
+        body.MoveSmoothly(body.Right, GetDirection(), acceleration, turnAcceleration, deceleration, maxSpeed);
         ApplyGravity();
         UpdateFastFalling();
-    }
-
-    private void Move()
-    {
-        var direction = GetDirection();
-        if (Mathf.Approximately(direction, 0f))
-            body.Decelerate(Vector2.right, deceleration);
-
-        else if (IsTurningAround(direction))
-            body.Accelerate(direction * turnAcceleration * Vector2.right);
-        
-        else
-            body.Accelerate(direction * acceleration * Vector2.right);
-        
-        body.ClampSpeed(Vector2.right, -maxSpeed, maxSpeed);
     }
     
     private void ApplyGravity()
@@ -64,13 +47,13 @@ public class Mario : MonoBehaviour
 
     private void Jump()
     {
-        body.ApplyImpulse(jumpImpulse * Vector2.up);
+        body.ApplyImpulse(jumpImpulse * body.Up);
         isFastFalling = false;
     }
 
     private void UpdateFastFalling()
     {
-        isFastFalling = isFastFalling || body.IsFalling() || !IsHoldingJump();
+        isFastFalling = isFastFalling || body.IsGoingDown() || !IsHoldingJump();
     }
 
     private bool IsTurningAround(float direction)
