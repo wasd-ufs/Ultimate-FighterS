@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class State
+public abstract class State : MonoBehaviour
 {
     protected StateMachine machine;
     public State(StateMachine machine)
@@ -10,8 +10,8 @@ public abstract class State
         this.machine = machine;
     }
 
-    public abstract void Enter();
-    public abstract void FrameUpdate();
-    public abstract void PhysicsUpdate();
-    public abstract void Exit();
+    public virtual void Enter() { }
+    public virtual void FrameUpdate() { }
+    public virtual void PhysicsUpdate() { }
+    public virtual void Exit() { }
 }
