@@ -13,8 +13,17 @@ public class CharacterBody2D : MonoBehaviour
     // A left direction is defined as being counterclockwise from up. Similarly, right when clockwise.
     // In case Up is Vector2.zero, all collisions will be recognized as Left Walls
     [SerializeField] private Vector2 up = Vector2.up;
-    
-    public Vector2 Up => up;
+
+    public Vector2 Up
+    {
+        set
+        {
+            var newUp = value.normalized;
+            RotateVelocity(Up, newUp);
+            up = newUp;
+        }
+        get => up;
+    }
     public Vector2 Left => new(-up.y, up.x);
     public Vector2 Right => new(up.y, -up.x);
     public Vector2 Down => -up;
@@ -22,8 +31,7 @@ public class CharacterBody2D : MonoBehaviour
     [SerializeField, Range(0, 90)] private float maxFloorAngle = 45;
     [SerializeField, Range(0, 90)] private float maxCeilingAngle = 45;
     
-    // Lists containing contact information from last physics frame.
-    // Cannot use current physics frame has there is no guarantee all collision events have been notified
+    // Categorized lists containing contact information from body
     private readonly List<ContactPoint2D> floors = new();
     private readonly List<ContactPoint2D> leftWalls = new();
     private readonly List<ContactPoint2D> rightWalls = new();
@@ -36,14 +44,6 @@ public class CharacterBody2D : MonoBehaviour
     private Vector2 leftWallNormal = Vector2.zero;
     private Vector2 rightWallNormal = Vector2.zero;
     private Vector2 ceilingNormal = Vector2.zero;
-
-    // Lists used to buffer incoming collisions from current frame
-    // Cannot use this buffer directly has there is no guarantee all collision events for this frame have been notified
-    // WIP means Work In Progress 
-    private readonly List<ContactPoint2D> wipFloors = new();
-    private readonly List<ContactPoint2D> wipLeftWalls = new();
-    private readonly List<ContactPoint2D> wipRightWalls = new();
-    private readonly List<ContactPoint2D> wipCeilings = new();
     
     // Events for Collision
     // Enter events are only called if previously there were no correspondent colliders
@@ -64,6 +64,7 @@ public class CharacterBody2D : MonoBehaviour
     
     // RigidBody2D used by movement functions.
     private Rigidbody2D body;
+    [SerializeField] private Vector2 velocity = Vector2.zero;
 
     private void Start()
     {
@@ -75,22 +76,16 @@ public class CharacterBody2D : MonoBehaviour
     public void MoveAndClamp(Vector2 axis, float direction, float acceleration, float turnAcceleration, float deceleration,
         float maxSpeed)
     {
-        body.velocity = VectorUtils.OnAxis(axis, body.velocity,
-            x =>
-            {
-                if (Mathf.Approximately(direction, 0f))
-                    x = Mathf.MoveTowards(x, 0f, deceleration * Time.fixedDeltaTime);
-                
-                else if ((x > 0 && direction < 0) || (x < 0 && direction > 0))
-                    x += direction * turnAcceleration * Time.fixedDeltaTime;
+        if (Mathf.Approximately(direction, 0f))
+            Decelerate(axis, deceleration);
 
-                else
-                    x += direction * acceleration * Time.fixedDeltaTime;
-
-                x = Mathf.Clamp(x, -maxSpeed, maxSpeed);
-                return x;
-            }
-        );
+        else if ((GetSpeedOnAxis(axis) > 0f && direction < 0f) || (GetSpeedOnAxis(axis) < 0f && direction > 0f))
+            Accelerate(axis * (direction * turnAcceleration));
+        
+        else 
+            Accelerate(axis * (direction * acceleration));
+        
+        ClampSpeed(axis, -maxSpeed, maxSpeed);
     }
     
     public void MoveSmoothly(Vector2 axis, float direction, float acceleration, float turnAcceleration, float deceleration,
@@ -125,87 +120,87 @@ public class CharacterBody2D : MonoBehaviour
 
     public void Accelerate(Vector2 acceleration)
     {
-        body.velocity += acceleration * Time.fixedDeltaTime;
+        velocity += acceleration * Time.fixedDeltaTime;
     }
 
     public void Accelerate(float acceleration)
     {
-        body.velocity = VectorUtils.OnMagnitude(body.velocity,
+        velocity = VectorUtils.OnMagnitude(velocity,
             magnitude => magnitude + acceleration * Time.fixedDeltaTime
         );
     }
 
     public void AccelerateUntil(Vector2 axis, float acceleration, float maxSpeed)
     {
-        body.velocity = VectorUtils.OnAxis(axis, body.velocity,
+        velocity = VectorUtils.OnAxis(axis, velocity,
             x => (x > maxSpeed) ? x : Mathf.MoveTowards(x, maxSpeed, acceleration * Time.fixedDeltaTime)
         );
     }
 
     public void AccelerateUntil(float acceleration, float maxSpeed)
     {
-        body.velocity = VectorUtils.OnMagnitude(body.velocity,
+        velocity = VectorUtils.OnMagnitude(velocity,
             magnitude => (magnitude > maxSpeed) ? magnitude : Mathf.MoveTowards(magnitude, maxSpeed, magnitude * Time.fixedDeltaTime)
         );
     }
     
     public void Decelerate(Vector2 axis, float deceleration)
     {
-        body.velocity = VectorUtils.OnAxis(axis, body.velocity,
+        velocity = VectorUtils.OnAxis(axis, velocity,
             x => Mathf.MoveTowards(x, 0f, deceleration * Time.fixedDeltaTime)
         );
     }
 
     public void Decelerate(float deceleration)
     {
-        body.velocity = VectorUtils.OnMagnitude(body.velocity,
+        velocity = VectorUtils.OnMagnitude(velocity,
             magnitude => Mathf.MoveTowards(magnitude, 0f, deceleration * Time.fixedDeltaTime)
         );
     }
 
     public void DecelerateUntil(Vector2 axis, float deceleration, float minSpeed)
     {
-        body.velocity = VectorUtils.OnAxis(axis, body.velocity,
+        velocity = VectorUtils.OnAxis(axis, velocity,
             x => (x < minSpeed) ? x : Mathf.MoveTowards(x, minSpeed, deceleration * Time.fixedDeltaTime)
         );
     }
     
     public void DecelerateUntil(float deceleration, float minSpeed)
     {
-        body.velocity = VectorUtils.OnMagnitude(body.velocity,
+        velocity = VectorUtils.OnMagnitude(velocity,
             magnitude => (magnitude < minSpeed) ? magnitude : Mathf.MoveTowards(magnitude, minSpeed, deceleration * Time.fixedDeltaTime)
         );
     }
 
     public void ApplyImpulse(Vector2 impulse)
     {
-        body.velocity += impulse;
+        velocity += impulse;
     }
 
     public void ClampSpeed(Vector2 axis, float minimum, float maximum)
     {
-        body.velocity = VectorUtils.OnAxis(axis, body.velocity,
+        velocity = VectorUtils.OnAxis(axis, velocity,
             x => Mathf.Clamp(x, minimum, maximum)
         );
     }
 
     public void ClampSpeed(float minimum, float maximum)
     {
-        body.velocity = VectorUtils.OnMagnitude(body.velocity,
+        velocity = VectorUtils.OnMagnitude(velocity,
             magnitude => Mathf.Clamp(magnitude, minimum, maximum)
         );
     }
 
     public void LimitSpeed(Vector2 axis, float maximum)
     {
-        body.velocity = VectorUtils.OnAxis(axis, body.velocity,
+        velocity = VectorUtils.OnAxis(axis, velocity,
             x => Mathf.Min(x, maximum)
         );
     }
 
     public void LimitSpeed(float maximum)
     {
-        body.velocity = VectorUtils.OnMagnitude(body.velocity,
+        velocity = VectorUtils.OnMagnitude(velocity,
             magnitude => Mathf.Min(magnitude, maximum)
         );
     }
@@ -233,30 +228,26 @@ public class CharacterBody2D : MonoBehaviour
     }
 
     public void SetSpeed(Vector2 axis, float speed)
-    {
-        body.velocity = VectorUtils.OnAxis(axis, body.velocity,
+    { 
+        velocity = VectorUtils.OnAxis(axis, velocity,
             x => speed
         );
     }
 
     public void SetVelocity(Vector2 speed)
     {
-        body.velocity = speed;
+        velocity = speed;
     }
     
     public void ModifyVelocity(Func<Vector2, Vector2> modification)
     {
-        var velocity = body.velocity;
         velocity = modification(velocity);
-        body.velocity = velocity;
     }
     
     public void ModifyVelocity(Func<float, float> modificationX, Func<float, float> modificationY)
     {
-        var velocity = body.velocity;
         velocity.x = modificationX(velocity.x);
         velocity.y = modificationY(velocity.y);
-        body.velocity = velocity;
     }
 
     public void ModifyVelocityX(Func<float, float> modification)
@@ -271,37 +262,86 @@ public class CharacterBody2D : MonoBehaviour
 
     public void ModifyVelocityOnAxis(Vector2 axis, Func<float, float> modification)
     {
-        body.velocity = VectorUtils.OnAxis(axis, body.velocity, modification);
+        velocity = VectorUtils.OnAxis(axis, velocity, modification);
     }
 
     public void ModifyVelocityMagnitude(Func<float, float> modification)
     {
-        body.velocity = VectorUtils.OnMagnitude(body.velocity, modification);
+        velocity = VectorUtils.OnMagnitude(velocity, modification);
     }
 
     public void ModifyVelocityMagnitude(Func<float, float> modification, Vector2 defaultValue)
     {
-        if (Mathf.Approximately(body.velocity.sqrMagnitude, 0f))
-            body.velocity = defaultValue;
+        if (Mathf.Approximately(velocity.sqrMagnitude, 0f))
+            velocity = defaultValue;
         
         else
             ModifyVelocityMagnitude(modification);
     }
 
-    private void OnCollisionStay2D(Collision2D other)
-    {
-        AddCollision(other);
-    }
-
     private void FixedUpdate()
     {
+        Debug.Log(GetVelocity());
         UpdateCollisions();
+        body.velocity = velocity;
     }
 
-    private void AddCollision(Collision2D other)
+    private void UpdateCollisions()
+    {
+        var lastFloorCount = floors.Count;
+        var lastLeftWallCount = leftWalls.Count;
+        var lastRightWallCount = rightWalls.Count;
+        var lastWallCount = leftWalls.Count + rightWalls.Count;
+        var lastCeilingCount = ceilings.Count;
+        var lastFloorNormal = GetFloorNormal();
+        
+        ClearCollisions();
+        AddBodyContacts();
+        CalculateNormals();
+        
+        var currentFloorCount = floors.Count;
+        var currentLeftWallCount = leftWalls.Count;
+        var currentRightWallCount = rightWalls.Count;
+        var currentWallCount = leftWalls.Count + rightWalls.Count;
+        var currentCeilingCount = ceilings.Count;
+        var currentFloorNormal = GetFloorNormal();
+        
+        if (IsOnFloorStable())
+        {
+            if (lastFloorNormal.sqrMagnitude > 0 && currentFloorNormal != lastFloorNormal) 
+                RotateVelocity(lastFloorNormal, currentFloorNormal);
+            
+            SetSpeed(currentFloorNormal, 0f);
+        }
+        
+        if (IsOnLeftWallStable())
+            SetSpeed(GetLeftWallNormal(), 0f);
+        
+        if (IsOnRightWallStable())
+            SetSpeed(GetRightWallNormal(), 0f);
+        
+        if (IsOnCeilingStable())
+            SetSpeed(GetCeilingNormal(), 0f);
+        
+        CheckAndCallEvent(lastFloorCount, currentFloorCount, onFloorEnter, onFloorExit);
+        CheckAndCallEvent(lastWallCount, currentWallCount, onWallEnter, onWallExit);
+        CheckAndCallEvent(lastLeftWallCount, currentLeftWallCount, onLeftWallEnter, onLeftWallExit);
+        CheckAndCallEvent(lastRightWallCount, currentRightWallCount, onRightWallEnter, onRightWallExit);
+        CheckAndCallEvent(lastCeilingCount, currentCeilingCount, onCeilingEnter, onCeilingExit);
+    }
+    
+    private void ClearCollisions()
+    {
+        floors.Clear();
+        leftWalls.Clear();
+        rightWalls.Clear();
+        ceilings.Clear();
+    }
+    
+    private void AddBodyContacts()
     {
         var contacts = new List<ContactPoint2D>();
-        other.GetContacts(contacts);
+        body.GetContacts(contacts);
 
         foreach (var point in contacts)
         {
@@ -310,19 +350,19 @@ public class CharacterBody2D : MonoBehaviour
             switch (type)
             {
                 case CollisionType.Floor:
-                    wipFloors.Add(point);
+                    floors.Add(point);
                     break;
 
                 case CollisionType.LeftWall:
-                    wipLeftWalls.Add(point);
+                    leftWalls.Add(point);
                     break;
                 
                 case CollisionType.RightWall:
-                    wipRightWalls.Add(point);
+                    rightWalls.Add(point);
                     break;
 
                 case CollisionType.Ceiling:
-                    wipCeilings.Add(point);
+                    ceilings.Add(point);
                     break;
             }
         }
@@ -342,32 +382,6 @@ public class CharacterBody2D : MonoBehaviour
         return IsNormalLeft(contact.normal) ? CollisionType.LeftWall : CollisionType.RightWall;
     }
 
-    private void UpdateCollisions()
-    {
-        var lastFloorCount = floors.Count;
-        var lastLeftWallCount = leftWalls.Count;
-        var lastRightWallCount = rightWalls.Count;
-        var lastWallCount = leftWalls.Count + rightWalls.Count;
-        var lastCeilingCount = ceilings.Count;
-
-        CascadeCollisionLists();
-        CalculateNormals();
-        
-        var currentFloorCount = floors.Count;
-        var currentLeftWallCount = leftWalls.Count;
-        var currentRightWallCount = rightWalls.Count;
-        var currentWallCount = leftWalls.Count + rightWalls.Count;
-        var currentCeilingCount = ceilings.Count;
-        
-        CheckAndCallEvent(lastFloorCount, currentFloorCount, onFloorEnter, onFloorExit);
-        
-        CheckAndCallEvent(lastWallCount, currentWallCount, onWallEnter, onWallExit);
-        CheckAndCallEvent(lastLeftWallCount, currentLeftWallCount, onLeftWallEnter, onLeftWallExit);
-        CheckAndCallEvent(lastRightWallCount, currentRightWallCount, onRightWallEnter, onRightWallExit);
-        
-        CheckAndCallEvent(lastCeilingCount, currentCeilingCount, onCeilingEnter, onCeilingExit);
-    }
-
     private void CheckAndCallEvent(int lastCount, int currentCount, UnityEvent enter, UnityEvent exit)
     {
         if (lastCount == 0 && currentCount > 0) enter.Invoke();
@@ -383,40 +397,7 @@ public class CharacterBody2D : MonoBehaviour
         ceilingNormal = AvarageNormal(GetCeilingNormals());
     }
 
-    private Vector2 AvarageNormal(List<Vector2> vectors)
-    {
-        var count = vectors.Count;
-        var avarage = vectors.Aggregate(Vector2.zero, (current, next) => current + next) / count;
-        return avarage.normalized;
-    }
-
-    private void CascadeCollisionLists()
-    {
-        ClearCollisions();
-
-        floors.AddRange(wipFloors);
-        leftWalls.AddRange(wipLeftWalls);
-        rightWalls.AddRange(wipRightWalls);
-        ceilings.AddRange(wipCeilings);
-
-        ClearWipCollisions();
-    }
-
-    private void ClearWipCollisions()
-    {
-        wipFloors.Clear();
-        wipLeftWalls.Clear();
-        wipRightWalls.Clear();
-        wipCeilings.Clear();
-    }
-
-    private void ClearCollisions()
-    {
-        floors.Clear();
-        leftWalls.Clear();
-        rightWalls.Clear();
-        ceilings.Clear();
-    }
+    private Vector2 AvarageNormal(List<Vector2> vectors) => VectorUtils.Avarage(vectors).normalized;
 
     public List<ContactPoint2D> GetFloorPoints() => floors;
 
@@ -449,6 +430,12 @@ public class CharacterBody2D : MonoBehaviour
     public Vector2 GetRightWallNormal() => rightWallNormal;
     public Vector2 GetCeilingNormal() => ceilingNormal;
 
+    public Vector2 GetFloorRight() => -VectorUtils.Orthogonal(GetFloorNormal());
+    public Vector2 GetWallRight() => -VectorUtils.Orthogonal(GetWallNormal());
+    public Vector2 GetLeftWallRight() => -VectorUtils.Orthogonal(GetLeftWallNormal());
+    public Vector2 GetRightWallRight() => -VectorUtils.Orthogonal(GetRightWallNormal());
+    public Vector2 GetCeilingRight() => -VectorUtils.Orthogonal(GetCeilingNormal());
+
     public bool IsOnFloor() => floors.Count > 0;
     public bool IsOnWall() => IsOnLeftWall() || IsOnRightWall();
     public bool IsOnLeftWall() => leftWalls.Count > 0;
@@ -473,16 +460,22 @@ public class CharacterBody2D : MonoBehaviour
     public bool IsOnRightWallStable() => IsOnRightWall() && Vector2.Dot(GetRightWallNormal(), GetVelocity()) <= 0.001f;
     public bool IsOnCeilingStable() => IsOnCeiling() && Vector2.Dot(GetCeilingNormal(), GetVelocity()) <= 0.001f;
 
-    public bool IsGoingUp() => Vector2.Dot(body.velocity, up) > 0.001f;
-    public bool IsGoingDown() => Vector2.Dot(body.velocity, Down) > 0.001f;
-    public bool HasNoVerticalSpeed() => Mathf.Approximately(0f, Vector2.Dot(body.velocity, up));
-    public bool IsGoingLeft() => Vector2.Dot(body.velocity, Left) > 0.001f;
-    public bool IsGoingRight() => Vector2.Dot(body.velocity, Right) > 0.001f;
-    public bool HasNoHorizontalSpeed() => Mathf.Approximately(0f, Vector2.Dot(body.velocity, Left));
+    public bool IsGoingUp() => Vector2.Dot(velocity, up) > 0.001f;
+    public bool IsGoingDown() => Vector2.Dot(velocity, Down) > 0.001f;
+    public bool HasNoVerticalSpeed() => Mathf.Approximately(0f, Vector2.Dot(velocity, up));
+    public bool IsGoingLeft() => Vector2.Dot(velocity, Left) > 0.001f;
+    public bool IsGoingRight() => Vector2.Dot(velocity, Right) > 0.001f;
+    public bool HasNoHorizontalSpeed() => Mathf.Approximately(0f, Vector2.Dot(velocity, Left));
 
-    public Vector2 GetVelocity() => body.velocity;
-    public float GetSpeedOnAxis(Vector2 axis) => Vector2.Dot(axis, body.velocity);
+    public Vector2 GetVelocity() => velocity;
+    public float GetSpeedOnAxis(Vector2 axis) => Vector2.Dot(axis, velocity);
 
-    private bool IsNormalLeft(Vector2 normal) => Vector2.Dot(normal, Left) > 0.001f;
-    private bool IsNormalRight(Vector2 normal) => Vector2.Dot(normal, Right) > 0.001f;
+    public void RotateVelocity(Vector2 currentUp, Vector2 newUp)
+    {
+        velocity = Vector2.Dot(velocity, currentUp) * newUp + 
+            Vector2.Dot(velocity, new Vector2(currentUp.y, -currentUp.x)) * new Vector2(newUp.y, -newUp.x);
+    }
+
+    private bool IsNormalLeft(Vector2 normal) => Vector2.Dot(normal, Right) > 0.001f;
+    private bool IsNormalRight(Vector2 normal) => Vector2.Dot(normal, Left) > 0.001f;
 }

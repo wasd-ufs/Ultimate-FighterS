@@ -33,21 +33,27 @@ public class Mario : MonoBehaviour
 
     private void FixedUpdate()
     {
-        body.MoveSmoothly(body.Right, GetDirection(), acceleration, turnAcceleration, deceleration, maxSpeed);
-        ApplyGravity();
+        //if (body.IsOnFloorStable())
+        //    body.Up = body.GetFloorNormal();
+        
+        body.MoveAndClamp(body.IsOnFloorStable()? body.GetFloorRight() : body.Right, GetDirection(), acceleration, turnAcceleration, deceleration, maxSpeed);
+        
+        if (!body.IsOnFloor()) 
+            ApplyGravity();
+        
         UpdateFastFalling();
     }
     
     private void ApplyGravity()
     {
         var chosenGravity = isFastFalling ? fallGravity : gravity;
-        body.Accelerate(chosenGravity * Vector2.down);
-        body.LimitSpeed(Vector2.down, maxFallSpeed);
+        body.Accelerate(chosenGravity * body.Down);
+        body.LimitSpeed(body.Down, maxFallSpeed);
     }
 
     private void Jump()
     {
-        body.ApplyImpulse(jumpImpulse * body.Up);
+        body.SetSpeed(body.Up, jumpImpulse);
         isFastFalling = false;
     }
 
