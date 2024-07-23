@@ -36,7 +36,7 @@ public class Mario : MonoBehaviour
         //if (body.IsOnFloorStable())
         //    body.Up = body.GetFloorNormal();
         
-        body.MoveAndClamp(body.IsOnFloorStable()? body.GetFloorRight() : body.Right, GetDirection(), acceleration, turnAcceleration, deceleration, maxSpeed);
+        body.MoveSmoothly(body.IsOnFloorStable()? body.GetFloorRight() : body.Right, GetDirection(), acceleration, turnAcceleration, deceleration, maxSpeed, 1000f);
         
         if (!body.IsOnFloor()) 
             ApplyGravity();

@@ -281,7 +281,6 @@ public class CharacterBody2D : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Debug.Log(GetVelocity());
         UpdateCollisions();
         body.velocity = velocity;
     }
