@@ -18,6 +18,8 @@ public abstract class StateMachine<TS> : MonoBehaviour where TS: State
     public void Reset()
     {
         current = initialState;
+        OnTransition();
+        current.Enter();
     }
 
     public void TransitionTo(TS next)
@@ -28,12 +30,12 @@ public abstract class StateMachine<TS> : MonoBehaviour where TS: State
         current?.Exit();
         
         current = next;
-        Inject(current);
+        OnTransition();
         
         current.Enter();
     }
     
-    protected virtual void Inject(TS state) {}
+    protected virtual void OnTransition() {}
 }
 
 public abstract class State : MonoBehaviour
