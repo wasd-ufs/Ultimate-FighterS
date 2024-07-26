@@ -37,18 +37,18 @@ public class PlayerStateMachine : StateMachine<PlayerState>
         Current.PhysicsProcess();
     }
 
-    private void OnCeilingEnter() {Current.OnCeilingEnter()}
-    private void OnCeilingExit() {Current.OnCeilingExit()}
+    private void OnCeilingEnter() {Current.OnCeilingEnter();}
+    private void OnCeilingExit() {Current.OnCeilingExit();}
 
-    private void OnFloorEnter() {Current.OnFloorEnter()}
-    private void OnFloorExit() {Current.OnFloorExit()}
+    private void OnFloorEnter() {Current.OnFloorEnter();}
+    private void OnFloorExit() {Current.OnFloorExit();}
 
-    private void OnLeftWallEnter() {Current.OnLeftWallEnter()}
-    private void OnLeftWallExit() {Current.OnLeftWallExit()}
+    private void OnLeftWallEnter() {Current.OnLeftWallEnter();}
+    private void OnLeftWallExit() {Current.OnLeftWallExit();}
 
-    private void OnRightEnter() {Current.OnRightEnter()}
-    private void OnRightExit() {Current.OnRightExit()}
+    private void OnRightEnter() {Current.OnRightEnter();}
+    private void OnRightExit() {Current.OnRightExit();}
 
-    private void OnWallEnter() {Current.OnWallEnter()}
-    private void OnWallExit() {Current.OnWallExit()}
+    private void OnWallEnter() {Current.OnWallEnter();}
+    private void OnWallExit() {Current.OnWallExit();}
 }
