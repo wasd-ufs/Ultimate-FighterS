@@ -1,23 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class InputSystem : MonoBehaviour
+public abstract class InputSystem : MonoBehaviour
 {
 
-    void Start()
-    {
-        
-    }
+    public abstract Vector2 GetDirection();
 
+    public abstract bool IsSpecialBeingHeld();
 
-    void Update()
-    {
-        PegarDirecao();
-    }
+    public abstract bool IsSpecialJustPressed();
 
-    void PegarDirecao() {
-        
+    public abstract bool isAtackBeingHeld();
 
-    }
+    public abstract bool IsAttackJustPressed();
+
 }
