@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class PlayerInputSystem : InputSystem
 {
-
+    [SerializeField] private string specialKey = "Jump";
+    [SerializeField] private string attackKey = "Fire1";
     public override Vector2 GetDirection()
     {
         float horizontalAxis = Input.GetAxis("Horizontal");
@@ -11,22 +12,22 @@ public class PlayerInputSystem : InputSystem
     }
     public override bool IsSpecialBeingHeld() 
     {
-    return Input.GetButtonDown("Jump");
+        return Input.GetButtonDown(specialKey);
     }
 
     public override bool IsSpecialJustPressed() 
     {
-    return Input.GetButton("Jump");
+        return Input.GetButton(specialKey);
     }
 
-    public override bool isAtackBeingHeld() 
+    public override bool isAttackBeingHeld() 
     {
-    return Input.GetButton("Attack");
+        return Input.GetButton(attackKey);
     }
 
     public override bool IsAttackJustPressed() 
     {
-    return Input.GetButtonDown("Attack");
+        return Input.GetButtonDown(attackKey);
     }
 }
 

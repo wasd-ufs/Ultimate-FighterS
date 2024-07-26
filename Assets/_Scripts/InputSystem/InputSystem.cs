@@ -9,7 +9,7 @@ public abstract class InputSystem : MonoBehaviour
 
     public abstract bool IsSpecialJustPressed();
 
-    public abstract bool isAtackBeingHeld();
+    public abstract bool isAttackBeingHeld();
 
     public abstract bool IsAttackJustPressed();
 
