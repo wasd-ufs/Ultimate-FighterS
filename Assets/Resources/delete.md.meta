@@ -1,9 +1,13 @@
 fileFormatVersion: 2
 <<<<<<< HEAD
+<<<<<<< HEAD
 guid: 0f4ae310799598ac99b7e18afd31d4cf
 =======
 guid: b24a05b98cd345a499abe7d400eaf146
 >>>>>>> feature/stateMachine
+=======
+guid: b54f6d4dde3687c49ad4d1103b91061f
+>>>>>>> feature/InputSystem
 TextScriptImporter:
   externalObjects: {}
   userData: 
