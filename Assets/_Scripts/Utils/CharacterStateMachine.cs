@@ -10,12 +10,12 @@ public class CharacterStateMachine : StateMachine<CharacterState>
         body.onCeilingExit.AddListener(OnCeilingExit);
         body.onFloorEnter.AddListener(OnFloorEnter);
         body.onFloorExit.AddListener(OnFloorExit);
-        body.onLeftWallEnter.AddListener(onLeftWallEnter);
-        body.onLeftWallExit.AddListener(onLeftWallExit);
-        body.onRightWallEnter.AddListener(onRightWallEnter);
-        body.onRightWallExit.AddListener(onRightWallExit);
-        body.onWallEnter.AddListener(onWallEnter);
-        body.onWallExit.AddListener(onWallExit);
+        body.onLeftWallEnter.AddListener(OnLeftWallEnter);
+        body.onLeftWallExit.AddListener(OnLeftWallExit);
+        body.onRightWallEnter.AddListener(OnRightWallEnter);
+        body.onRightWallExit.AddListener(OnRightWallExit);
+        body.onWallEnter.AddListener(OnWallEnter);
+        body.onWallExit.AddListener(OnWallExit);
     }
 
     protected override void OnTransition()

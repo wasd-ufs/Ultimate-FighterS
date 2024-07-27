@@ -48,19 +48,19 @@ public class CharacterBody2D : MonoBehaviour
     // Events for Collision
     // Enter events are only called if previously there were no correspondent colliders
     // A new collider entering will not call Enter Events if there was already another collider
-    [SerializeField] private UnityEvent onFloorEnter;
-    [SerializeField] private UnityEvent onWallEnter;
-    [SerializeField] private UnityEvent onLeftWallEnter;
-    [SerializeField] private UnityEvent onRightWallEnter;
-    [SerializeField] private UnityEvent onCeilingEnter;
+    public UnityEvent onFloorEnter;
+    public UnityEvent onWallEnter;
+    public UnityEvent onLeftWallEnter;
+    public UnityEvent onRightWallEnter;
+    public UnityEvent onCeilingEnter;
 
     // Exit events are only called if currently there are no correspondent colliders
     // A collider exiting will not call Exit Events if there still one or more colliders remaining
-    [SerializeField] private UnityEvent onFloorExit;
-    [SerializeField] private UnityEvent onWallExit;
-    [SerializeField] private UnityEvent onLeftWallExit;
-    [SerializeField] private UnityEvent onRightWallExit;
-    [SerializeField] private UnityEvent onCeilingExit;
+    public UnityEvent onFloorExit;
+    public UnityEvent onWallExit;
+    public UnityEvent onLeftWallExit;
+    public UnityEvent onRightWallExit;
+    public UnityEvent onCeilingExit;
     
     // RigidBody2D used by movement functions.
     private Rigidbody2D body;
