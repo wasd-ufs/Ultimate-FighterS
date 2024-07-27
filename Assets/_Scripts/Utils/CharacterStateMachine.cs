@@ -1,11 +1,11 @@
 using UnityEngine;
 
-public class PlayerStateMachine : StateMachine<PlayerState>
+public class CharacterStateMachine : StateMachine<CharacterState>
 {
     [SerializeField] private CharacterBody2D body;
-    [SerializeField] private PlayerInputSystem input;
+    [SerializeField] private InputSystem input;
 
-    private override void Start() {
+    protected override void OnStart() {
         body.onCeilingEnter.AddListener(OnCeilingEnter);
         body.onCeilingExit.AddListener(OnCeilingExit);
         body.onFloorEnter.AddListener(OnFloorEnter);
@@ -16,15 +16,13 @@ public class PlayerStateMachine : StateMachine<PlayerState>
         body.onRightWallExit.AddListener(onRightWallExit);
         body.onWallEnter.AddListener(onWallEnter);
         body.onWallExit.AddListener(onWallExit);
-
-        
     }
 
     protected override void OnTransition()
     {
         Current.body = body;
         Current.input = input;
-        Current.stateMachine = this;
+        Current.machine = this;
     }
 
     private void Update()
@@ -46,8 +44,8 @@ public class PlayerStateMachine : StateMachine<PlayerState>
     private void OnLeftWallEnter() {Current.OnLeftWallEnter();}
     private void OnLeftWallExit() {Current.OnLeftWallExit();}
 
-    private void OnRightEnter() {Current.OnRightEnter();}
-    private void OnRightExit() {Current.OnRightExit();}
+    private void OnRightWallEnter() {Current.OnRightWallEnter();}
+    private void OnRightWallExit() {Current.OnRightWallExit();}
 
     private void OnWallEnter() {Current.OnWallEnter();}
     private void OnWallExit() {Current.OnWallExit();}
