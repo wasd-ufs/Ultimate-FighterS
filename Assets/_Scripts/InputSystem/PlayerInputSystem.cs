@@ -30,4 +30,3 @@ public class PlayerInputSystem : InputSystem
         return Input.GetButtonDown(attackKey);
     }
 }
-

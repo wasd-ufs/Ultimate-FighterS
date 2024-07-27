@@ -12,5 +12,4 @@ public abstract class InputSystem : MonoBehaviour
     public abstract bool isAttackBeingHeld();
 
     public abstract bool IsAttackJustPressed();
-
 }
