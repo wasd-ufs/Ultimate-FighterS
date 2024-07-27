@@ -428,12 +428,17 @@ public class CharacterBody2D : MonoBehaviour
     public Vector2 GetLeftWallNormal() => leftWallNormal;
     public Vector2 GetRightWallNormal() => rightWallNormal;
     public Vector2 GetCeilingNormal() => ceilingNormal;
+    
+    public Vector2 GetLeftWallUp() => VectorUtils.Orthogonal(GetLeftWallNormal()) * Mathf.Sign(Vector2.Dot(up, Vector2.up));
+    public Vector2 GetLeftWallDown() => -GetLeftWallUp();
+    public Vector2 GetRightWallUp() => -VectorUtils.Orthogonal(GetRightWallNormal()) * Mathf.Sign(Vector2.Dot(up, Vector2.up));
+    public Vector2 GetRightWallDown() => -GetRightWallUp();
 
-    public Vector2 GetFloorRight() => -VectorUtils.Orthogonal(GetFloorNormal());
-    public Vector2 GetWallRight() => -VectorUtils.Orthogonal(GetWallNormal());
-    public Vector2 GetLeftWallRight() => -VectorUtils.Orthogonal(GetLeftWallNormal());
-    public Vector2 GetRightWallRight() => -VectorUtils.Orthogonal(GetRightWallNormal());
-    public Vector2 GetCeilingRight() => -VectorUtils.Orthogonal(GetCeilingNormal());
+    public Vector2 GetFloorRight() => -VectorUtils.Orthogonal(GetFloorNormal()) * Mathf.Sign(Vector2.Dot(up, Vector2.up));
+    public Vector2 GetFloorLeft() => -GetFloorRight();
+
+    public Vector2 GetCeilingRight() => VectorUtils.Orthogonal(GetCeilingNormal()) * Mathf.Sign(Vector2.Dot(up, Vector2.up));
+    public Vector2 GetCeilingLeft() => -GetCeilingRight();
 
     public bool IsOnFloor() => floors.Count > 0;
     public bool IsOnWall() => IsOnLeftWall() || IsOnRightWall();
