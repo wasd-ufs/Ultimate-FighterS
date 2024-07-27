@@ -1,42 +1,32 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-public class PlayerInputSystem : InputSystemCharacter2D
+public class PlayerInputSystem : InputSystem
 {
-
-    public override Vector2 GetDerection(InputAction.CallbackContext context)
-    { 
-        Vector2 inputValue = context.ReadValue<Vector2>();
-        return inputValue;
-    }
-    public override bool isJumpKeyDown(InputAction.CallbackContext context) 
+    [SerializeField] private string specialKey = "Jump";
+    [SerializeField] private string attackKey = "Fire1";
+    public override Vector2 GetDirection()
     {
-        bool state = false;
-        if (context.performed) state = true;
-        else if (context.canceled) state = false;
-
-        return state;
+        float horizontalAxis = Input.GetAxis("Horizontal");
+        float verticalAxis = Input.GetAxis("Vertical");
+        return new Vector2(horizontalAxis, verticalAxis);
     }
-
-    public override bool isJumpKeyPressed(InputAction.CallbackContext context) 
+    public override bool IsSpecialBeingHeld() 
     {
-        return context.performed;
+        return Input.GetButtonDown(specialKey);
     }
 
-    public override bool isAtackKeyDown(InputAction.CallbackContext context) 
+    public override bool IsSpecialJustPressed() 
     {
-        bool state = false;
-        if (context.performed) state = true;
-        else if (context.canceled) state = false;
-
-        return state;
+        return Input.GetButton(specialKey);
     }
 
-    public override bool isAtackKeyPressed(InputAction.CallbackContext context) 
+    public override bool isAttackBeingHeld() 
     {
-        return context.performed; 
+        return Input.GetButton(attackKey);
     }
 
+    public override bool IsAttackJustPressed() 
+    {
+        return Input.GetButtonDown(attackKey);
+    }
 }
