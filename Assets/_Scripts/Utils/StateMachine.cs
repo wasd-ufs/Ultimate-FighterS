@@ -19,6 +19,10 @@ public abstract class StateMachine<TS> : MonoBehaviour where TS: State
     public void Reset()
     {
         current = initialState;
+
+        if (current is null)
+            return;
+        
         OnTransition();
         current.Enter();
     }
