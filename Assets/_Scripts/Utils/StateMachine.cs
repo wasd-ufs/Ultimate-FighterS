@@ -13,6 +13,7 @@ public abstract class StateMachine<TS> : MonoBehaviour where TS: State
     private void Start()
     {
         Reset();
+        OnStart();
     }
 
     public void Reset()
@@ -35,6 +36,7 @@ public abstract class StateMachine<TS> : MonoBehaviour where TS: State
         current.Enter();
     }
     
+    protected virtual void OnStart() {}
     protected virtual void OnTransition() {}
 }
 
