@@ -24,7 +24,7 @@ public class HitlagState : CharacterState
 
     public override void Process()
     {
-       isFastFalling = isFastFalling || !input.IsSpecialBeingHeld() || body.GetSpeedOnAxis(body.Down) > 0;
+       isFastFalling = isFastFalling || !input.IsSpecialBeingHeld();
     }
 
     public override void PhysicsProcess()
@@ -41,6 +41,11 @@ public class HitlagState : CharacterState
 
     private void addtime()
     {
-        timer += Time.deltaTime;
+        timer += Time.fixedDeltaTime;
+    }
+
+    public void SetHitlagTime(float time)
+    {
+        TimeInHitlag = time;
     }
 }
