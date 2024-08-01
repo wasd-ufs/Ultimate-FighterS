@@ -8,4 +8,23 @@ public class Hurtbox : MonoBehaviour
     
     public GameObject Owner => owner;
     public bool IsInvincible => isInvincible;
+
+    void Start()
+    {
+        
+    }
+
+    //Method called of HitBox unity Event 
+    public void OnHurted(GameObject o)
+    {
+        if (owner == o)
+        {
+            //Call damage and hitlag
+            Debug.Log("Danou");
+
+
+        }
+        Debug.Log("Nao sou eu");
+        return;
+    }
 }
