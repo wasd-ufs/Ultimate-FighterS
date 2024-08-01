@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class Hitbox : MonoBehaviour
 {
-    [SerializeField] private UnityEvent<GameObject> onHurtboxDetected;
+    [SerializeField] private UnityEvent onHurtboxDetected;
 
     private readonly List<GameObject> objectsHitThisFrame = new();
 
@@ -21,6 +21,8 @@ public class Hitbox : MonoBehaviour
             return;
         
         objectsHitThisFrame.Add(hurtbox.Owner);
-        onHurtboxDetected.Invoke(hurtbox.Owner);
+        onHurtboxDetected.AddListener(() => hurtbox.OnHurted(hurtbox.Owner));
+        onHurtboxDetected.Invoke();
+        
     }
 }
