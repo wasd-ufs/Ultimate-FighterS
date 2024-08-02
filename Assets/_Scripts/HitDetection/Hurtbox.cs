@@ -5,25 +5,15 @@ using UnityEngine.Events;
 public class Hurtbox : MonoBehaviour
 {
     [SerializeField] private GameObject owner;
-    [SerializeField] private bool isInvincible;
-
-    [SerializeField] private UnityEvent onHurtBoxDetected;
+    [SerializeField] private UnityEvent onHitBoxDetected;
+    
     public GameObject Owner => owner;
-    public bool IsInvincible => isInvincible;
 
-    void Start()
+    public void OnHurted(GameObject _owner)
     {
+        if (owner == _owner)
+            return;
         
-    }
-
-    //Method called of HitBox unity Event 
-    public void OnHurted(GameObject o)
-    {
-        if (owner == o)
-        {
-            //Call hitlag
-            onHurtBoxDetected.Invoke();
-        }
-        return;
+        onHitBoxDetected.Invoke();
     }
 }
