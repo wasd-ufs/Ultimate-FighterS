@@ -6,6 +6,6 @@ public class DamageCommand : Command
 
     public override void Run(GameObject target)
     {
-        target.GetComponent<DamageComponent>().TakeDamage(damageAmount);        
+        target.GetComponent<DamageComponent>()?.TakeDamage(damageAmount);        
     }
 }
