@@ -5,10 +5,13 @@ using UnityEngine.Events;
 
 public class Hitbox : MonoBehaviour
 {
+    [SerializeField] private GameObject owner;
     [SerializeField] private UnityEvent<GameObject> onHurtboxDetected;
+    
+    public GameObject Owner => owner;
 
     private readonly List<GameObject> objectsHitThisFrame = new();
-
+    
     private void FixedUpdate()
     {
         objectsHitThisFrame.Clear();
@@ -17,10 +20,11 @@ public class Hitbox : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         var hurtbox = other.GetComponent<Hurtbox>();
-        if (hurtbox is null || hurtbox.IsInvincible || objectsHitThisFrame.Contains(hurtbox.Owner))
+        if (hurtbox is null || hurtbox.Owner == Owner || objectsHitThisFrame.Contains(hurtbox.Owner))
             return;
         
         objectsHitThisFrame.Add(hurtbox.Owner);
         onHurtboxDetected.Invoke(hurtbox.Owner);
+        hurtbox.OnHurted(Owner);
     }
 }
