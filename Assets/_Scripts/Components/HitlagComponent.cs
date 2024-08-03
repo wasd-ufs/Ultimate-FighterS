@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class ComponentHitlag : CharacterState
+public class HitlagComponent : CharacterState
 {
       [Header ("References")] 
       [SerializeField] private HitlagState hitlagstate;
