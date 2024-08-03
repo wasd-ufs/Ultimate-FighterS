@@ -1,10 +1,10 @@
 using UnityEngine;
 
-public class DamageCommand : Command
+public class DamageEffect : Effect
 {
     [SerializeField] private float damageAmount;
 
-    public override void Run(GameObject target)
+    public override void Apply(GameObject target)
     {
         target.GetComponent<DamageComponent>()?.TakeDamage(damageAmount);        
     }
