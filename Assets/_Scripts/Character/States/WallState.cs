@@ -19,7 +19,7 @@ public class WallState : CharacterState
 
     private bool isNormalLeft;
     private Vector2 down => isNormalLeft ? body.GetLeftWallDown() : body.GetRightWallDown();
-    private Vector2 normal => isNormalLeft ? body.GetLeftWallNormal() : body.GetRightWallNormal();
+    private Vector2 normal => isNormalLeft ? body.LeftWallNormal : body.RightWallNormal;
     public override void Enter()
     {
         isNormalLeft = body.IsOnLeftWall();
@@ -39,19 +39,19 @@ public class WallState : CharacterState
     public override void PhysicsProcess()
     {
         body.ConvergeSpeed(down, gravityForce, maxFallSpeed);
-        if (body.IsOnFloorStable())
+        if (body.IsOnFloor())
         {
             machine.TransitionTo(grounded);
             return;
         }
     }
 
-    public override void OnLeftWallExit()
+    public override void OnLeftWallExit(Vector2 normal)
     {
         if (isNormalLeft) machine.TransitionTo(airborne);
     }
 
-    public override void OnRightWallExit() 
+    public override void OnRightWallExit(Vector2 normal) 
     {
         if (!isNormalLeft) machine.TransitionTo(airborne);
     }

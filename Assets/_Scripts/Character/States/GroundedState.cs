@@ -26,7 +26,7 @@ public class GroundedState : CharacterState
     {
         body.MoveSmoothly(body.GetFloorRight(), input.GetDirection().x, acceleration, turnAcceleration, deceleration, maxSpeed);
         
-        if (!body.IsOnFloorStable()) machine.TransitionTo(airborne);
+        if (!body.IsOnFloor()) machine.TransitionTo(airborne);
     }
 }
 

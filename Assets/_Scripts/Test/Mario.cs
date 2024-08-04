@@ -27,7 +27,7 @@ public class Mario : MonoBehaviour
 
     private void Update()
     {
-        if (body.IsOnFloorStable() && WantsToJump())
+        if (body.IsOnFloor() && WantsToJump())
             Jump();
     }
 
@@ -36,7 +36,7 @@ public class Mario : MonoBehaviour
         //if (body.IsOnFloorStable())
         //    body.Up = body.GetFloorNormal();
         
-        body.MoveSmoothly(body.IsOnFloorStable()? body.GetFloorRight() : body.Right, GetDirection(), acceleration, turnAcceleration, deceleration, maxSpeed, 1000f);
+        body.MoveSmoothly(body.IsOnFloor()? body.GetFloorRight() : body.Right, GetDirection(), acceleration, turnAcceleration, deceleration, maxSpeed, 1000f);
         
         if (!body.IsOnFloor()) 
             ApplyGravity();
