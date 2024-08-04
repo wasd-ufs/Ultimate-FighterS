@@ -305,13 +305,9 @@ public class CharacterBody2D : MonoBehaviour
 
     private void FixedUpdate()
     {
-        body.isKinematic = snap is not null;
         if (snap is not null)
-        {
             ApplySnap();
-            return;
-        }
-
+        
         UpdateCollisions();
         body.velocity = velocity;
     }
@@ -327,8 +323,6 @@ public class CharacterBody2D : MonoBehaviour
         RecalculateCollisions();
         CalculateNormals();
         
-        CheckAndBufferSnap(FloorNormal, Down, maxFloorAngle);
-        
         CheckAndCallEvent(lastFloorNormal, FloorNormal, onFloorEnter, onFloorExit);
         CheckAndCallEvent(lastLeftWallNormal, LeftWallNormal, onLeftWallEnter, onLeftWallExit);
         CheckAndCallEvent(lastRightWallNormal, RightWallNormal, onRightWallEnter, onRightWallExit);
@@ -336,6 +330,16 @@ public class CharacterBody2D : MonoBehaviour
         CheckAndCallEvent(lastCeilingNormal, CeilingNormal, onCeilingEnter, onCeilingExit);
         
         LimitSpeed(-FloorNormal, 0f);
+        
+        if (IsOnFloorOnly())
+            CheckAndBufferSnap(FloorNormal, Down, maxFloorAngle);
+
+        if (IsOnFloor() && IsOnLeftWall())
+            LimitSpeed(GetFloorLeft(), 0f);
+        
+        if (IsOnFloor() && IsOnRightWall())
+            LimitSpeed(GetFloorRight(), 0f);
+        
         LimitSpeed(-LeftWallNormal, 0f);
         LimitSpeed(-RightWallNormal, 0f);
         LimitSpeed(-CeilingNormal, 0f);
@@ -428,7 +432,7 @@ public class CharacterBody2D : MonoBehaviour
         if (Vector2.Dot(hits[0].normal, -snapDirection) <= maxVariationCosine)
             return;
         
-        snap = new SnapCollision2D(snapCheckPos + snapDirection * hits[0].distance, currentNormal,
+        snap = new SnapCollision2D(snapCheckPos + snapDirection * (hits[0].distance + ErrorWindow), currentNormal,
             hits[0].normal);
         
         body.isKinematic = true;
@@ -456,8 +460,9 @@ public class CharacterBody2D : MonoBehaviour
         
         Debug.Log(snap.normal);
         
-        body.velocity -= snap.normal * ErrorWindow;
+        body.velocity -= snap.normal * ErrorWindow / Time.fixedDeltaTime;
         snap = null;
+        body.isKinematic = false;
     }
 
     private void CalculateNormals()
