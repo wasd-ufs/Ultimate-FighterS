@@ -39,7 +39,7 @@ public class AirborneState : CharacterState
         body.LimitSpeed(body.Down, maxFallSpeed);
         body.MoveSmoothly(body.Right, input.GetDirection().x, acceleration, turnAcceleration, deceleration, maxSpeed);
 
-        if (body.IsOnFloorStable())
+        if (body.IsOnFloor())
         {
             machine.TransitionTo(grounded);
             return;
@@ -51,7 +51,7 @@ public class AirborneState : CharacterState
         }
     }
     private bool ShouldWallSlide() =>
-        (Vector2.Dot(body.GetLeftWallNormal(), input.GetDirection()) < -0.1f) ||
-        (Vector2.Dot(body.GetRightWallNormal(), input.GetDirection()) < -0.1f);
+        (Vector2.Dot(body.LeftWallNormal, input.GetDirection()) < -0.1f) ||
+        (Vector2.Dot(body.RightWallNormal, input.GetDirection()) < -0.1f);
 
 }

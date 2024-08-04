@@ -10,18 +10,18 @@ public abstract class CharacterState : State
 
     public virtual void PhysicsProcess() {}
 
-    public virtual void OnCeilingEnter() {}
-    public virtual void OnCeilingExit() {}
+    public virtual void OnCeilingEnter(Vector2 normal) {}
+    public virtual void OnCeilingExit(Vector2 normal) {}
 
-    public virtual void OnFloorEnter() {}
-    public virtual void OnFloorExit() {}
+    public virtual void OnFloorEnter(Vector2 normal) {}
+    public virtual void OnFloorExit(Vector2 normal) {}
 
-    public virtual void OnLeftWallEnter() {}
-    public virtual void OnLeftWallExit() {}
+    public virtual void OnLeftWallEnter(Vector2 normal) {}
+    public virtual void OnLeftWallExit(Vector2 normal) {}
 
-    public virtual void OnRightWallEnter() {}
-    public virtual void OnRightWallExit() {}
+    public virtual void OnRightWallEnter(Vector2 normal) {}
+    public virtual void OnRightWallExit(Vector2 normal) {}
 
-    public virtual void OnWallEnter() {}
-    public virtual void OnWallExit() {}
+    public virtual void OnWallEnter(Vector2 normal) {}
+    public virtual void OnWallExit(Vector2 normal) {}
 }
