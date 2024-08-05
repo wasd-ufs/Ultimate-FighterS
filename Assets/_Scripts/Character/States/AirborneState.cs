@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class AirborneState : CharacterState
 {
@@ -19,7 +20,8 @@ public class AirborneState : CharacterState
     [SerializeField] private float acceleration;
     [SerializeField] private float turnAcceleration;
     [SerializeField] private float deceleration;
-    [SerializeField] private float maxSpeed;
+    [SerializeField] private float maxMoveSpeed;
+    [SerializeField] private float maxOverspeed;
     
     public override void Enter()
     {
@@ -33,11 +35,11 @@ public class AirborneState : CharacterState
 
     public override void PhysicsProcess()
     {
+        body.MoveSmoothly(body.Right, input.GetDirection().x, acceleration, turnAcceleration, deceleration, maxMoveSpeed, deceleration, maxOverspeed);
+        
         var gravity = isFastFalling ? fastFallGravity : gravityForce;
         body.Accelerate(body.Down * gravity);
-        
         body.LimitSpeed(body.Down, maxFallSpeed);
-        body.MoveSmoothly(body.Right, input.GetDirection().x, acceleration, turnAcceleration, deceleration, maxSpeed);
 
         if (body.IsOnFloor())
         {

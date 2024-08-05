@@ -104,10 +104,10 @@ public class CharacterBody2D : MonoBehaviour
             Decelerate(axis, deceleration);
 
         else if ((GetSpeedOnAxis(axis) > 0f && direction < 0f) || (GetSpeedOnAxis(axis) < 0f && direction > 0f))
-            AccelerateUntil(axis * direction, turnAcceleration, maxSpeed);
+            AccelerateUntil(axis * Mathf.Sign(direction), turnAcceleration, maxSpeed);
         
         else 
-            AccelerateUntil(axis * direction, acceleration, maxSpeed);
+            AccelerateUntil(axis * Mathf.Sign(direction), acceleration, maxSpeed);
         
         DecelerateUntil(axis, deceleration, maxSpeed);
     }
@@ -119,12 +119,27 @@ public class CharacterBody2D : MonoBehaviour
             Decelerate(axis, deceleration);
 
         else if ((GetSpeedOnAxis(axis) > 0f && direction < 0f) || (GetSpeedOnAxis(axis) < 0f && direction > 0f))
-            AccelerateUntil(axis * direction, turnAcceleration, maxSpeed);
+            AccelerateUntil(axis * Mathf.Sign(direction), turnAcceleration, maxSpeed);
         
         else 
-            AccelerateUntil(axis * direction, acceleration, maxSpeed);
+            AccelerateUntil(axis * Mathf.Sign(direction), acceleration, maxSpeed);
         
         DecelerateUntil(axis, overspeedDeceleration, maxSpeed);
+    }
+    
+    public void MoveSmoothly(Vector2 axis, float direction, float acceleration, float turnAcceleration, float deceleration,
+        float maxSpeed, float overspeedDeceleration, float maxOverspeed)
+    {
+        if (Mathf.Approximately(direction, 0f))
+            Decelerate(axis, deceleration);
+
+        else if ((GetSpeedOnAxis(axis) > 0f && direction < 0f) || (GetSpeedOnAxis(axis) < 0f && direction > 0f))
+            AccelerateUntil(axis * Mathf.Sign(direction), turnAcceleration, maxSpeed);
+        
+        else 
+            AccelerateUntil(axis * Mathf.Sign(direction), acceleration, maxSpeed);
+        
+        DecelerateUntil(axis, overspeedDeceleration, maxOverspeed);
     }
 
     public void Accelerate(Vector2 acceleration)
@@ -142,7 +157,7 @@ public class CharacterBody2D : MonoBehaviour
     public void AccelerateUntil(Vector2 axis, float acceleration, float maxSpeed)
     {
         velocity = VectorUtils.OnAxis(axis, velocity,
-            x => (x > maxSpeed) ? x : Mathf.MoveTowards(x, maxSpeed, acceleration * Time.fixedDeltaTime)
+            x => (x >= maxSpeed) ? x : Mathf.MoveTowards(x, maxSpeed, acceleration * Time.fixedDeltaTime)
         );
     }
 
@@ -170,7 +185,7 @@ public class CharacterBody2D : MonoBehaviour
     public void DecelerateUntil(Vector2 axis, float deceleration, float minSpeed)
     {
         velocity = VectorUtils.OnAxis(axis, velocity,
-            x => (x < minSpeed) ? x : Mathf.MoveTowards(x, minSpeed, deceleration * Time.fixedDeltaTime)
+            x => (Mathf.Abs(x) <= minSpeed) ? x : Mathf.Sign(x) * Mathf.MoveTowards(Mathf.Abs(x), minSpeed, deceleration * Time.fixedDeltaTime)
         );
     }
     

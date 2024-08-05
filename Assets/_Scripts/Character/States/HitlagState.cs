@@ -8,7 +8,7 @@ public class HitlagState : CharacterState
     [SerializeField] private CharacterState airborne;
 
     [Header("Timer")]
-    [SerializeField] private float TimeInHitlag;
+    private float TimeInHitlag;
     private float timer;
     private bool isFastFalling;
     

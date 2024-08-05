@@ -23,6 +23,7 @@ public class WallState : CharacterState
     public override void Enter()
     {
         isNormalLeft = body.IsOnLeftWall();
+        Debug.Log("gay");
     }
     public override void Process()
     {
@@ -31,7 +32,7 @@ public class WallState : CharacterState
             WallJump();
         }
 
-        if (Vector2.Dot(normal, input.GetDirection()) < -0.1f)
+        if (Vector2.Dot(normal, input.GetDirection()) > 0.1f)
         {
             machine.TransitionTo(airborne);
         }
