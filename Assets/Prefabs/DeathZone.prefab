@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2527999411799549008}
   - component: {fileID: 3053418924107229858}
-  - component: {fileID: 8669767216743931879}
-  - component: {fileID: 3652747077565763091}
   - component: {fileID: 6709654422723932422}
+  - component: {fileID: 2922997445889472625}
+  - component: {fileID: 754472125057679648}
   m_Layer: 0
   m_Name: DeathZone
   m_TagString: Untagged
@@ -87,46 +87,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8669767216743931879
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 532325157479049830}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 802335aae851f5d40ac50fa7df7d7696, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  owner: {fileID: 0}
-  onHurtboxDetected:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3652747077565763091}
-        m_TargetAssemblyTypeName: DeathCommand, Assembly-CSharp
-        m_MethodName: Run
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &3652747077565763091
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 532325157479049830}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32de9ed8864c0ee4f895fbb215600fdc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!61 &6709654422723932422
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -172,3 +132,43 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &2922997445889472625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 532325157479049830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fcde47d0512e6f4d9762609966cbe35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  owner: {fileID: 532325157479049830}
+  onHurtboxDetected:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 754472125057679648}
+        m_TargetAssemblyTypeName: DeathEffect, Assembly-CSharp
+        m_MethodName: Apply
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &754472125057679648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 532325157479049830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9009335695c26a52584e962762050114, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
