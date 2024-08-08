@@ -612,34 +612,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2232337546103767242, guid: 9cecf5f2b3cd441e3acb16b47fe7dbc8, type: 3}
-      propertyPath: acceleration
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 2232337546103767242, guid: 9cecf5f2b3cd441e3acb16b47fe7dbc8, type: 3}
-      propertyPath: deceleration
-      value: 38.33333
-      objectReference: {fileID: 0}
-    - target: {fileID: 2232337546103767242, guid: 9cecf5f2b3cd441e3acb16b47fe7dbc8, type: 3}
-      propertyPath: maxMoveSpeed
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 2232337546103767242, guid: 9cecf5f2b3cd441e3acb16b47fe7dbc8, type: 3}
-      propertyPath: maxOverspeed
-      value: 11
-      objectReference: {fileID: 0}
-    - target: {fileID: 2232337546103767242, guid: 9cecf5f2b3cd441e3acb16b47fe7dbc8, type: 3}
-      propertyPath: turnAcceleration
-      value: 27.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3524034110685840685, guid: 9cecf5f2b3cd441e3acb16b47fe7dbc8, type: 3}
-      propertyPath: jumpForce
-      value: 21
-      objectReference: {fileID: 0}
-    - target: {fileID: 3524034110685840685, guid: 9cecf5f2b3cd441e3acb16b47fe7dbc8, type: 3}
-      propertyPath: overspeedDeceleration
-      value: 21
-      objectReference: {fileID: 0}
     - target: {fileID: 7267988326223640506, guid: 9cecf5f2b3cd441e3acb16b47fe7dbc8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.03
@@ -683,14 +655,6 @@ PrefabInstance:
     - target: {fileID: 7692405803275551844, guid: 9cecf5f2b3cd441e3acb16b47fe7dbc8, type: 3}
       propertyPath: m_Name
       value: Mario
-      objectReference: {fileID: 0}
-    - target: {fileID: 8620349817423131218, guid: 9cecf5f2b3cd441e3acb16b47fe7dbc8, type: 3}
-      propertyPath: jumpAngle
-      value: 45
-      objectReference: {fileID: 0}
-    - target: {fileID: 8620349817423131218, guid: 9cecf5f2b3cd441e3acb16b47fe7dbc8, type: 3}
-      propertyPath: jumpForce
-      value: 21
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
