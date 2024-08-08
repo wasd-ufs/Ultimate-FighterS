@@ -263,10 +263,11 @@ MonoBehaviour:
   gravityForce: 35
   maxFallSpeed: 16.5
   fastFallGravity: 125
-  acceleration: 5
-  turnAcceleration: 7.5
-  deceleration: 8.33333
-  maxSpeed: 9
+  acceleration: 15
+  turnAcceleration: 27.5
+  deceleration: 38.33333
+  maxMoveSpeed: 7
+  maxOverspeed: 11
 --- !u!114 &3524034110685840685
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -284,7 +285,8 @@ MonoBehaviour:
   turnAcceleration: 87.5
   deceleration: 58.3
   maxSpeed: 7
-  jumpForce: 15
+  overspeedDeceleration: 21
+  jumpForce: 21
 --- !u!114 &8620349817423131218
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -301,8 +303,8 @@ MonoBehaviour:
   airborne: {fileID: 2232337546103767242}
   gravityForce: 85
   maxFallSpeed: 10.5
-  jumpAngle: 30
-  jumpForce: 25
+  jumpAngle: 45
+  jumpForce: 21
 --- !u!114 &892035267054906005
 MonoBehaviour:
   m_ObjectHideFlags: 0
