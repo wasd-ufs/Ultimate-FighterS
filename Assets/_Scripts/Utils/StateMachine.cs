@@ -31,16 +31,12 @@ public abstract class StateMachine<TS> : MonoBehaviour where TS: State
     public void TransitionTo(TS next)
     {
         if (next is null && current is null)
-        {
-            current = null;
             return;
-        }
-
+        
         current?.Exit();
         
         current = next;
-        if (current is not null)
-            OnTransition();
+        OnTransition();
         
         current?.Enter();
     }

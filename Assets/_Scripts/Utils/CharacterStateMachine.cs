@@ -20,6 +20,9 @@ public class CharacterStateMachine : StateMachine<CharacterState>
 
     protected override void OnTransition()
     {
+        if (Current is null)
+            return;
+        
         Current.body = body;
         Current.input = input;
         Current.machine = this;
