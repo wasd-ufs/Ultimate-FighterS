@@ -30,15 +30,19 @@ public abstract class StateMachine<TS> : MonoBehaviour where TS: State
 
     public void TransitionTo(TS next)
     {
-        if (next is null)
+        if (next is null && current is null)
+        {
+            current = null;
             return;
+        }
 
         current?.Exit();
         
         current = next;
-        OnTransition();
+        if (current is not null)
+            OnTransition();
         
-        current.Enter();
+        current?.Enter();
     }
     
     protected virtual void OnStart() {}
