@@ -27,4 +27,8 @@ public class VectorUtils
         .Aggregate(Vector2.zero, (current, next) => current + next) / vectors.Count;
 
     public static Vector2 Orthogonal(Vector2 vector) => new Vector2(-vector.y, vector.x);
+
+    public static Vector2 Closest(Vector2 vector, List<Vector2> comparisons) => comparisons
+        .OrderByDescending(v => Vector2.Dot(v, vector) / v.sqrMagnitude)
+        .FirstOrDefault();
 }
