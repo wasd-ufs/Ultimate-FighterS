@@ -30,12 +30,12 @@ public class CharacterStateMachine : StateMachine<CharacterState>
 
     private void Update()
     {
-        Current?.Process();
+        current?.Process();
     }
 
     private void FixedUpdate()
     {
-        Current?.PhysicsProcess();
+        current?.PhysicsProcess();
     }
 
     private void OnCeilingEnter(Vector2 normal) {Current?.OnCeilingEnter(normal);}

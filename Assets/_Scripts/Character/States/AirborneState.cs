@@ -22,6 +22,11 @@ public class AirborneState : CharacterState
     [SerializeField] private float deceleration;
     [SerializeField] private float maxMoveSpeed;
     [SerializeField] private float maxOverspeed;
+
+    [Header("Actions")] 
+    [SerializeField] private DirectionalTrigger attacks;
+    [SerializeField] private DirectionalTrigger specials;
+    [SerializeField] private ActionExecutor executor;
     
     public override void Enter()
     {
@@ -31,6 +36,12 @@ public class AirborneState : CharacterState
     public override void Process()
     {
         isFastFalling = isFastFalling || !input.IsSpecialBeingHeld() || body.GetSpeedOnAxis(body.Down) > 0;
+        
+        if (input.IsAttackJustPressed()) 
+            attacks.Trigger(input.GetDirection());
+        
+        else if (!executor.IsRunning() && input.IsSpecialJustPressed())
+            specials.Trigger(input.GetDirection());
     }
 
     public override void PhysicsProcess()
@@ -52,8 +63,8 @@ public class AirborneState : CharacterState
             machine.TransitionTo(wall);
         }
     }
+    
     private bool ShouldWallSlide() =>
         (Vector2.Dot(body.LeftWallNormal, input.GetDirection()) < -0.1f) ||
         (Vector2.Dot(body.RightWallNormal, input.GetDirection()) < -0.1f);
-
 }

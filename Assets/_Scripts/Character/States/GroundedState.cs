@@ -16,6 +16,10 @@ public class GroundedState : CharacterState
     
     [Header("Vertical")]
     [SerializeField] private float jumpForce;
+
+    [Header("Actions")] 
+    [SerializeField] private DirectionalTrigger attacks;
+    [SerializeField] private ActionExecutor executor;
     
     public override void Process()
     {
@@ -23,7 +27,11 @@ public class GroundedState : CharacterState
         {
             body.SetSpeed(body.Up, jumpForce);
             machine.TransitionTo(airborne);
+            return;
         }
+        
+        if (input.IsAttackJustPressed())
+            attacks.Trigger(input.GetDirection());
     }
 
     public override void PhysicsProcess()
