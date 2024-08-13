@@ -24,20 +24,9 @@ public class AirborneState : CharacterState
     [SerializeField] private float maxOverspeed;
 
     [Header("Actions")] 
-    [SerializeField] private ActionSystem upAerial;
-    [SerializeField] private ActionSystem downAerial;
-    [SerializeField] private ActionSystem forwardAerial;
-    [SerializeField] private ActionSystem backAerial;
+    [SerializeField] private DirectionalTrigger attacks;
+    [SerializeField] private DirectionalTrigger specials;
     [SerializeField] private ActionExecutor executor;
-
-    [Header("Special Movements")] 
-    [SerializeField] private CharacterState upSpecial;
-    [SerializeField] private CharacterState downSpecial;
-    [SerializeField] private CharacterState forwardSpecial;
-    [SerializeField] private CharacterState backSpecial;
-
-    private readonly List<Vector2> directions =
-        new List<Vector2> { Vector2.left, Vector2.right, Vector2.up, Vector2.down };
     
     public override void Enter()
     {
@@ -47,8 +36,12 @@ public class AirborneState : CharacterState
     public override void Process()
     {
         isFastFalling = isFastFalling || !input.IsSpecialBeingHeld() || body.GetSpeedOnAxis(body.Down) > 0;
-        TryDoAttack();
-        TryDoSpecialMovement();
+        
+        if (input.IsAttackJustPressed()) 
+            attacks.Trigger(input.GetDirection());
+        
+        else if (!executor.IsRunning() && input.IsSpecialJustPressed())
+            specials.Trigger(input.GetDirection());
     }
 
     public override void PhysicsProcess()
@@ -69,58 +62,6 @@ public class AirborneState : CharacterState
         {
             machine.TransitionTo(wall);
         }
-    }
-
-    private void TryDoAttack()
-    {
-        if (!input.IsAttackJustPressed())
-            return;
-
-        var direction = input.GetDirection();
-        if (direction == Vector2.zero)
-            return;
-        
-        var closest = VectorUtils.Closest(direction, directions);
-        
-        if (closest == Vector2.left)
-            executor.TryRun(backAerial);
-        
-        else if (closest == Vector2.right)
-            executor.TryRun(forwardAerial);
-            
-        else if (closest == Vector2.up)
-            executor.TryRun(upAerial);
-        
-        else if (closest == Vector2.down)
-            executor.TryRun(downAerial);
-    }
-
-    private void TryDoSpecialMovement()
-    {
-        if (!input.IsSpecialJustPressed())
-            return;
-
-        executor.TryFinish();
-        if (executor.IsRunning())
-            return;
-        
-        var direction = input.GetDirection();
-        if (direction == Vector2.zero)
-            return;
-        
-        var closest = VectorUtils.Closest(direction, directions);
-        
-        if (closest == Vector2.left)
-            machine.TransitionTo(backSpecial);
-        
-        else if (closest == Vector2.right)
-            machine.TransitionTo(forwardSpecial);
-            
-        else if (closest == Vector2.up)
-            machine.TransitionTo(upSpecial);
-        
-        else if (closest == Vector2.down)
-            machine.TransitionTo(downSpecial);
     }
     
     private bool ShouldWallSlide() =>

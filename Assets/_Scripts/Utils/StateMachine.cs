@@ -7,7 +7,7 @@ using UnityEngine;
 public abstract class StateMachine<TS> : MonoBehaviour where TS: State
 {
     [SerializeField] private TS initialState;
-    private TS current;
+    protected TS current;
 
     public TS Current => current;
 
@@ -32,9 +32,9 @@ public abstract class StateMachine<TS> : MonoBehaviour where TS: State
     {
         if (next is null && current is null)
             return;
-        
+
         current?.Exit();
-        
+
         current = next;
         OnTransition();
         

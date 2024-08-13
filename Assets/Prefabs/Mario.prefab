@@ -16,7 +16,10 @@ GameObject:
   - component: {fileID: 2449287746234839596}
   - component: {fileID: 2252711602278863672}
   - component: {fileID: 2232337546103767242}
+  - component: {fileID: 393531612861270845}
+  - component: {fileID: 7066945112551529483}
   - component: {fileID: 3524034110685840685}
+  - component: {fileID: 9076362233835205950}
   - component: {fileID: 8620349817423131218}
   - component: {fileID: 892035267054906005}
   - component: {fileID: 1811949903382888130}
@@ -24,6 +27,7 @@ GameObject:
   - component: {fileID: 9055014514645235808}
   - component: {fileID: 1001777504017970754}
   - component: {fileID: 4436243764028794776}
+  - component: {fileID: 6222775342009714464}
   m_Layer: 0
   m_Name: Mario
   m_TagString: Untagged
@@ -268,6 +272,35 @@ MonoBehaviour:
   deceleration: 21
   maxMoveSpeed: 10
   maxOverspeed: 15
+  attacks: {fileID: 393531612861270845}
+  specials: {fileID: 7066945112551529483}
+  executor: {fileID: 6222775342009714464}
+--- !u!114 &393531612861270845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7692405803275551844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 336cb5db41b13be019dc5df31587a0b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  events: []
+--- !u!114 &7066945112551529483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7692405803275551844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 336cb5db41b13be019dc5df31587a0b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  events: []
 --- !u!114 &3524034110685840685
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -287,6 +320,21 @@ MonoBehaviour:
   maxSpeed: 10
   overspeedDeceleration: 21
   jumpForce: 18
+  attacks: {fileID: 9076362233835205950}
+  executor: {fileID: 6222775342009714464}
+--- !u!114 &9076362233835205950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7692405803275551844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 336cb5db41b13be019dc5df31587a0b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  events: []
 --- !u!114 &8620349817423131218
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -400,5 +448,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   owner: {fileID: 7692405803275551844}
   onHitBoxDetected:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &6222775342009714464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7692405803275551844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ec88a6e14265bc0e99f9bf5eadd6062, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialState: {fileID: 0}
+  OnActionEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  OnActionExit:
     m_PersistentCalls:
       m_Calls: []
