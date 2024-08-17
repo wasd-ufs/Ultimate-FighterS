@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class MatchManager : MonoBehaviour
 {
-
     public void EndMatch() {
         Debug.Log("Partida Encerrada");
     }
@@ -17,7 +16,6 @@ public class MatchManager : MonoBehaviour
         if (respawnPoint) {
             clonedPlayer.transform.position = respawnPoint.transform.position;
             clonedPlayer.transform.rotation = respawnPoint.transform.rotation;
-
         }
     }
 }
