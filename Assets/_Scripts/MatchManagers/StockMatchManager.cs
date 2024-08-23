@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Properties;
 using UnityEngine;
 
 public class StockMatchManager : MatchManager
@@ -22,5 +23,11 @@ public class StockMatchManager : MatchManager
     {
         gameObject.TryGetComponent<IdComponent>(out IdComponent idComponent);
         int currentPlayerId = idComponent.id;
+
+        if (keyValuePairs.TryGetValue(currentPlayerId, out int remainingStocks))
+        {
+            keyValuePairs[currentPlayerId] = remainingStocks--;
+
+        }
     }
 }
