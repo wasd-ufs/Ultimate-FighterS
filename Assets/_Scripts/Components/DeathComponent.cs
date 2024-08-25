@@ -7,6 +7,7 @@ public class DeathComponent : MonoBehaviour
     public void Kill()
     {
         onDeath.Invoke();
+        GlobalEvents.onPlayerDied.Invoke(gameObject);
         Destroy(gameObject);
     }
 }

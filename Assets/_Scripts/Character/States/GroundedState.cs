@@ -20,6 +20,12 @@ public class GroundedState : CharacterState
     [Header("Actions")] 
     [SerializeField] private DirectionalTrigger attacks;
     [SerializeField] private ActionExecutor executor;
+
+    public override void Enter()
+    {
+        if (executor.IsRunning())
+            executor.Current.Finish();
+    }
     
     public override void Process()
     {

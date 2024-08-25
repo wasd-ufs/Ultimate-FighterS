@@ -64,7 +64,7 @@ public class Mario : MonoBehaviour
 
     private bool IsTurningAround(float direction)
     {
-        var velocity = body.GetVelocity();
+        var velocity = body.Velocity;
         return (velocity.x > 0f && direction < 0f) || (velocity.x < 0f && direction > 0f);
     }
 

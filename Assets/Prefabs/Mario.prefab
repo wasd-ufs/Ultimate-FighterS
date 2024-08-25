@@ -275,7 +275,7 @@ MonoBehaviour:
   maxOverspeed: 15
   attacks: {fileID: 393531612861270845}
   specials: {fileID: 7066945112551529483}
-  executor: {fileID: 0}
+  executor: {fileID: 5389433621890414407}
 --- !u!114 &393531612861270845
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -9,6 +9,6 @@ public abstract class ActionSystem : State
     public virtual void OnFinishRequested(){}
     public void Finish()
     {
-        machine?.TransitionTo(null);
+        machine?.TransitionTo(machine.initialState);
     }
 }

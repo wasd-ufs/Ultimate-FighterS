@@ -12,4 +12,6 @@ public abstract class InputSystem : MonoBehaviour
     public abstract bool isAttackBeingHeld();
 
     public abstract bool IsAttackJustPressed();
+
+    public InputSystemMemento GetMemento() => new(this);
 }

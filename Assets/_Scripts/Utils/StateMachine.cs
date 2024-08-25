@@ -6,7 +6,7 @@ using UnityEngine;
 
 public abstract class StateMachine<TS> : MonoBehaviour where TS: State
 {
-    [SerializeField] private TS initialState;
+    [SerializeField] public TS initialState;
     protected TS current;
 
     public TS Current => current;

@@ -21,7 +21,7 @@ public class DecoratedAction : ActionSystem
     public override void Exit()
     {
         action.machine = machine;
-        OnExit?.Invoke();
         action.Exit();
+        OnExit?.Invoke();
     }
 }

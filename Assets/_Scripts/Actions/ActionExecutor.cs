@@ -11,7 +11,7 @@ public class ActionExecutor : StateMachine<ActionSystem>
     
     public bool IsRunning()
     {
-        return Current != null;
+        return Current is not null && Current != initialState;
     }
 
     public void TryFinish()
