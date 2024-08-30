@@ -22,7 +22,7 @@ public class PlayerInputSystem : InputSystem
         return Input.GetButtonDown(specialKey);
     }
 
-    public override bool isAttackBeingHeld() 
+    public override bool IsAttackBeingHeld() 
     {
         return Input.GetButton(attackKey);
     }
