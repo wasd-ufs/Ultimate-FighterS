@@ -95,7 +95,10 @@ GameObject:
   - component: {fileID: 6287938022504669287}
   - component: {fileID: 4190016578616031726}
   - component: {fileID: 2673136404686695609}
+  - component: {fileID: 4381704023427440346}
   - component: {fileID: 1318687803221379530}
+  - component: {fileID: 862340600373856347}
+  - component: {fileID: 8887845907227546866}
   m_Layer: 0
   m_Name: RotatingAirKick
   m_TagString: Untagged
@@ -195,6 +198,37 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &4381704023427440346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4184181534624956506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efbe382d78559fc4781fe4ddedc758a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnEnter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 862340600373856347}
+        m_TargetAssemblyTypeName: ApplyToOwner, Assembly-CSharp
+        m_MethodName: Apply
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnExit:
+    m_PersistentCalls:
+      m_Calls: []
+  action: {fileID: 1318687803221379530}
 --- !u!114 &1318687803221379530
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -208,6 +242,48 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animationName: RotatingAirKick
+--- !u!114 &862340600373856347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4184181534624956506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de2f18761d7a42f696a84043d47d5168, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toApply:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8887845907227546866}
+        m_TargetAssemblyTypeName: SetSpeedEffect, Assembly-CSharp
+        m_MethodName: Apply
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &8887845907227546866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4184181534624956506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd58ce392ebb4383834fdcc4ae31babf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  axis: {x: 0, y: 1}
+  speed: 20
+  applyObjectTransform: 0
 --- !u!1001 &990251644402943691
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -216,6 +292,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6287938022504669287}
     m_Modifications:
+    - target: {fileID: 2227210819704976558, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
+      propertyPath: knockback.x
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2227210819704976558, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
+      propertyPath: knockback.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2227210819704976558, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
+      propertyPath: applyObjectTransform
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5260456630257636301, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
+      propertyPath: damageAmount
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7198258493091875994, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
       propertyPath: m_LocalScale.x
       value: 4
@@ -264,6 +356,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8831089178331489526, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
+      propertyPath: lagTime
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 8832989050919262465, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
       propertyPath: m_Name
       value: Left
@@ -286,6 +382,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6287938022504669287}
     m_Modifications:
+    - target: {fileID: 2227210819704976558, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
+      propertyPath: knockback.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2227210819704976558, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
+      propertyPath: knockback.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2227210819704976558, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
+      propertyPath: applyObjectTransform
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5260456630257636301, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
+      propertyPath: damageAmount
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7198258493091875994, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
       propertyPath: m_LocalScale.x
       value: 4
@@ -342,6 +454,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8831089178331489526, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
+      propertyPath: lagTime
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 8832989050919262465, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
       propertyPath: m_Name
       value: Right
@@ -364,6 +480,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6287938022504669287}
     m_Modifications:
+    - target: {fileID: 2620714211270405579, guid: 42bc163ddbc1ccaa094392189bb99497, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6540594023379178504, guid: 42bc163ddbc1ccaa094392189bb99497, type: 3}
       propertyPath: m_Name
       value: BaseHurtbox

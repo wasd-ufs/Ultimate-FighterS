@@ -201,6 +201,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   knockback: {x: 1, y: 0}
+  applyObjectTransform: 0
 --- !u!114 &3146413873115513017
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -438,7 +439,19 @@ MonoBehaviour:
   stateMachine: {fileID: 691934969173798728}
   onHitlag:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1355670800823860993}
+        m_TargetAssemblyTypeName: ActionExecutor, Assembly-CSharp
+        m_MethodName: ForceFinish
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &993762713852873757
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -658,7 +671,7 @@ MonoBehaviour:
           m_MethodName: TryRun
           m_Mode: 2
           m_Arguments:
-            m_ObjectArgument: {fileID: 5965015564931045314}
+            m_ObjectArgument: {fileID: 3179589679184708760}
             m_ObjectArgumentAssemblyTypeName: ActionSystem, Assembly-CSharp
             m_IntArgument: 0
             m_FloatArgument: 0
@@ -1128,15 +1141,15 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89fc4520299307548953069125837325, type: 3}
---- !u!114 &5965015564931045314 stripped
+--- !u!114 &3179589679184708760 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5765774760485873094, guid: 89fc4520299307548953069125837325, type: 3}
+  m_CorrespondingSourceObject: {fileID: 3378808450388981404, guid: 89fc4520299307548953069125837325, type: 3}
   m_PrefabInstance: {fileID: 199244244866068996}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8876f3cb4d546e880e9ab454c459f39, type: 3}
+  m_Script: {fileID: 11500000, guid: efbe382d78559fc4781fe4ddedc758a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &8066591615878285386 stripped

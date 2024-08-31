@@ -151,7 +151,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 5260456630257636301}
+      - m_Target: {fileID: 2227210819704976558}
         m_TargetAssemblyTypeName: DamageEffect, Assembly-CSharp
         m_MethodName: Apply
         m_Mode: 0
@@ -163,7 +163,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 5260456630257636301}
+      - m_Target: {fileID: 8831089178331489526}
         m_TargetAssemblyTypeName: DamageEffect, Assembly-CSharp
         m_MethodName: Apply
         m_Mode: 0
@@ -201,6 +201,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   knockback: {x: 0, y: 0}
+  applyObjectTransform: 0
 --- !u!114 &8831089178331489526
 MonoBehaviour:
   m_ObjectHideFlags: 0
