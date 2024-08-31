@@ -4,7 +4,6 @@ using UnityEngine;
 public abstract class OwnedComponent : MonoBehaviour
 {
     private IdComponent id;
-
     public int Id => id?.id ?? -1;
     public GameObject Owner => id?.gameObject ?? transform.root.gameObject;
 
