@@ -19,7 +19,7 @@ public class InputSystemMemento
         isAttackJustPressed = input.IsAttackJustPressed();
         isSpecialJustPressed = input.IsSpecialJustPressed();
 
-        isAttackBeingHeld = input.isAttackBeingHeld();
+        isAttackBeingHeld = input.IsAttackBeingHeld();
         isSpecialBeingHeld = input.IsSpecialBeingHeld();
     }
 }
