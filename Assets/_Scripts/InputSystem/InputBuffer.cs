@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class InputBuffer : MonoBehaviour
 {
-    private Timer timer;
-    private InputSystem input;
+    [SerializeField] private Timer timer;
+    [SerializeField] private InputSystem input;
     private InputSystemMemento current;
 
     void Start()
@@ -16,18 +16,11 @@ public class InputBuffer : MonoBehaviour
 
     void Update()
     {
-        if (input.IsAttackBeingHeld())
-            Register();
-
         if (input.IsAttackJustPressed())
             Register();
-
-        if (input.IsSpecialBeingHeld())
-            Register();
-
+        
         if (input.IsSpecialJustPressed())
             Register();
-
     }
 
     void Register()
@@ -44,9 +37,10 @@ public class InputBuffer : MonoBehaviour
 
     void ConsumeIf(bool condition, Action<InputSystemMemento> beforeConsumption)
     {
+        if (!condition || current == null)
+            return;
+        
         beforeConsumption(current);
-
-        if (current != null && condition)
-            Consume();
+        Consume();
     }
 }
