@@ -19,6 +19,11 @@ public class ActionExecutor : StateMachine<ActionSystem>
         Current?.OnFinishRequested();
     }
 
+    public void ForceFinish()
+    {
+        TransitionTo(initialState);
+    }
+
     public void TryRun(ActionSystem action)
     {
         TryFinish();

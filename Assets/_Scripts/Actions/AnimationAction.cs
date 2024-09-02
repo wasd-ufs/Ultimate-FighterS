@@ -1,17 +1,27 @@
+using System;
 using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
 public class AnimationAction : ActionSystem
 {
-    [SerializeField] private Animator animator;
-    [SerializeField] private string startTrigger = "Start";
+    private Animator animator;
+    public string animationName = "Animation";
+
+    private void Start()
+    {
+        animator = GetComponent<Animator>();
+        Exit();
+    }
 
     public override void Enter()
     {
-        animator.SetTrigger(startTrigger);
+        gameObject.SetActive(true);
+        animator.Play(animationName, -1, 0f);
     }
 
     public override void Exit()
     {
-        animator.ResetTrigger(startTrigger);
+        animator.Play(animationName, -1, 1f);
+        gameObject.SetActive(false);
     }
 }

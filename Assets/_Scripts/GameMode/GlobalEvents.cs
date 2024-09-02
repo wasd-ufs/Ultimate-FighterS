@@ -9,5 +9,5 @@ public class GlobalEvents
     classe que herda de Notifier e implemementa o método Notify().
     Caso precise use OnPLayerDiedNotify como exemplo. 
      */
-    public static UnityEvent<GameObject> onPlayerDied;
+    public static UnityEvent<GameObject> onPlayerDied = new();
 }

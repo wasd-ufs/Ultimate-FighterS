@@ -8,7 +8,7 @@ public class Timer : MonoBehaviour
 {
     [Header("Time")]
     public float waitTime = 1f;
-    public float elapsedTime = 0f;
+    [HideInInspector] public float elapsedTime = 0f;
     
     [Header("Behaviour")]
     public bool startOnAwake = false;

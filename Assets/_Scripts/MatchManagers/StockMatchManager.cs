@@ -6,14 +6,13 @@ using UnityEngine;
 public class StockMatchManager : MatchManager
 {
     [SerializeField] private int numberOfStocks;
-    [SerializeField] private int numberOfPlayers; //placeholder 
     [SerializeField] private Dictionary<int, int> keyValuePairs;
 
     private void Awake()
     {
         GlobalEvents.onPlayerDied.AddListener(reduceStock);
         keyValuePairs = new Dictionary<int, int>();
-        for (int i = 0; i < numberOfPlayers; i++)
+        for (int i = 0; i < MatchConfiguration.PlayersPrefabs.Count; i++)
         {
             keyValuePairs.Add(i, numberOfStocks);
         }
@@ -27,7 +26,8 @@ public class StockMatchManager : MatchManager
         if (keyValuePairs.TryGetValue(currentPlayerId, out int remainingStocks))
         {
             keyValuePairs[currentPlayerId] = remainingStocks--;
-
         }
+        
+        Respawn(gameObject);
     }
 }

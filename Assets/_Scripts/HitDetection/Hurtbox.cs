@@ -2,18 +2,13 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Hurtbox : MonoBehaviour
+public class Hurtbox : OwnedComponent
 {
-    [SerializeField] private GameObject owner;
-    [SerializeField] private UnityEvent onHitBoxDetected;
+    [SerializeField] private UnityEvent<GameObject> onHitBoxDetected;
+    public bool isInvincible;
     
-    public GameObject Owner => owner;
-
-    public void OnHurted(GameObject _owner)
+    public void OnHurted(GameObject hitbox)
     {
-        if (owner == _owner)
-            return;
-        
-        onHitBoxDetected.Invoke();
+        onHitBoxDetected.Invoke(hitbox);
     }
 }
