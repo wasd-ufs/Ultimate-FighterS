@@ -29,9 +29,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 270394267970809006}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -10.88, y: 7.2695, z: -1}
-  m_LocalScale: {x: 0.54398304, y: 3.5, z: 1}
+  m_LocalScale: {x: 1.7436289, y: 3.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -204,8 +204,8 @@ BuoyancyEffector2D:
   m_UseColliderMask: 1
   m_ColliderMask:
     serializedVersion: 2
-    m_Bits: 640
-  m_SurfaceLevel: 1
+    m_Bits: 4294967295
+  m_SurfaceLevel: 0.8
   m_Density: 2
   m_LinearDrag: 5
   m_AngularDrag: 5
