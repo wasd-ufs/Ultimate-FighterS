@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 5550687968013272037}
   - component: {fileID: 3443711443656738144}
   - component: {fileID: 8184441088599585906}
-  - component: {fileID: 6921463777105625926}
   - component: {fileID: 1626248077935926214}
   - component: {fileID: 3881960831867558977}
   - component: {fileID: 376549910324411183}
@@ -136,33 +135,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!50 &6921463777105625926
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7040214917021474625}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!114 &1626248077935926214
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -225,16 +197,25 @@ MonoBehaviour:
   minRequiredTimeForTrain: 12
   maxStoppedTime: 4
   minStoppedTime: 6
-  maxSpeed: 20
-  minSpeed: 20
+  maxTimeToArriveOrigin: 2.5
+  minTimeToArriveOrigin: 1.5
   trainLength: 20
   trainHeight: 2.5
   spawnPoint: {x: 40, y: -3.6, z: 0}
+  originPoint: {x: 0, y: -3.6, z: 0}
   restPoint: {x: 0, y: -10, z: 0}
   passenger: {fileID: 0}
   passengerChance: 33
   stoppedTimer: {fileID: 376549910324411183}
   runningTimer: {fileID: 1626248077935926214}
+  distance: 0
+  isPassengerOutOfTrain: 0
+  aceleration: 0
+  speedAux: 0
+  speed: 0
+  direction: 0
+  isDecelerating: 0
+  isAcelerating: 0
 --- !u!114 &376549910324411183
 MonoBehaviour:
   m_ObjectHideFlags: 0

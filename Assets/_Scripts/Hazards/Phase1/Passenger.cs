@@ -15,9 +15,10 @@ public class Passenger : MonoBehaviour
 
     private void Awake()
     {
-        height = train.GetSpawnPointY();
+        height = train.GetSpawnPoint().y;
         trainLength = train.GetTrainLength();
         restPoint = train.GetRestPoint();
+        MoveToRestPoint();
     }
 
     public void MoveToPlataform()
@@ -26,7 +27,5 @@ public class Passenger : MonoBehaviour
         this.transform.position = new Vector3(randomPlace, height+offsetY, 0);
     }               
     public void MoveToRestPoint()
-    {
-        this.transform.position = restPoint;
-    }
+        => this.transform.position = restPoint;
 }
