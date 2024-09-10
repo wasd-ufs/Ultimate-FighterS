@@ -104,6 +104,13 @@ public class Train : MonoBehaviour
         speedAux = speed;
         MoveToSpawnPosition(direction);
         FlipInDirection(direction);
+
+        Wave wave = FindObjectOfType<Wave>();
+        if (wave) {
+            wave.SetDirection(direction);
+            wave.ActiveWave(false);
+        }
+        
         isDecelerating = true;
     }
     public void ResetTrain()                
@@ -111,7 +118,11 @@ public class Train : MonoBehaviour
         if(transform.localScale.x < 0)
             FlipInDirection(-1);
         MoveToRestPosition();
-        isAcelerating = false;       
+        isAcelerating = false;
+        Wave wave = FindObjectOfType<Wave>();
+        if (wave) {
+            wave.ActiveWave(false);
+        }  
     }
 
     public void Acelerate()
@@ -120,6 +131,10 @@ public class Train : MonoBehaviour
         speed = CalculateSpeed();
         aceleration = CalculateAceleration(speed);
         speedAux = 0;
+        Wave wave = FindObjectOfType<Wave>();
+        if (wave) {
+            wave.ActiveWave(true);
+        }  
     }
     public float CalculateAceleration(float speed)
         =>  speed * speed / (2 * distance);
