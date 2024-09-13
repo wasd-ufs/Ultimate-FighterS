@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7679610153496870733}
   - component: {fileID: 7323650377993779816}
   - component: {fileID: 1602943592285735593}
-  - component: {fileID: 2798536738192024286}
+  - component: {fileID: 3371767955541691522}
   m_Layer: 0
   m_Name: SimpleAnimationAction
   m_TagString: Untagged
@@ -60,22 +60,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8876f3cb4d546e880e9ab454c459f39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resetAnimationName: Reset
   animationName: Animation
---- !u!111 &2798536738192024286
-Animation:
+--- !u!95 &3371767955541691522
+Animator:
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3903487447094911489}
   m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 0}
-  m_Animations:
-  - {fileID: 0}
-  - {fileID: 0}
-  m_WrapMode: 0
-  m_PlayAutomatically: 0
-  m_AnimatePhysics: 0
-  m_CullingType: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
