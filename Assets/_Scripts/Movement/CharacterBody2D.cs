@@ -317,6 +317,30 @@ public class CharacterBody2D : MonoBehaviour
                                      Vector2.Dot(velocity, new Vector2(from.y, -from.x)) * new Vector2(to.y, -to.x));
     }
 
+    public void RotateVelocity(float angle)
+    {
+        ModifyVelocity(velocity => VectorUtils.Rotated(velocity, angle));
+    }
+
+    public void RotateVelocity(Vector2 towards, float angle)
+    {
+        ModifyVelocity(delegate(Vector2 velocity)
+        {
+            var direction = Mathf.Sign(VectorUtils.Wedge(Velocity, towards));
+            return VectorUtils.Rotated(velocity, direction * angle);
+        });
+    }
+
+    public void RotateVelocityUntil(Vector2 target, float angleDelta)
+    {
+        ModifyVelocity(delegate(Vector2 velocity)
+        {
+            var angle = Mathf.Acos(Vector2.Dot(target.normalized, velocity.normalized));
+            var direction = Mathf.Sign(VectorUtils.Wedge(Velocity, target));
+            return VectorUtils.Rotated(velocity, direction * angle);
+        });
+    }
+
     public void FixedUpdate()
     {
         var lastFloorNormal = FloorNormal;

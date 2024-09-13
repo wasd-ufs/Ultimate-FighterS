@@ -31,4 +31,14 @@ public class VectorUtils
     public static Vector2 Closest(Vector2 vector, List<Vector2> comparisons) => comparisons
         .OrderByDescending(v => Vector2.Dot(v, vector) / v.sqrMagnitude)
         .FirstOrDefault();
+
+    public static Vector2 Rotated(Vector2 vector, float angle)
+    {
+        var sin = Mathf.Sin(angle);
+        var cos = Mathf.Cos(angle);
+        
+        return new Vector2(cos * vector.x + sin * vector.y, - sin * vector.x + cos * vector.y);
+    }
+    
+    public static float Wedge(Vector2 a, Vector2 b) => a.x * b.y - a.y * b.x;
 }

@@ -1,4 +1,5 @@
 using System;
+using Unity.XR.OpenVR;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
@@ -46,6 +47,16 @@ public class DecoratedCharacterState : CharacterState
     {
         onExit.Invoke();
         state.Exit();
+    }
+
+    public override void Process()
+    {
+        state.Process();
+    }
+
+    public override void PhysicsProcess()
+    {
+        state.PhysicsProcess();
     }
 
     public override void OnCeilingEnter(Vector2 normal) => Decorate(onCeilingEnterEvent, state.OnCeilingEnter, normal);
