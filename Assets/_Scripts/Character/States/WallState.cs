@@ -24,6 +24,16 @@ public class WallState : CharacterState
     {
         isNormalLeft = body.IsOnLeftWall();
         Debug.Log("gay");
+        
+        Vector3 direction = player.forward;
+        if (direction.x > 0)
+        {
+            facingDirection.facingRight = true;
+        }
+        if (direction.x < 0)
+        {
+            facingDirection.facingRight = false;
+        }
     }
     public override void Process()
     {
