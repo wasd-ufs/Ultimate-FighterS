@@ -25,6 +25,16 @@ public class GroundedState : CharacterState
     {
         if (executor.IsRunning())
             executor.Current.Finish();
+
+        Vector3 direction = player.forward;
+        if (direction.x > 0)
+        {
+            facingDirection.facingRight = true;
+        }
+        if (direction.x < 0)
+        {
+            facingDirection.facingRight = false;
+        }
     }
     
     public override void Process()

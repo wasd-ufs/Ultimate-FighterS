@@ -31,6 +31,16 @@ public class AirborneState : CharacterState
     public override void Enter()
     {
         isFastFalling = false;
+
+        Vector3 direction = player.forward;
+        if (direction.x > 0)
+        {
+            facingDirection.facingRight = true;
+        }
+        if (direction.x < 0)
+        {
+            facingDirection.facingRight = false;
+        }
     }
 
     public override void Process()

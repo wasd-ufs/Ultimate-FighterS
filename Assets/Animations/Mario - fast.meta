@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 2b0bf1001e4391c4ab88a931d5c42e4b
+=======
+guid: 41489e27a2ba29d47b173fd9ed69bd85
+>>>>>>> 37a9b80 (application of class Facingdirection in CharacterState, CharacterStateMachine,  AirborneState, GroundedState,  WallState)
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
