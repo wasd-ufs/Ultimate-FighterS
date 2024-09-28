@@ -26,12 +26,12 @@ public class GroundedState : CharacterState
         if (executor.IsRunning())
             executor.Current.Finish();
 
-        Vector3 direction = player.forward;
-        if (direction.x > 0)
+        float direction = player.localScale.x;
+        if (direction == 1)
         {
             facingDirection.facingRight = true;
         }
-        if (direction.x < 0)
+        if (direction == -1)
         {
             facingDirection.facingRight = false;
         }
@@ -47,7 +47,10 @@ public class GroundedState : CharacterState
         }
         
         if (input.IsAttackJustPressed())
+        {
             attacks.Trigger(input.GetDirection());
+            facingDirection.DirectionFace(input.GetDirection());
+        }
     }
 
     public override void PhysicsProcess()

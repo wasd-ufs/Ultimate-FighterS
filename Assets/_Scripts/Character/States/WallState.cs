@@ -23,14 +23,13 @@ public class WallState : CharacterState
     public override void Enter()
     {
         isNormalLeft = body.IsOnLeftWall();
-        Debug.Log("gay");
         
-        Vector3 direction = player.forward;
-        if (direction.x > 0)
+        float direction = player.localScale.x;
+        if (direction == 1)
         {
             facingDirection.facingRight = true;
         }
-        if (direction.x < 0)
+        if (direction == -1)
         {
             facingDirection.facingRight = false;
         }
@@ -46,6 +45,8 @@ public class WallState : CharacterState
         {
             machine.TransitionTo(airborne);
         }
+
+        facingDirection.DirectionFace(input.GetDirection());
     }
     public override void PhysicsProcess()
     {

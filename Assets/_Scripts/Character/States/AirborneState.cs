@@ -32,12 +32,13 @@ public class AirborneState : CharacterState
     {
         isFastFalling = false;
 
-        Vector3 direction = player.forward;
-        if (direction.x > 0)
+        float direction = player.localScale.x;
+
+        if (direction == 1)
         {
             facingDirection.facingRight = true;
         }
-        if (direction.x < 0)
+        if (direction == -1)
         {
             facingDirection.facingRight = false;
         }
@@ -46,12 +47,17 @@ public class AirborneState : CharacterState
     public override void Process()
     {
         isFastFalling = isFastFalling || !input.IsSpecialBeingHeld() || body.GetSpeedOnAxis(body.Down) > 0;
-        
+
         if (input.IsAttackJustPressed()) 
+        { 
             attacks.Trigger(input.GetDirection());
-        
+            facingDirection.DirectionFace(input.GetDirection());
+        } 
         else if (!executor.IsRunning() && input.IsSpecialJustPressed())
+        { 
             specials.Trigger(input.GetDirection());
+            facingDirection.DirectionFace(input.GetDirection());
+        }
     }
 
     public override void PhysicsProcess()
