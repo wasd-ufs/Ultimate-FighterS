@@ -50,26 +50,26 @@ public class CharacterBody2D : MonoBehaviour
     // Events for Collision
     // Enter events are only called if previously there were no correspondent colliders
     // A new collider entering will not call Enter Events if there was already another collider
-    public UnityEvent<Vector2> onFloorEnter;
-    public UnityEvent<Vector2> onWallEnter;
-    public UnityEvent<Vector2> onLeftWallEnter;
-    public UnityEvent<Vector2> onRightWallEnter;
-    public UnityEvent<Vector2> onCeilingEnter;
+    [HideInInspector] public UnityEvent<Vector2> onFloorEnter;
+    [HideInInspector] public UnityEvent<Vector2> onLeftWallEnter;
+    [HideInInspector] public UnityEvent<Vector2> onRightWallEnter;
+    [HideInInspector] public UnityEvent<Vector2> onCeilingEnter;
 
     // Exit events are only called if currently there are no correspondent colliders
     // A collider exiting will not call Exit Events if there still one or more colliders remaining
-    public UnityEvent<Vector2> onFloorExit;
-    public UnityEvent<Vector2> onWallExit;
-    public UnityEvent<Vector2> onLeftWallExit;
-    public UnityEvent<Vector2> onRightWallExit;
-    public UnityEvent<Vector2> onCeilingExit;
+    [HideInInspector] public UnityEvent<Vector2> onFloorExit;
+    [HideInInspector] public UnityEvent<Vector2> onLeftWallExit;
+    [HideInInspector] public UnityEvent<Vector2> onRightWallExit;
+    [HideInInspector] public UnityEvent<Vector2> onCeilingExit;
     
     // RigidBody2D used by movement functions.
     private readonly List<Collider2D> colliders = new();
     private Rigidbody2D body;
     private bool skipSnapping;
+    
+    public Vector2 LastVelocity { get; private set; }
 
-    private void Start()
+    private void Awake()
     {
         body = GetComponent<Rigidbody2D>();
         body.GetAttachedColliders(colliders);
@@ -362,10 +362,21 @@ public class CharacterBody2D : MonoBehaviour
         CheckAndCallEvent(lastCeilingNormal, CeilingNormal, onCeilingEnter, onCeilingExit);
         
         if (IsOnFloor() && IsOnLeftWall())
-            LimitSpeed(GetFloorLeft(), 0f);
+            SetSpeed(GetFloorLeft(), 0f);
         
         if (IsOnFloor() && IsOnRightWall())
-            LimitSpeed(GetFloorRight(), 0f);
+            SetSpeed(GetFloorRight(), 0f);
+        
+        if (IsOnLeftWall())
+            SetSpeed(LeftWallNormal, 0f);
+        
+        if (IsOnRightWall())
+            SetSpeed(RightWallNormal, 0f);
+        
+        if (IsOnCeiling())
+            SetSpeed(CeilingNormal, 0f);
+
+        LastVelocity = Velocity;
     }
     
     private void GetContactsFromBody()
