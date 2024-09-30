@@ -4,14 +4,17 @@ using UnityEngine.Events;
 public class HitlagComponent : CharacterState
 {
     [Header ("References")] 
-    [SerializeField] private HitlagState hitlagstate;
+    [SerializeField] private CharacterState hitlagstate;
+    [SerializeField] private Timer hitlagTimer;
     [SerializeField] private StateMachine<CharacterState> stateMachine;
     public UnityEvent<float> onHitlag;
     
     public void Apply(float durationHitlag)
     {
         if (hitlagstate != null && stateMachine != null) {
-             hitlagstate.SetHitlagTime(durationHitlag);
+             hitlagTimer.waitTime = durationHitlag;
+             hitlagTimer.Init();
+             
              stateMachine.TransitionTo(hitlagstate);
              onHitlag.Invoke(durationHitlag);
         }

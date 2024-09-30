@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class VectorUtils
+public static class VectorUtils
 {
     public static Vector2 OnAxis(Vector2 axis, Vector2 toModify, Func<float, float> modification)
     {
@@ -41,4 +41,6 @@ public class VectorUtils
     }
     
     public static float Wedge(Vector2 a, Vector2 b) => a.x * b.y - a.y * b.x;
+    
+    public static Vector2 Reflected(Vector2 vector, Vector2 normal) => vector - (2f * Vector2.Dot(vector, normal) * normal);
 }
