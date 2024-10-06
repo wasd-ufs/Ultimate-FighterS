@@ -13,6 +13,7 @@ public class HitlagComponent : CharacterState
         if (hitlagstate != null && stateMachine != null) {
              hitlagstate.SetHitlagTime(durationHitlag);
              stateMachine.TransitionTo(hitlagstate);
+             lag.lagTrigger = true;
              onHitlag.Invoke(durationHitlag);
         }
     }
