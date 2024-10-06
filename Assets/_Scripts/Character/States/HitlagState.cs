@@ -17,6 +17,8 @@ public class HitlagState : CharacterState
     [SerializeField] private float maxFallSpeed;
     [SerializeField] private float fastFallGravity;
 
+    
+
     void Start()
     {
         timer = 0;
@@ -46,7 +48,11 @@ public class HitlagState : CharacterState
     
         body.LimitSpeed(body.Down, maxFallSpeed);
 
-        if (timer >= TimeInHitlag) machine.TransitionTo(airborne);
+        if (timer >= TimeInHitlag) 
+        {
+            lag.lagTrigger = false;
+            machine.TransitionTo(airborne);
+        }
     }
 
     private void addtime()
@@ -56,6 +62,9 @@ public class HitlagState : CharacterState
 
     public void SetHitlagTime(float time)
     {
-        TimeInHitlag = time;
+        if (lag.lagTrigger)
+        {
+            TimeInHitlag = time;
+        }
     }
 }

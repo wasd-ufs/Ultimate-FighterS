@@ -46,6 +46,8 @@ public class AirborneState : CharacterState
 
     public override void Process()
     {
+        lag.OnLag(machine);
+
         isFastFalling = isFastFalling || !input.IsSpecialBeingHeld() || body.GetSpeedOnAxis(body.Down) > 0;
 
         if (input.IsAttackJustPressed()) 

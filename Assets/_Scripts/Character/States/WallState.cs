@@ -36,6 +36,9 @@ public class WallState : CharacterState
     }
     public override void Process()
     {
+
+        lag.OnLag(machine);
+
         if (input.IsSpecialJustPressed())
         {
             WallJump();
