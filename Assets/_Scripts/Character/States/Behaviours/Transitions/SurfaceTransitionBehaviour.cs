@@ -21,12 +21,8 @@ public class SurfaceTransitionBehaviour : CharacterState
 
     public override void PhysicsProcess()
     {
-        if (body == null)
-            Debug.Log(land);
-            
-        
         if ((IsOnLand() && type == LandingType.Entering) || (!IsOnLand() && type == LandingType.Exiting))
-            machine.TransitionTo(next);
+                machine.TransitionTo(next);
     }
     
     public bool IsOnLand() => land switch

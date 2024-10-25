@@ -2,31 +2,37 @@ using UnityEngine;
 
 public class BounceBehaviour : CharacterState
 {
-    [Range(0f, 1f)]
-    [SerializeField] public float reductionPerBounce = 0.5f;
+    [Range(0f, 1f)] [SerializeField] public float reductionPerBounce = 0.5f;
 
     void Bounce(Vector2 normal)
     {
         body.SetVelocity(VectorUtils.Reflected(body.LastVelocity, normal) * (1f - reductionPerBounce));
     }
 
-    public override void OnFloorEnter(Vector2 normal)
+    public override void PhysicsProcess()
     {
-        Bounce(normal);
-    }
+        if (body.IsOnFloor())
+        {
+            Bounce(body.FloorNormal);
+            return;
+        }
 
-    public override void OnLeftWallEnter(Vector2 normal)
-    {
-        Bounce(normal);
-    }
+        if (body.IsOnCeiling())
+        {
+            Bounce(body.CeilingNormal);
+            return;
+        }
 
-    public override void OnRightWallEnter(Vector2 normal)
-    {
-        Bounce(normal);
-    }
+        if (body.IsOnLeftWall())
+        {
+            Bounce(body.LeftWallNormal);
+            return;
+        }
 
-    public override void OnCeilingEnter(Vector2 normal)
-    {
-        Bounce(normal);
+        if (body.IsOnRightWall())
+        {
+            Bounce(body.RightWallNormal);
+            return;
+        }
     }
 }
