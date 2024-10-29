@@ -4,7 +4,8 @@ public enum LandType
 {
     Floor,
     Wall,
-    Ceiling
+    Ceiling,
+    Any
 }
 
 public enum LandingType
@@ -29,6 +30,7 @@ public class SurfaceTransitionBehaviour : CharacterState
     {
         LandType.Floor => body.IsOnFloor(),
         LandType.Ceiling => body.IsOnCeiling(),
-        LandType.Wall => body.IsOnLeftWall() || body.IsOnRightWall()
+        LandType.Wall => body.IsOnLeftWall() || body.IsOnRightWall(),
+        _ => body.IsOnFloor() || body.IsOnCeiling() || body.IsOnLeftWall() || body.IsOnRightWall(),
     };
 }

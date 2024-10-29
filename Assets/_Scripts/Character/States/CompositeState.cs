@@ -9,6 +9,8 @@ public class CompositeState : CharacterState
     [Header("States outside of this object that should be included. Others Are Automatically included.")]
     [SerializeField] private List<CharacterState> foreignStates = new();
 
+    [SerializeField] private bool automaticallyIncludeChildren = false;
+
     // All States used by the composite
     private HashSet<CharacterState> states = new();
 
@@ -27,6 +29,12 @@ public class CompositeState : CharacterState
         
         states.AddRange(local);
         states.AddRange(foreignStates);
+
+        if (automaticallyIncludeChildren)
+        {
+            for (int i = 0; i < transform.childCount; i++)
+                states.Add(transform.GetChild(i).GetComponent<CharacterState>());
+        }
     }
     
     private void Configure(CharacterState state)

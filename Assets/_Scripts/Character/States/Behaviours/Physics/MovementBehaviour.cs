@@ -13,7 +13,7 @@ public class MovementBehaviour : CharacterState
     {
         var forward = body.IsOnFloor() ? body.GetFloorRight() : body.Right;
         
-        var direction = Vector2.Dot(forward, input.GetDirection());
+        var direction = input.GetDirection().x;
         direction = direction < -0.001f ? -1 : direction > 0.001f ? 1f : 0f;
         
         body.MoveSmoothly(forward, 
