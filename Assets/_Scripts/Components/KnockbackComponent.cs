@@ -20,11 +20,16 @@ public class KnockbackComponent : MonoBehaviour
     public void ApplyKnockback(Vector2 knockback)
     {
         body.SkipSnappingFrame();
+        knockback = knockback.normalized *
+                    (knockback.magnitude + Mathf.Max(0f, Vector2.Dot(knockback.normalized, body.Velocity)));
         
         knockback *= KnockbackMultiplier(damageComponent.CurrentDamage);
         body.SetVelocity(knockback);
         onKnockback.Invoke(knockback);
     }
 
-    public float KnockbackMultiplier(float damage) => 1.12f + damage * 0.005f - Mathf.Exp(-damage * 0.0025f);
+    public Vector2 KnockbackMultiplier(float damage) => new(
+        0.4f + 0.01f * damage,
+        0.1f + 0.004f * damage
+    );
 }

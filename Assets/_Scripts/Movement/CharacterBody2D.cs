@@ -366,15 +366,6 @@ public class CharacterBody2D : MonoBehaviour
         
         if (IsOnFloor() && IsOnRightWall())
             SetSpeed(GetFloorRight(), 0f);
-        
-        if (IsOnLeftWall())
-            SetSpeed(LeftWallNormal, 0f);
-        
-        if (IsOnRightWall())
-            SetSpeed(RightWallNormal, 0f);
-        
-        if (IsOnCeiling())
-            SetSpeed(CeilingNormal, 0f);
 
         LastVelocity = Velocity;
     }
@@ -483,7 +474,17 @@ public class CharacterBody2D : MonoBehaviour
         skipSnapping = true;
     }
 
-    private Vector2 AvarageNormal(List<Vector2> vectors) => VectorUtils.Avarage(vectors).normalized;
+    public void Pause()
+    {
+        body.simulated = false;
+    }
+
+    public void Resume()
+    {
+        body.simulated = true;
+    }
+
+    private Vector2 AvarageNormal(List<Vector2> vectors) => VectorUtils.Average(vectors).normalized;
     
     public Vector2 GetLeftWallUp() => VectorUtils.Orthogonal(LeftWallNormal) * Mathf.Sign(Vector2.Dot(up, Vector2.up));
     public Vector2 GetLeftWallDown() => -GetLeftWallUp();

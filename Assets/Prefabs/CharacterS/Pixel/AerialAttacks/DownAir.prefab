@@ -385,11 +385,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2227210819704976558, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
       propertyPath: knockback.x
-      value: 10
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 2227210819704976558, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
       propertyPath: knockback.y
-      value: 10
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 2227210819704976558, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
       propertyPath: applyObjectTransform
@@ -483,11 +483,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2227210819704976558, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
       propertyPath: knockback.x
-      value: -10
+      value: -13
       objectReference: {fileID: 0}
     - target: {fileID: 2227210819704976558, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
       propertyPath: knockback.y
-      value: 10
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 2227210819704976558, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
       propertyPath: applyObjectTransform
@@ -901,6 +901,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8570971339021505021, guid: 5ddce230955ce1aadb0d2032038fea4f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2778327436861336911}
+    - targetCorrespondingSourceObject: {fileID: 8570971339021505021, guid: 5ddce230955ce1aadb0d2032038fea4f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1309232978377591339}
   m_SourcePrefab: {fileID: 100100000, guid: 5ddce230955ce1aadb0d2032038fea4f, type: 3}
 --- !u!1 &932181754846261337 stripped
 GameObject:
@@ -950,7 +953,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   axis: {x: 0, y: -1}
-  maxSpeed: 15
+  maxSpeed: 65
   basis: 3
 --- !u!114 &2286738924392093385
 MonoBehaviour:
@@ -980,6 +983,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deceleration: {x: 50, y: 0}
   basis: 3
+--- !u!114 &1309232978377591339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 932181754846261337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 864ae927b20e4385d9119b98e675d64b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  impulse: {x: 0, y: -25}
+  impulseBasis: 0
+  momentumPreservation: 0
 --- !u!114 &8095459416055485058 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 740044077445968678, guid: 5ddce230955ce1aadb0d2032038fea4f, type: 3}

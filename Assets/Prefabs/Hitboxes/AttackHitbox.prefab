@@ -214,4 +214,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   knockback: {x: 0, y: 0}
-  applyObjectTransform: 0
+  applyObjectScale: 1

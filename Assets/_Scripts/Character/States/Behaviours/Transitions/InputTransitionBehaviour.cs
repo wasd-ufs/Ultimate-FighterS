@@ -60,12 +60,12 @@ public class InputTransitionBehaviour : CharacterState
         TriggerDirection.Neutral => Vector2.zero,
         TriggerDirection.Up => Vector2.up,
         TriggerDirection.Down => Vector2.down,
-        TriggerDirection.Backward => Vector2.left,
-        TriggerDirection.Forward => Vector2.right,
-        TriggerDirection.UpBackward => new Vector2(-1, 1).normalized,
-        TriggerDirection.UpForward => new Vector2(1, 1).normalized,
-        TriggerDirection.DownBackward => new Vector2(-1, -1).normalized,
-        TriggerDirection.DownForward => new Vector2(1, -1).normalized,
+        TriggerDirection.Backward => Vector2.left * Mathf.Sign(transform.lossyScale.x),
+        TriggerDirection.Forward => Vector2.right * Mathf.Sign(transform.lossyScale.x),
+        TriggerDirection.UpBackward => new Vector2(-Mathf.Sign(transform.lossyScale.x), 1).normalized,
+        TriggerDirection.UpForward => new Vector2(Mathf.Sign(transform.lossyScale.x), 1).normalized,
+        TriggerDirection.DownBackward => new Vector2(-Mathf.Sign(transform.lossyScale.x), -1).normalized,
+        TriggerDirection.DownForward => new Vector2(Mathf.Sign(transform.lossyScale.x), -1).normalized,
         _ => Vector2.zero,
     };
     
