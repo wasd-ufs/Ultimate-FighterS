@@ -1,16 +1,15 @@
 using System;
 using UnityEngine;
 
-[RequireComponent(typeof(Timer))]
 public class TimedTransitionBehaviour : CharacterState
 {
     [SerializeField] private CharacterState next;
-    private Timer timer;
+    [SerializeField] private Timer timer;
     private bool skip;
 
     private void Awake()
     {
-        timer = GetComponent<Timer>();
+        timer ??= GetComponent<Timer>();
         timer.onTimerFinish.AddListener(OnTimerFinish);
     }
 

@@ -1,11 +1,12 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class ImpulseEffect : Effect
 {
     public Vector2 impulse;
-    public bool applyObjectTransform;
+    public bool flipWithObject = true;
 
-    public Vector2 Impulse => applyObjectTransform ? transform.TransformVector(impulse) : impulse;
+    public Vector2 Impulse => flipWithObject ? VectorUtils.Sign(transform.lossyScale) * impulse : impulse;
     
     public override void Apply(GameObject gameObject)
     {

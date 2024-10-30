@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1556904175986154381}
   - component: {fileID: 8940390342646930808}
-  - component: {fileID: 3637234271353724669}
   - component: {fileID: 7907472434054863578}
   - component: {fileID: 2160294170905891054}
   - component: {fileID: 1972630772794264550}
@@ -54,24 +53,8 @@ MonoBehaviour:
   foreignStates:
   - {fileID: 7844487292419858302}
   - {fileID: 1550856059203383270}
+  - {fileID: 3772889524689472456}
   automaticallyIncludeChildren: 0
---- !u!114 &3637234271353724669
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 122573793633292965}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9edc51e13c214884bff644dfd9862426, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  acceleration: 12
-  turnAcceleration: 24
-  deceleration: 20
-  maxSpeed: 12
-  overspeedDeceleration: 24
 --- !u!114 &7907472434054863578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -266,7 +249,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8187963991833597818}
   - component: {fileID: 2751923431622773367}
-  - component: {fileID: 2614009705370944911}
   m_Layer: 0
   m_Name: GroundAttacksPhysics
   m_TagString: Untagged
@@ -301,22 +283,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb179ea680d84b519bd9d9517b5f15a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  foreignStates: []
+  foreignStates:
+  - {fileID: 3772889524689472456}
   automaticallyIncludeChildren: 0
---- !u!114 &2614009705370944911
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2408651089572249224}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8f346dbada165a96961ce1ba7e6a9ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  deceleration: {x: 12, y: 0}
-  basis: 0
 --- !u!1 &3142040687624482077
 GameObject:
   m_ObjectHideFlags: 0
@@ -402,6 +371,70 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &4197865166561878962
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4229979868487169618}
+  - component: {fileID: 3772889524689472456}
+  - component: {fileID: 986426293843221062}
+  m_Layer: 0
+  m_Name: GroundMovement
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4229979868487169618
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4197865166561878962}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3616882494704878662}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3772889524689472456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4197865166561878962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb179ea680d84b519bd9d9517b5f15a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  foreignStates: []
+  automaticallyIncludeChildren: 0
+--- !u!114 &986426293843221062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4197865166561878962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9edc51e13c214884bff644dfd9862426, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  acceleration: 12
+  turnAcceleration: 24
+  deceleration: 20
+  maxSpeed: 12
+  overspeedDeceleration: 24
 --- !u!1 &4598488453000841380
 GameObject:
   m_ObjectHideFlags: 0
@@ -433,6 +466,7 @@ Transform:
   m_Children:
   - {fileID: 6757683346457470584}
   - {fileID: 384440057559014982}
+  - {fileID: 4229979868487169618}
   - {fileID: 8187963991833597818}
   - {fileID: 7222443995104945747}
   - {fileID: 1163168779863585085}
@@ -618,6 +652,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   next: {fileID: 440464566712151981}
+  timer: {fileID: 0}
 --- !u!114 &7853258655865101936
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -875,6 +910,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   next: {fileID: 440464566712151981}
+  timer: {fileID: 0}
 --- !u!1 &6822427835864290692
 GameObject:
   m_ObjectHideFlags: 0
@@ -1232,6 +1268,7 @@ GameObject:
   - component: {fileID: 9205386860068664927}
   - component: {fileID: 8263989102555089894}
   - component: {fileID: 1879480268593995339}
+  - component: {fileID: 5999277582838103869}
   - component: {fileID: 2735207267908953639}
   - component: {fileID: 497698499994053750}
   - component: {fileID: 1719273993877421268}
@@ -1287,9 +1324,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e944a83617ee4c70b160597681795901, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetSpeed: 8
-  acceleration: 8
-  deceleration: 18
+  targetSpeed: 12
+  acceleration: 12
+  deceleration: 20
+--- !u!114 &5999277582838103869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8302075515186531819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f68175336939d9cc1a649ed8596a1e35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  axis: {x: 0, y: 1}
+  maxSpeed: 12
+  basis: 1
 --- !u!114 &2735207267908953639
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1430,6 +1482,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db96a54ff2a54f65a6bd7cea0056031b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  heavyGravity: 48
+  gravityRelaxationThreshold: 10
   normalGravity: 25
   fastFallGravity: 65
 --- !u!114 &81583092928075623
@@ -1445,7 +1499,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   axis: {x: 0, y: -1}
-  maxSpeed: 25
+  maxSpeed: 35
   basis: 3
 --- !u!1 &9032829399079926560
 GameObject:
