@@ -274,11 +274,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2227210819704976558, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
       propertyPath: knockback.x
-      value: 8
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2227210819704976558, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
       propertyPath: knockback.y
-      value: 20
+      value: 28
       objectReference: {fileID: 0}
     - target: {fileID: 5260456630257636301, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
       propertyPath: damageAmount
@@ -286,23 +286,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7198258493091875994, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
       propertyPath: m_LocalScale.x
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7198258493091875994, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
       propertyPath: m_LocalScale.y
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7198258493091875994, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
       propertyPath: m_LocalScale.z
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7198258493091875994, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.186
+      value: 1.093
       objectReference: {fileID: 0}
     - target: {fileID: 7198258493091875994, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.136
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 7198258493091875994, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
       propertyPath: m_LocalPosition.z
