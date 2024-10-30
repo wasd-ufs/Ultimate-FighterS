@@ -4,6 +4,9 @@ public class CharacterStateMachine : StateMachine<CharacterState>
 {
     [SerializeField] private CharacterBody2D body;
     [SerializeField] private InputSystem input;
+    [SerializeField] private FacingDirection facingDirection;
+    [SerializeField] private Transform player;
+
 
     protected override void OnStart() {
         body.onCeilingEnter.AddListener(OnCeilingEnter);
@@ -26,6 +29,7 @@ public class CharacterStateMachine : StateMachine<CharacterState>
         Current.body = body;
         Current.input = input;
         Current.machine = this;
+        facingDirection.player = player;
     }
 
     private void Update()

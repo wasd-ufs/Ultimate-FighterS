@@ -10,6 +10,7 @@ public class DashState : CharacterState
 
     public override void Enter()
     {
+        facingDirection.DirectionFace(input.GetDirection());
         finalSpeed = body.GetSpeedRight();
         
         body.SetVelocity(speed * body.Right * transform.localScale.x);

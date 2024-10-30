@@ -20,6 +20,16 @@ public class HitlagState : CharacterState
     void Start()
     {
         timer = 0;
+
+        float direction = player.localScale.x;
+        if (direction == 1)
+        {
+            facingDirection.facingRight = true;
+        }
+        if (direction == -1)
+        {
+            facingDirection.facingRight = false;
+        }
     }
 
     public override void Process()

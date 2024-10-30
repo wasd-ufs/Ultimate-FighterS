@@ -25,6 +25,16 @@ public class GroundedState : CharacterState
     {
         if (executor.IsRunning())
             executor.Current.Finish();
+
+        float direction = player.localScale.x;
+        if (direction == 1)
+        {
+            facingDirection.facingRight = true;
+        }
+        if (direction == -1)
+        {
+            facingDirection.facingRight = false;
+        }
     }
     
     public override void Process()
@@ -37,7 +47,10 @@ public class GroundedState : CharacterState
         }
         
         if (input.IsAttackJustPressed())
+        {
             attacks.Trigger(input.GetDirection());
+            facingDirection.DirectionFace(input.GetDirection());
+        }
     }
 
     public override void PhysicsProcess()

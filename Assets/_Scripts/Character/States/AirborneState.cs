@@ -31,17 +31,33 @@ public class AirborneState : CharacterState
     public override void Enter()
     {
         isFastFalling = false;
+
+        float direction = player.localScale.x;
+
+        if (direction == 1)
+        {
+            facingDirection.facingRight = true;
+        }
+        if (direction == -1)
+        {
+            facingDirection.facingRight = false;
+        }
     }
 
     public override void Process()
     {
         isFastFalling = isFastFalling || !input.IsSpecialBeingHeld() || body.GetSpeedOnAxis(body.Down) > 0;
-        
+
         if (input.IsAttackJustPressed()) 
+        { 
             attacks.Trigger(input.GetDirection());
-        
+            facingDirection.DirectionFace(input.GetDirection());
+        } 
         else if (!executor.IsRunning() && input.IsSpecialJustPressed())
+        { 
             specials.Trigger(input.GetDirection());
+            facingDirection.DirectionFace(input.GetDirection());
+        }
     }
 
     public override void PhysicsProcess()
