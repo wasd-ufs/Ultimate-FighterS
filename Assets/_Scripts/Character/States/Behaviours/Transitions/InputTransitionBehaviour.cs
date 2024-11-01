@@ -2,6 +2,7 @@ using UnityEngine;
 
 public enum TriggerDirection
 {
+    Neutral,
     Up,
     Down,
     Backward,
@@ -50,11 +51,13 @@ public class InputTransitionBehaviour : CharacterState
     public bool IsDirectionTriggered() => requiredDirection switch
     {
         TriggerDirection.None => true,
+        TriggerDirection.Neutral => input.GetDirection().sqrMagnitude <= 0.001f,
         _ => Vector2.Dot(input.GetDirection(), GetDirection()) >= (tolerateDiagonals ? 0.01f : 0.99f)
     };
 
     public Vector2 GetDirection() => requiredDirection switch
     {
+        TriggerDirection.Neutral => Vector2.zero,
         TriggerDirection.Up => Vector2.up,
         TriggerDirection.Down => Vector2.down,
         TriggerDirection.Backward => Vector2.left,

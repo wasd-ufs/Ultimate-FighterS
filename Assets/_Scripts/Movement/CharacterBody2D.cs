@@ -478,6 +478,11 @@ public class CharacterBody2D : MonoBehaviour
         CeilingNormal = AvarageNormal(Ceilings);
     }
 
+    public void SkipSnappingFrame()
+    {
+        skipSnapping = true;
+    }
+
     private Vector2 AvarageNormal(List<Vector2> vectors) => VectorUtils.Avarage(vectors).normalized;
     
     public Vector2 GetLeftWallUp() => VectorUtils.Orthogonal(LeftWallNormal) * Mathf.Sign(Vector2.Dot(up, Vector2.up));

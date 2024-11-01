@@ -1,11 +1,17 @@
 using UnityEngine;
 
+[RequireComponent(typeof(CharacterBody2D))]
 public class CharacterStateMachine : StateMachine<CharacterState>
 {
-    [SerializeField] private CharacterBody2D body;
-    [SerializeField] private InputSystem input;
-    [SerializeField] private Animator animator;
+    private CharacterBody2D body;
+    private InputSystem input;
 
+    private void Awake()
+    {
+        body = GetComponent<CharacterBody2D>();
+        input = GetComponent<InputSystem>();
+    }
+    
     protected override void OnStart() {
         body.onCeilingEnter.AddListener(OnCeilingEnter);
         body.onCeilingExit.AddListener(OnCeilingExit);

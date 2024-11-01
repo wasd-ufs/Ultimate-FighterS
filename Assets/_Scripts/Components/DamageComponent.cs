@@ -1,10 +1,11 @@
+using Unity.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class DamageComponent : MonoBehaviour
 {
-    [SerializeField] private float currentDamage;
-    public UnityEvent<float> onDamageUpdate;
+    [SerializeField] [ReadOnly] private float currentDamage = 0f;
+    [HideInInspector] public UnityEvent<float> onDamageUpdate;
     
     public float CurrentDamage => currentDamage;
 

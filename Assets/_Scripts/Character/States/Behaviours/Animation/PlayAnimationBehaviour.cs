@@ -14,7 +14,7 @@ public class PlayAnimationBehaviour : CharacterState
         animator = GetComponent<Animator>();
         
         if (animationName == ANIMATION_NAME_NOT_SET)
-            Debug.LogError("Tu esqueceu de por o nome da animação no PlayAnimationBehaviour do teu movimento. Ass: O Código");
+            Debug.LogError($"Tu esqueceu de por o nome da animação no PlayAnimationBehaviour do teu movimento. Ass: O PlayAnimationBehaviour do {gameObject.name}");
     }
 
     public void Start()

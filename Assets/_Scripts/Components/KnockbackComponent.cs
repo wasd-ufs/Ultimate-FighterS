@@ -1,19 +1,30 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
+[RequireComponent(typeof(CharacterBody2D))]
+[RequireComponent(typeof(DamageComponent))]
 public class KnockbackComponent : MonoBehaviour
 {
-    [SerializeField] private CharacterBody2D body;
-    [SerializeField] private DamageComponent damageComponent;
+    private CharacterBody2D body;
+    private DamageComponent damageComponent;
     
-    public UnityEvent<Vector2> onKnockback;
-    
+    [HideInInspector] public UnityEvent<Vector2> onKnockback;
+
+    public void Awake()
+    {
+        body = GetComponent<CharacterBody2D>();
+        damageComponent = GetComponent<DamageComponent>();
+    }
+
     public void ApplyKnockback(Vector2 knockback)
     {
+        body.SkipSnappingFrame();
+        
         knockback *= KnockbackMultiplier(damageComponent.CurrentDamage);
-        body.ApplyImpulse(knockback);
+        body.SetVelocity(knockback);
         onKnockback.Invoke(knockback);
     }
 
-    public float KnockbackMultiplier(float damage) => 1.0f + damage * 0.05f;
+    public float KnockbackMultiplier(float damage) => 1.12f + damage * 0.005f - Mathf.Exp(-damage * 0.0025f);
 }

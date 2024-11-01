@@ -48,4 +48,6 @@ public class Timer : MonoBehaviour
         if (restartOnFinish)
             Init();
     }
+    
+    public bool IsFinished() => elapsedTime >= waitTime || elapsedTime < 0f;
 }
