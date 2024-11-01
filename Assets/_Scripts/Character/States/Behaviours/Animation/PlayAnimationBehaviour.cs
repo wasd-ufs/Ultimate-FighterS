@@ -7,7 +7,9 @@ public class PlayAnimationBehaviour : CharacterState
     const string ANIMATION_NAME_NOT_SET = "<BOTE O NOME DA ANIMAÇÃO AQUI>";
     
     [SerializeField] private string animationName = ANIMATION_NAME_NOT_SET;
+    [SerializeField] private bool resetIfAlreadyPlaying = false;
     private Animator animator;
+    
 
     public void Awake()
     {

@@ -35,10 +35,10 @@ public class CharacterBody2D : MonoBehaviour
     [SerializeField, Range(0, 90)] private float maxFloorAngle = 45;
     [SerializeField] private float maxSnapLength = 0.5f;
 
-    public readonly List<Vector2> Floors = new();
-    public readonly List<Vector2> LeftWalls = new();
-    public readonly List<Vector2> RightWalls = new();
-    public readonly List<Vector2> Ceilings = new();
+    public List<Vector2> Floors = new();
+    public List<Vector2> LeftWalls = new();
+    public List<Vector2> RightWalls = new();
+    public List<Vector2> Ceilings = new();
     
     // Normals calculated from lists above.
     // A zero vector means there is no contact points.
@@ -264,6 +264,7 @@ public class CharacterBody2D : MonoBehaviour
     public void SetVelocity(Vector2 speed)
     {
         body.velocity = speed;
+        UpdateCurrentContacts();
         skipSnapping = !IsSurfaceStable(FloorNormal);
     }
     
@@ -368,6 +369,15 @@ public class CharacterBody2D : MonoBehaviour
             SetSpeed(GetFloorRight(), 0f);
 
         LastVelocity = Velocity;
+    }
+
+    private void UpdateCurrentContacts()
+    {
+        Floors = Floors.Where(IsSurfaceStable).ToList();
+        LeftWalls = LeftWalls.Where(IsSurfaceStable).ToList();
+        RightWalls = RightWalls.Where(IsSurfaceStable).ToList();
+        Ceilings = Ceilings.Where(IsSurfaceStable).ToList();
+        CalculateNormals();
     }
     
     private void GetContactsFromBody()
