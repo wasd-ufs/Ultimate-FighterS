@@ -633,11 +633,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3217894014374051033, guid: 43eeb80d3ccdfc5aa99d15cf8c512af8, type: 3}
+      propertyPath: isTap
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3217894014374051033, guid: 43eeb80d3ccdfc5aa99d15cf8c512af8, type: 3}
+      propertyPath: requireTap
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4629247810697484828, guid: 43eeb80d3ccdfc5aa99d15cf8c512af8, type: 3}
       propertyPath: m_Name
       value: Pixel Variant
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5397021114656191992, guid: 43eeb80d3ccdfc5aa99d15cf8c512af8, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -1217,7 +1226,7 @@ Transform:
   m_GameObject: {fileID: 1641603648}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.29, z: -10}
+  m_LocalPosition: {x: -1.54, y: -1.29, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

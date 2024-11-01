@@ -22,6 +22,8 @@ public class ImpulseBehaviour : CharacterState
         var impulse = GetFinalImpulse();
         ApplyMomentumPreservation(impulse);
         body.ApplyImpulse(impulse);
+        
+        body.FixedUpdate();
     }
 
     private Vector2 GetFinalImpulse()

@@ -24,40 +24,74 @@ public enum TriggerButton
 
 public class InputTransitionBehaviour : CharacterState
 {
+    [Header("Buffer")] 
+    [SerializeField] public bool useBuffer = true;
+
     [Header("Direction")]
     [SerializeField] public TriggerDirection requiredDirection;
-    [SerializeField] public bool tolerateDiagonals;
-    
-    [Header("Button")]
+    [SerializeField] public bool expandedTriggerAngle;
+    [SerializeField] public bool requireTap;
+
+    [Header("Button")] 
     [SerializeField] public TriggerButton requiredButton;
-    
-    [Header("Transition")]
+
+    [Header("Transition")] 
     [SerializeField] public CharacterState next;
+
+    private Vector2 lastDirection = Vector2.zero;
 
     public override void Process()
     {
-        if (IsButtonTriggered() && IsDirectionTriggered())
-            machine.TransitionTo(next);
+        Run();
     }
 
-    public bool IsButtonTriggered() => requiredButton switch
+    private void Run()
+    {
+        if (useBuffer && InputBufferTriggers())
+        {
+            inputBuffer.Consume();
+            TransitionToNext();
+            return;
+        }
+
+        if (CurrentInputTriggers())
+            TransitionToNext();
+
+        lastDirection = input.GetDirection();
+    }
+
+    public void TransitionToNext()
+    {
+        machine.TransitionTo(next);
+    }
+
+    public bool CurrentInputTriggers() =>
+        DirectionTriggers(input.GetDirection()) && (!requireTap || !DirectionTriggers(lastDirection))
+                                                && ButtonCombinationTriggers(input.IsAttackJustPressed(),
+                                                    input.IsSpecialJustPressed());
+
+    public bool InputBufferTriggers() => inputBuffer.Current is not null
+                                         && DirectionTriggers(inputBuffer.Current.direction)
+                                         && ButtonCombinationTriggers(inputBuffer.Current.isAttackJustPressed,
+                                             inputBuffer.Current.isSpecialJustPressed);
+
+    public bool ButtonCombinationTriggers(bool attack, bool special) => requiredButton switch
     {
         TriggerButton.None => true,
-        TriggerButton.Attack => input.IsAttackJustPressed(),
-        TriggerButton.Special => input.IsSpecialJustPressed(),
-        TriggerButton.Any => input.IsAttackJustPressed() || input.IsSpecialJustPressed()
+        TriggerButton.Attack => attack,
+        TriggerButton.Special => special,
+        TriggerButton.Any => attack || special
     };
 
-    public bool IsDirectionTriggered() => requiredDirection switch
+    public bool DirectionTriggers(Vector2 direction) => requiredDirection switch
     {
         TriggerDirection.None => true,
-        TriggerDirection.Neutral => input.GetDirection().sqrMagnitude <= 0.001f,
-        _ => Vector2.Dot(input.GetDirection(), GetDirection()) >= (tolerateDiagonals ? 0.01f : 0.99f)
+        TriggerDirection.Neutral => direction.sqrMagnitude < 0.01f,
+        _ => Vector2.Dot(direction, RequiredDirection) >= (expandedTriggerAngle ? 0.001f : 0.999f)
     };
 
-    public Vector2 GetDirection() => requiredDirection switch
+    public Vector2 RequiredDirection => requiredDirection switch
     {
-        TriggerDirection.Neutral => Vector2.zero,
         TriggerDirection.Up => Vector2.up,
         TriggerDirection.Down => Vector2.down,
         TriggerDirection.Backward => Vector2.left * Mathf.Sign(transform.lossyScale.x),

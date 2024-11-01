@@ -5,11 +5,13 @@ public class CharacterStateMachine : StateMachine<CharacterState>
 {
     private CharacterBody2D body;
     private InputSystem input;
+    private InputBuffer inputBuffer;
 
     private void Awake()
     {
         body = GetComponent<CharacterBody2D>();
         input = GetComponent<InputSystem>();
+        inputBuffer = GetComponent<InputBuffer>();
     }
     
     protected override void OnStart() {
@@ -31,6 +33,7 @@ public class CharacterStateMachine : StateMachine<CharacterState>
         Current.machine = this;
         Current.body = body;
         Current.input = input;
+        Current.inputBuffer = inputBuffer;
         
         Debug.Log(Current.name);
     }

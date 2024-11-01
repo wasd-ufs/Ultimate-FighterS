@@ -162,8 +162,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d629ecc61e064efd8351c01a93e0ab96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useBuffer: 1
   requiredDirection: 0
-  tolerateDiagonals: 0
+  expandedTriggerAngle: 0
+  requireTap: 0
   requiredButton: 1
   next: {fileID: 1102306030410825788}
 --- !u!114 &6062580711564011682
@@ -178,8 +180,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d629ecc61e064efd8351c01a93e0ab96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useBuffer: 1
   requiredDirection: 1
-  tolerateDiagonals: 0
+  expandedTriggerAngle: 0
+  requireTap: 0
   requiredButton: 1
   next: {fileID: 4198629161054093166}
 --- !u!114 &8726263576789525712
@@ -194,8 +198,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d629ecc61e064efd8351c01a93e0ab96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useBuffer: 1
   requiredDirection: 2
-  tolerateDiagonals: 0
+  expandedTriggerAngle: 0
+  requireTap: 0
   requiredButton: 1
   next: {fileID: 7261120399870271470}
 --- !u!114 &464490692968376007
@@ -210,8 +216,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d629ecc61e064efd8351c01a93e0ab96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useBuffer: 1
   requiredDirection: 4
-  tolerateDiagonals: 0
+  expandedTriggerAngle: 1
+  requireTap: 0
   requiredButton: 1
   next: {fileID: 1546553246832382857}
 --- !u!114 &3865969485689115139
@@ -226,8 +234,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d629ecc61e064efd8351c01a93e0ab96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useBuffer: 1
   requiredDirection: 3
-  tolerateDiagonals: 0
+  expandedTriggerAngle: 1
+  requireTap: 0
   requiredButton: 1
   next: {fileID: 1465002901699772689}
 --- !u!1 &4285320876392151845

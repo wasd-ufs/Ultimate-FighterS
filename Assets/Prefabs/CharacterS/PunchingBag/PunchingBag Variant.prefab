@@ -48,6 +48,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1324499019273443384, guid: 43eeb80d3ccdfc5aa99d15cf8c512af8, type: 3}
+      propertyPath: input
+      value: 
+      objectReference: {fileID: 7456100072389511617}
+    - target: {fileID: 2397835525414195255, guid: 43eeb80d3ccdfc5aa99d15cf8c512af8, type: 3}
+      propertyPath: impulse.x
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 2397835525414195255, guid: 43eeb80d3ccdfc5aa99d15cf8c512af8, type: 3}
+      propertyPath: impulse.y
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 3500246076725762249, guid: 43eeb80d3ccdfc5aa99d15cf8c512af8, type: 3}
       propertyPath: id
       value: -1
@@ -55,6 +67,14 @@ PrefabInstance:
     - target: {fileID: 4629247810697484828, guid: 43eeb80d3ccdfc5aa99d15cf8c512af8, type: 3}
       propertyPath: m_Name
       value: PunchingBag Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 7121002408631832829, guid: 43eeb80d3ccdfc5aa99d15cf8c512af8, type: 3}
+      propertyPath: impulse.y
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 7121002408631832829, guid: 43eeb80d3ccdfc5aa99d15cf8c512af8, type: 3}
+      propertyPath: momentumPreservation
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4609498569868959970, guid: 43eeb80d3ccdfc5aa99d15cf8c512af8, type: 3}

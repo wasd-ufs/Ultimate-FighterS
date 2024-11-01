@@ -13,6 +13,7 @@ public class CompositeState : CharacterState
 
     // All States used by the composite
     private HashSet<CharacterState> states = new();
+    private bool skip;
 
     private void Awake()
     {
@@ -24,6 +25,8 @@ public class CompositeState : CharacterState
 
     private void GrabStates()
     {
+        states.Clear();
+        
         var local = GetComponents<CharacterState>().ToList();
         local.Remove(this);
         
@@ -42,6 +45,7 @@ public class CompositeState : CharacterState
         state.body = body;
         state.input = input;
         state.machine = machine;
+        state.inputBuffer = inputBuffer;
     }
 
     private void ForEachState(Action<CharacterState> action)
@@ -50,11 +54,15 @@ public class CompositeState : CharacterState
         {
             Configure(state);
             action(state);
+            
+            if (skip)
+                break;
         }
     }
     
     public override void Enter()
     {
+        skip = false;
         ForEachState(Configure);
         ForEachState(state => state.Enter());
     }
@@ -62,6 +70,7 @@ public class CompositeState : CharacterState
     public override void Exit()
     {
         ForEachState(state => state.Exit());
+        skip = true;
     }
 
     public override void Process()
