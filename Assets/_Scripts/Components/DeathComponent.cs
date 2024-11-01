@@ -2,7 +2,7 @@
 using UnityEngine.Events;
 public class DeathComponent : MonoBehaviour
 {
-    public UnityEvent onDeath;
+    [HideInInspector] public UnityEvent onDeath;
 
     public void Kill()
     {

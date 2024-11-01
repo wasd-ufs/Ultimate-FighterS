@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/_Scripts/Camera.meta
 guid: 9cc7c0bc7594dfb50a3fa1dbef013dae
+========
+guid: 04715ae30a5748515a873a98cae1579c
+>>>>>>>> origin/feature/actionrefactor:Assets/GameFolder/Prefabs/Hazards.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

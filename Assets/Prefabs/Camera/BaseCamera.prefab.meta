@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Prefabs/Camera/BaseCamera.prefab.meta
 guid: 2d3aa934b0f2ae74cb961ab402fbff3c
+========
+guid: 9a0d3459ca0dccf28b3364aa0c1351d7
+>>>>>>>> origin/feature/actionrefactor:Assets/GameFolder/Prefabs/CharacterS/Pixel/AerialAttacks/DownAir.prefab.meta
 PrefabImporter:
   externalObjects: {}
   userData: 

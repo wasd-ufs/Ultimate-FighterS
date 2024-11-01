@@ -4,7 +4,7 @@ using UnityEngine.Events;
 
 public class Hurtbox : OwnedComponent
 {
-    [SerializeField] private UnityEvent<GameObject> onHitBoxDetected;
+    [SerializeField] public UnityEvent<GameObject> onHitBoxDetected = new();
     public bool isInvincible;
     
     public void OnHurted(GameObject hitbox)

@@ -1,27 +1,30 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class HitlagComponent : CharacterState
 {
-    [Header ("References")] 
-    [SerializeField] private HitlagState hitlagstate;
-    [SerializeField] private StateMachine<CharacterState> stateMachine;
-    public UnityEvent<float> onHitlag;
+    [SerializeField] private CharacterState hitlagstate;
+    [HideInInspector] public UnityEvent<float> onHitlag;
     
-    public void Apply(float durationHitlag, bool withoutStateChange = false)
+    private Timer hitlagTimer;
+    private StateMachine<CharacterState> stateMachine;
+    
+
+    public void Start()
+    {
+        hitlagTimer = hitlagstate.GetComponent<Timer>();
+        stateMachine = GetComponent<StateMachine<CharacterState>>();
+    }
+
+    public void Apply(float durationHitlag)
     {
         if (hitlagstate != null && stateMachine != null) {
-            if (withoutStateChange)
-            {
-                lag.waitTime = durationHitlag;
-                lag.Init();
-                onHitlag.Invoke(durationHitlag);
-                return;
-            }
-            
-            hitlagstate.SetHitlagTime(durationHitlag);
-            stateMachine.TransitionTo(hitlagstate);
-            onHitlag.Invoke(durationHitlag);
+             hitlagTimer.waitTime = durationHitlag;
+             hitlagTimer.Init();
+             
+             stateMachine.TransitionTo(hitlagstate);
+             onHitlag.Invoke(durationHitlag);
         }
     }
 }

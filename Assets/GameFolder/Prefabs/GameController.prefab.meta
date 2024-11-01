@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/GameFolder/Prefabs/GameController.prefab.meta
 guid: 1656cbbf02e43ef46a4ebfe769bf78b3
+========
+guid: 63449ad64b2c954a08467966bdad4f14
+>>>>>>>> origin/feature/actionrefactor:Assets/GameFolder/Prefabs/CharacterS/Pixel/AerialAttacks/BackAir Variant.prefab.meta
 PrefabImporter:
   externalObjects: {}
   userData: 
