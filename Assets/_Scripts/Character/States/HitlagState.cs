@@ -50,7 +50,6 @@ public class HitlagState : CharacterState
 
         if (timer >= TimeInHitlag) 
         {
-            lag.lagTrigger = false;
             machine.TransitionTo(airborne);
         }
     }
@@ -62,9 +61,6 @@ public class HitlagState : CharacterState
 
     public void SetHitlagTime(float time)
     {
-        if (lag.lagTrigger)
-        {
-            TimeInHitlag = time;
-        }
+        TimeInHitlag = time;
     }
 }

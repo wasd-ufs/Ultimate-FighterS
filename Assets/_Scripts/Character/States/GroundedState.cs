@@ -39,9 +39,6 @@ public class GroundedState : CharacterState
     
     public override void Process()
     {
-
-        lag.OnLag(machine);
-
         if (input.IsSpecialJustPressed())
         {
             body.SetSpeed(body.Up, jumpForce);
