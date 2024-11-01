@@ -1,9 +1,9 @@
 using System;
+//using Unity.XR.OpenVR;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 using UnityEngine.TextCore.Text;
-
-
 
 public class DecoratedCharacterState : CharacterState
 {
