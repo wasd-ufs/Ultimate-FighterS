@@ -20,11 +20,20 @@ public class SurfaceTransitionBehaviour : CharacterState
     [SerializeField] public LandingType type;
     [SerializeField] public CharacterState next;
 
+    public override void Enter()
+    {
+        if (Landed())
+            machine.TransitionTo(next);
+    }
+
     public override void PhysicsProcess()
     {
-        if ((IsOnLand() && type == LandingType.Entering) || (!IsOnLand() && type == LandingType.Exiting))
-                machine.TransitionTo(next);
+        if (Landed())
+            machine.TransitionTo(next);
     }
+
+    private bool Landed() =>
+        (IsOnLand() && type == LandingType.Entering) || (!IsOnLand() && type == LandingType.Exiting);
     
     public bool IsOnLand() => land switch
     {

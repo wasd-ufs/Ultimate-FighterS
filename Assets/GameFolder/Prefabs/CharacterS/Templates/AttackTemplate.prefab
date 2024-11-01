@@ -94,6 +94,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   foreignStates: []
+  automaticallyIncludeChildren: 0
 --- !u!114 &7204561742370758909
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -106,8 +107,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d629ecc61e064efd8351c01a93e0ab96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useBuffer: 0
   requiredDirection: 8
-  tolerateDiagonals: 0
+  requireTap: 0
   requiredButton: 1
   next: {fileID: 4255577477706786224}
 --- !u!1 &1629626867989694679
@@ -248,6 +250,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   foreignStates: []
+  automaticallyIncludeChildren: 0
 --- !u!114 &451378001806278474
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -359,6 +362,7 @@ MonoBehaviour:
   foreignStates:
   - {fileID: 8119326486112172377}
   - {fileID: 5472273108290600331}
+  automaticallyIncludeChildren: 0
 --- !u!95 &198241541361385324
 Animator:
   serializedVersion: 5

@@ -20,6 +20,7 @@ public class ConditionalBehaviour : CharacterState
         state.machine = machine;
         state.body = body;
         state.input = input;
+        state.inputBuffer = inputBuffer;
     }
     
     public override void Enter()

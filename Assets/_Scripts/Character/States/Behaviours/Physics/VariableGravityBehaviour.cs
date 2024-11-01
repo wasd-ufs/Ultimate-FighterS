@@ -13,14 +13,15 @@ public class VariableGravityBehaviour : CharacterState
 
     public override void Enter()
     {
-        isFastFalling = !(input.IsAttackBeingHeld() || input.IsSpecialBeingHeld()) || input.GetDirection().sqrMagnitude < 0.01f;
+        isFastFalling = false;
     }
 
     public override void PhysicsProcess()
     {
         isFastFalling = ShouldFastFall();
+        
         if (isFastFalling && body.IsGoingUp())
-            body.Accelerate(body.Down * fastFallGravity * Mathf.Pow(body.GetSpeedUp() / gravityRelaxationThreshold, 2));
+            body.Accelerate(body.Down * heavyGravity);
         
         var gravity = isFastFalling ? fastFallGravity 
             : body.GetSpeedUp() > gravityRelaxationThreshold ? heavyGravity
@@ -29,7 +30,7 @@ public class VariableGravityBehaviour : CharacterState
         body.Accelerate(body.Down * gravity);
     }
     
-    public bool ShouldFastFall() => body.IsGoingDown() 
+    public bool ShouldFastFall() => isFastFalling || body.IsGoingDown() 
         || !(input.IsSpecialBeingHeld() || input.IsAttackBeingHeld() || InputPointsUp());
     
     public bool InputPointsUp() => Vector2.Dot(input.GetDirection(), body.Up) > 0f;

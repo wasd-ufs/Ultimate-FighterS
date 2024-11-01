@@ -1,28 +1,37 @@
 using System;
 using UnityEngine;
 
+[RequireComponent(typeof(Timer))]
 public class TimedTransitionBehaviour : CharacterState
 {
     [SerializeField] private CharacterState next;
-    [SerializeField] private Timer timer;
+    private Timer timer;
     private bool skip;
 
     private void Awake()
     {
-        timer ??= GetComponent<Timer>();
+        timer = GetComponent<Timer>();
         timer.onTimerFinish.AddListener(OnTimerFinish);
+        skip = true;
     }
 
     public override void Enter()
     {
-        timer.Init();
         skip = false;
+        timer.Init();
+        
+        timer.enabled = true;
+    }
+
+    public override void Process()
+    {
+        timer.Update();
     }
 
     public override void Exit()
     {
-        if (!timer.IsFinished())
-            skip = true;
+        skip = true;
+        timer.enabled = false;
     }
 
     private void OnTimerFinish()

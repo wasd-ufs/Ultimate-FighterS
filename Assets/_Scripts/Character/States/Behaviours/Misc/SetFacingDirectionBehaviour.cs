@@ -1,0 +1,37 @@
+using UnityEngine;
+
+public enum FacingDirection
+{
+    Left,
+    Right,
+    WallNormal
+}
+
+public class SetFacingDirectionBehaviour : CharacterState
+{
+    [SerializeField] private FacingDirection facingDirection;
+
+    public override void Enter()
+    {
+        if (IsFacingAway())
+            Flip();
+    }
+    
+    private bool IsFacingAway() => facingDirection switch
+    {
+        FacingDirection.Left => body.transform.localScale.x > 0,
+        FacingDirection.Right => body.transform.localScale.x < 0,
+        FacingDirection.WallNormal => GetWallNormal().x * body.transform.localScale.x < 0
+    };
+
+    private Vector2 GetWallNormal() => (body.IsOnLeftWall())
+        ? body.LeftWallNormal
+        : body.RightWallNormal;
+    
+    private void Flip()
+    {
+        Vector2 scale = body.transform.localScale;
+        scale.x *= -1;
+        body.transform.localScale = scale;
+    }
+}

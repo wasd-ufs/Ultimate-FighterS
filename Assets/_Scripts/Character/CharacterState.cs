@@ -5,6 +5,7 @@ public abstract class CharacterState : State
     public StateMachine<CharacterState> machine { get; set; }
     public InputSystem input { get; set; }
     public CharacterBody2D body { get; set; }
+    public InputBuffer inputBuffer { get; set; }
 
     public virtual void Process() {}
 
