@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Prefabs.meta
+guid: 953d1924dad9793fc87fa799db05c5be
+========
+guid: a1d46866ec160a8d792ddf6c347a2ffd
+>>>>>>>> origin/feature/actionrefactor:Assets/GameFolder/Prefabs/CharacterS.meta
+folderAsset: yes
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

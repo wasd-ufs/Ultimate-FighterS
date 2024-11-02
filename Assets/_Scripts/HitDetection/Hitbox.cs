@@ -5,13 +5,8 @@ using UnityEngine.Events;
 
 public class Hitbox : OwnedComponent
 {
-    [SerializeField] private UnityEvent<GameObject> onHurtboxDetected;
+    [SerializeField] public UnityEvent<GameObject> onHurtboxDetected = new();
     private readonly List<GameObject> objectsHitThisFrame = new();
-
-    private void FixedUpdate()
-    {
-        objectsHitThisFrame.Clear();
-    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -25,5 +20,10 @@ public class Hitbox : OwnedComponent
         objectsHitThisFrame.Add(hurtbox.Owner);
         if (!hurtbox.isInvincible) onHurtboxDetected.Invoke(hurtbox.Owner);
         hurtbox.OnHurted(Owner);
+    }
+
+    private void OnEnable()
+    {
+        objectsHitThisFrame.Clear();
     }
 }

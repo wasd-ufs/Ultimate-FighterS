@@ -1,0 +1,11 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Prefabs/CharacterS/Pixel/AerialAttacks/BackAir Variant.prefab.meta
+guid: 63449ad64b2c954a08467966bdad4f14
+========
+guid: 9557fa56b10e5f415a82e03b177780eb
+>>>>>>>> origin/feature/actionrefactor:Assets/GameFolder/Prefabs/CharacterS/Pixel/AerialAttacks/ForwardAerial Variant.prefab.meta
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

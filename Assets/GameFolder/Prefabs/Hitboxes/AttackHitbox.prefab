@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 7193288834425144981}
   - component: {fileID: 8092085097568009884}
   - component: {fileID: 983514370275189481}
+  - component: {fileID: 8831089178331489526}
   - component: {fileID: 5260456630257636301}
   - component: {fileID: 2227210819704976558}
-  - component: {fileID: 8831089178331489526}
   m_Layer: 0
   m_Name: AttackHitbox
   m_TagString: Untagged
@@ -139,6 +139,18 @@ MonoBehaviour:
   onHurtboxDetected:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 8831089178331489526}
+        m_TargetAssemblyTypeName: DamageEffect, Assembly-CSharp
+        m_MethodName: Apply
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 5260456630257636301}
         m_TargetAssemblyTypeName: DamageEffect, Assembly-CSharp
         m_MethodName: Apply
@@ -163,18 +175,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 8831089178331489526}
-        m_TargetAssemblyTypeName: DamageEffect, Assembly-CSharp
-        m_MethodName: Apply
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+--- !u!114 &8831089178331489526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8832989050919262465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d25ed745755c35199b496e4a4fddf84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lagTime: 0
 --- !u!114 &5260456630257636301
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -201,17 +214,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   knockback: {x: 0, y: 0}
-  applyObjectTransform: 0
---- !u!114 &8831089178331489526
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8832989050919262465}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d25ed745755c35199b496e4a4fddf84, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lagTime: 0
+  applyObjectScale: 1

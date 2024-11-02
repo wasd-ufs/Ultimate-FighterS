@@ -1,13 +1,5 @@
 fileFormatVersion: 2
-<<<<<<< HEAD:Assets/GameFolder/Prefabs/Mario - Fast.meta
-<<<<<<< HEAD:Assets/GameFolder/Prefabs/Mario - Fast.meta
-guid: 38166883b4ba4904ba7bd5ac09c44445
-=======
 guid: 71a74263dfce4b945901c8d6b6aa38f7
->>>>>>> 37a9b80 (application of class Facingdirection in CharacterState, CharacterStateMachine,  AirborneState, GroundedState,  WallState):Assets/Prefabs/Mario - Fast.meta
-=======
-guid: 71a74263dfce4b945901c8d6b6aa38f7
->>>>>>> 37a9b80f8fd1ceff7a5e3c84898e4f9d0ca303f1:Assets/Prefabs/Mario - Fast.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
