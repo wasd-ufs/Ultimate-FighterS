@@ -36,20 +36,17 @@ public class MatchManager : MonoBehaviour
         foreach (var point in GameObject.FindGameObjectsWithTag(SpawnPointTag))
             availableSpawnPoints.Push(point.transform);
         
-        Instantiate(MatchConfiguration.GameModePrefab);
-        OnMatchStarting.Invoke();
-
-        var spawnPointCount = availableSpawnPoints.Count;
-        try
+        if (availableSpawnPoints.Count < MatchConfiguration.PlayersPrefabs.Count)
         {
-            foreach (var pair in MatchConfiguration.PlayersPrefabs)
-                AddPlayer(pair.Key, pair.Value, availableSpawnPoints.Pop());
-        }
-        catch (Exception e)
-        {
-            Debug.LogError($"Insufficient number of spawn points. Please Add More. Count = {spawnPointCount}");
+            Debug.LogError($"Not enough spawn points for all players! Point Count = {availableSpawnPoints.Count}. Player Count = {MatchConfiguration.PlayersPrefabs.Count}");
             return;
         }
+        
+        Instantiate(MatchConfiguration.GameModePrefab);
+        OnMatchStarting.Invoke();
+        
+        foreach (var pair in MatchConfiguration.PlayersPrefabs)
+            AddPlayer(pair.Key, pair.Value, availableSpawnPoints.Pop());
         
         SpawnAllPlayers();
     }
@@ -143,6 +140,13 @@ public class MatchManager : MonoBehaviour
             players.OnPlayerKilled.RemoveAllListeners();
         }
         
+        OnMatchStarting.RemoveAllListeners();
+        OnMatchEnding.RemoveAllListeners();
+        OnPlayerEntering.RemoveAllListeners();
+        OnPlayerExiting.RemoveAllListeners();
+        OnPlayerSpawned.RemoveAllListeners();
+        OnPlayerKilled.RemoveAllListeners();
+        
         OnMatchEnding.Invoke();
         SceneManager.LoadScene(EndMatchSceneIndex);
     }
@@ -150,8 +154,8 @@ public class MatchManager : MonoBehaviour
 
 public class ActivePlayer
 {
-    public UnityEvent OnPlayerSpawned = new();
-    public UnityEvent OnPlayerKilled = new();
+    public readonly UnityEvent OnPlayerSpawned = new();
+    public readonly UnityEvent OnPlayerKilled = new();
     
     public int Port { get; private set; }
     public GameObject InGameObject { get; private set; }
