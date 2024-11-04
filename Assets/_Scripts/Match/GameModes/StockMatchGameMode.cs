@@ -30,10 +30,10 @@ public class StockMatchGameMode : GameMode
         if (stockCounts[player.Port] <= 0)
         {
             MatchManager.RemovePlayer(player.Port);
-            
-            if (stockCounts.Count == 0)
+
+            if (stockCounts.Count <= 1)
                 MatchManager.EndMatch();
-            
+
             return;
         }
         

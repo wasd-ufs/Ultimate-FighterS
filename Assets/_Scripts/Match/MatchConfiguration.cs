@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MatchConfiguration
 {
-    public static int Scene;
-    public static GameObject GameModePrefab;
-    public static Dictionary<int, GameObject> PlayersPrefabs;
+    public static int Scene = 0;
+    public static GameObject GameModePrefab = null;
+    public static Dictionary<int, GameObject> PlayersPrefabs = new();
 }

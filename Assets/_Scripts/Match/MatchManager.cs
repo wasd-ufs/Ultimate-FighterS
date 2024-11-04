@@ -22,7 +22,7 @@ public class MatchManager : MonoBehaviour
     
     private static Dictionary<int, ActivePlayer> activePlayers = new();
 
-    private void Awake()
+    private void Start()
     {
         StartMatch();
     }
@@ -35,10 +35,13 @@ public class MatchManager : MonoBehaviour
         foreach (var point in GameObject.FindGameObjectsWithTag(SpawnPointTag))
             availableSpawnPoints.Push(point.transform);
         
+        Instantiate(MatchConfiguration.GameModePrefab);
+        OnMatchStarting.Invoke();
+        
         foreach (var pair in MatchConfiguration.PlayersPrefabs)
             AddPlayer(pair.Key, pair.Value, availableSpawnPoints.Pop());
         
-        OnMatchStarting.Invoke();
+        SpawnAllPlayers();
     }
     
     private static void AddPlayer(int port, GameObject prefab, Transform spawnPoint)
@@ -92,6 +95,12 @@ public class MatchManager : MonoBehaviour
     {
         KillPlayer(port);
         SpawnPlayer(port);
+    }
+
+    private static void SpawnAllPlayers()
+    {
+        foreach (var player in activePlayers.Values)
+            player.Spawn();
     }
     
     public static void SpawnPlayer(int port)

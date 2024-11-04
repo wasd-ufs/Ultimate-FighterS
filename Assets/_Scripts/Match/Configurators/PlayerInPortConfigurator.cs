@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayersInMatchConfigurator : MatchConfigurator
+public class PlayerInPortConfigurator : MatchConfigurator
 {
     [SerializeField] public int port;
     [SerializeField] public GameObject prefab;
