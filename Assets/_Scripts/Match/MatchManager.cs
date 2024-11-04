@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
@@ -37,9 +38,18 @@ public class MatchManager : MonoBehaviour
         
         Instantiate(MatchConfiguration.GameModePrefab);
         OnMatchStarting.Invoke();
-        
-        foreach (var pair in MatchConfiguration.PlayersPrefabs)
-            AddPlayer(pair.Key, pair.Value, availableSpawnPoints.Pop());
+
+        var spawnPointCount = availableSpawnPoints.Count;
+        try
+        {
+            foreach (var pair in MatchConfiguration.PlayersPrefabs)
+                AddPlayer(pair.Key, pair.Value, availableSpawnPoints.Pop());
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"Insufficient number of spawn points. Please Add More. Count = {spawnPointCount}");
+            return;
+        }
         
         SpawnAllPlayers();
     }
