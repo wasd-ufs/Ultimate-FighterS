@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class PlayersInMatchConfigurator : MatchConfigurator
 {
-    [SerializeField] public List<GameObject> PlayersPrefabs;
+    [SerializeField] public int port;
+    [SerializeField] public GameObject prefab;
 
     public override void Configure()
     {
-        MatchConfiguration.PlayersPrefabs = PlayersPrefabs;
+        MatchConfiguration.PlayersPrefabs[port] = prefab;
     }
 }

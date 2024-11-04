@@ -5,6 +5,6 @@ using UnityEngine;
 public class MatchConfiguration
 {
     public static int Scene;
-    public static GameObject GamemodePrefab;
-    public static List<GameObject> PlayersPrefabs;
+    public static GameObject GameModePrefab;
+    public static Dictionary<int, GameObject> PlayersPrefabs;
 }

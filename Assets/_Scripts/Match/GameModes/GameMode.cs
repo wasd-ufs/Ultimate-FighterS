@@ -5,14 +5,18 @@ public abstract class GameMode : MonoBehaviour
 {
     private void Awake()
     {
+        MatchManager.OnMatchStarting.AddListener(OnMatchStarting);
+        MatchManager.OnMatchEnding.AddListener(OnMatchEnding);
         MatchManager.OnPlayerEntering.AddListener(OnPlayerEntering);
         MatchManager.OnPlayerExiting.AddListener(OnPlayerExiting);
-        MatchManager.OnPlayerRespawned.AddListener(OnPlayerRespawned);
-        DeathComponent.OnPlayerDeath.AddListener(OnPlayerDeath);
+        MatchManager.OnPlayerSpawned.AddListener(OnPlayerSpawned);
+        MatchManager.OnPlayerKilled.AddListener(OnPlayerKilled);
     }
 
-    protected virtual void OnPlayerEntering(GameObject player) {}
-    protected virtual void OnPlayerExiting(GameObject player) {}
-    protected virtual void OnPlayerRespawned(GameObject player) {}
-    protected virtual void OnPlayerDeath(GameObject player) {}
+    protected virtual void OnMatchStarting() {}
+    protected virtual void OnMatchEnding() {}
+    protected virtual void OnPlayerEntering(ActivePlayer player) {}
+    protected virtual void OnPlayerExiting(ActivePlayer player) {}
+    protected virtual void OnPlayerSpawned(ActivePlayer player) {}
+    protected virtual void OnPlayerKilled(ActivePlayer player) {}
 }
