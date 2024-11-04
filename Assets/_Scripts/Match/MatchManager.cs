@@ -56,8 +56,9 @@ public class MatchManager : MonoBehaviour
 
     private static void RemoveAllPlayers()
     {
-        foreach (var player in activePlayers.Values)
-            RemovePlayer(player.Port);
+        var ports = activePlayers.Keys.ToArray();
+        foreach (var t in ports)
+            RemovePlayer(t);
     }
 
     public static void RemovePlayer(GameObject player)
