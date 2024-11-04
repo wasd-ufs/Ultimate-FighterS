@@ -8,6 +8,6 @@ public class MatchManagerConfigurator : MatchConfigurator
 
     public override void Configure()
     {
-        MatchConfiguration.ManagerPrefab = ManagerPrefab;
+        MatchConfiguration.GamemodePrefab = ManagerPrefab;
     }
 }

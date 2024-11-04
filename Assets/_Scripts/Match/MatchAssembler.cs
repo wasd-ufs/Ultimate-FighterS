@@ -4,19 +4,21 @@ using UnityEngine;
 
 public class MatchAssembler : MonoBehaviour
 {
-    private GameObject currentPlayer;
-    private GameObject[] spawnPoints;
-    private int i = 0;
-
     private void Awake()
     {
-        spawnPoints = GameObject.FindGameObjectsWithTag("StartPosition");
         Instantiate(MatchConfiguration.ManagerPrefab);
+        
+        GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag("StartPosition");
 
+        int i = 0;
         foreach (GameObject player in MatchConfiguration.PlayersPrefabs)
         {
-            currentPlayer = Instantiate(player, spawnPoints[i].transform);
-            currentPlayer.TryGetComponent<IdComponent>(out IdComponent idComponent);
+            var currentPlayer = Instantiate(player, spawnPoints[i].transform);
+            var idComponent = currentPlayer.GetComponent<IdComponent>();
+            
+            if (idComponent is null)
+                continue;
+            
             idComponent.id = i;
             i++;
         }
