@@ -3,7 +3,7 @@ using UnityEngine.Events;
 
 public class DamageComponent : MonoBehaviour
 {
-    [SerializeField] private float currentDamage;
+    public float currentDamage;
     public UnityEvent<float> onDamageUpdate;
     
     public float CurrentDamage => currentDamage;

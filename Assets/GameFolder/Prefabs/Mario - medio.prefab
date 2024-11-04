@@ -268,6 +268,9 @@ MonoBehaviour:
   deceleration: 8.3333
   maxMoveSpeed: 5
   maxOverspeed: 5
+  attacks: {fileID: 0}
+  specials: {fileID: 0}
+  executor: {fileID: 0}
 --- !u!114 &3026872050856032504
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -287,6 +290,8 @@ MonoBehaviour:
   maxSpeed: 7
   overspeedDeceleration: 21
   jumpForce: 20
+  attacks: {fileID: 0}
+  executor: {fileID: 0}
 --- !u!114 &194419769373737790
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -398,7 +403,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70b9b09dbe5b05142bee45174af72b88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  owner: {fileID: 7754707305022616863}
   onHitBoxDetected:
     m_PersistentCalls:
       m_Calls: []
+  isInvincible: 0
