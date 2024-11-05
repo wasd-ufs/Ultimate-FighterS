@@ -21,7 +21,7 @@ public class MatchManager : MonoBehaviour
     public static readonly UnityEvent<ActivePlayer> OnPlayerEntering = new();
     public static readonly UnityEvent<ActivePlayer> OnPlayerExiting = new();
     
-    private static Dictionary<int, ActivePlayer> activePlayers = new();
+    private static readonly Dictionary<int, ActivePlayer> activePlayers = new();
 
     private void Start()
     {
@@ -113,8 +113,8 @@ public class MatchManager : MonoBehaviour
     
     public static void SpawnPlayer(int port)
     {
-        if (activePlayers.ContainsKey(port))
-            activePlayers[port].Spawn();
+        if (activePlayers.TryGetValue(port, out var player))
+            player.Spawn();
     }
 
     public static void KillPlayer(GameObject player)
@@ -128,8 +128,8 @@ public class MatchManager : MonoBehaviour
 
     public static void KillPlayer(int port)
     {
-        if (activePlayers.ContainsKey(port))
-            activePlayers[port].Kill();
+        if (activePlayers.TryGetValue(port, out var player))
+            player.Kill();
     }
 
     public static void EndMatch()
