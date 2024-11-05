@@ -3,14 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Timer))]
 public class InputBuffer : MonoBehaviour
 {
-    [SerializeField] private Timer timer;
     [SerializeField] private InputSystem input;
-    private InputSystemMemento current;
+    public InputSystemMemento Current { get; private set; }
+    private Timer timer;
 
-    void Start()
+    void Awake()
     {
+        timer = gameObject.GetComponent<Timer>();
         timer.onTimerFinish.AddListener(Consume);
     }
 
@@ -23,24 +25,24 @@ public class InputBuffer : MonoBehaviour
             Register();
     }
 
-    void Register()
+    public void Register()
     {
         timer.Init();
-        current = input.GetMemento();
+        Current = input.GetMemento();
     }
 
-    void Consume()
+    public void Consume()
     {
         timer.Finish();
-        current = null;
+        Current = null;
     }
 
-    void ConsumeIf(bool condition, Action<InputSystemMemento> beforeConsumption)
+    public void ConsumeIf(Func<InputSystemMemento, bool> condition, Action<InputSystemMemento> beforeConsumption)
     {
-        if (!condition || current == null)
+        if (Current == null || !condition(Current))
             return;
         
-        beforeConsumption(current);
+        beforeConsumption(Current);
         Consume();
     }
 }

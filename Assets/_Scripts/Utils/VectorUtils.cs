@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class VectorUtils
+public static class VectorUtils
 {
     public static Vector2 OnAxis(Vector2 axis, Vector2 toModify, Func<float, float> modification)
     {
@@ -23,7 +23,7 @@ public class VectorUtils
     public static Vector2 OnMagnitude(Vector2 toModify, Func<float, float> modification)
         => toModify.normalized * modification(toModify.magnitude);
     
-    public static Vector2 Avarage(List<Vector2> vectors) => vectors
+    public static Vector2 Average(List<Vector2> vectors) => vectors
         .Aggregate(Vector2.zero, (current, next) => current + next) / vectors.Count;
 
     public static Vector2 Orthogonal(Vector2 vector) => new Vector2(-vector.y, vector.x);
@@ -41,4 +41,11 @@ public class VectorUtils
     }
     
     public static float Wedge(Vector2 a, Vector2 b) => a.x * b.y - a.y * b.x;
+    
+    public static Vector2 Reflected(Vector2 vector, Vector2 normal) => vector - (2f * Vector2.Dot(vector, normal) * normal);
+    
+    public static Vector2 Sign(Vector2 a) => new(
+        (a.x < 0) ? -1 : (a.x > 0) ? 1 : 0,
+        (a.y < 0) ? -1 : (a.y > 0) ? 1 : 0
+    );
 }
