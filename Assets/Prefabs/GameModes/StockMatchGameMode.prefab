@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6273136623262161545}
   - component: {fileID: 6944712419125395970}
   m_Layer: 0
-  m_Name: ManagerPrefab
+  m_Name: StockMatchGameMode
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,5 +44,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7423a30d88313b4991151692d6fe251, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberOfStocks: 3
-  numberOfPlayers: 2
+  initialStockCount: 3

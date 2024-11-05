@@ -5,7 +5,16 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/GameFolder/Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/GameFolder/Scenes/Test/MatchConfiguration.unity
+    guid: 35dd6ce166a0118d0adc35fe28bc7628
+  - enabled: 1
+    path: Assets/GameFolder/Scenes/BigStage.unity
+    guid: 309a1ef1a9412c1fa847b09583011bfa
+  - enabled: 1
+    path: Assets/GameFolder/Scenes/SmallSizeLevel.unity
+    guid: 16ed26e347bf8891192f8522c9727d8e
   m_configObjects: {}
