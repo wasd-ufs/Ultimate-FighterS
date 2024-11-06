@@ -8,9 +8,6 @@ public class BounceBehaviour : CharacterState
     
     void Bounce(Vector2 normal)
     {
-        Debug.Log("Bounce");
-        Debug.Log(body.Velocity);
-
         if (body.Velocity.sqrMagnitude < 0.01f)
             return;
         
