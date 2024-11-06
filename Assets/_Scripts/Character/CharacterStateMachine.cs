@@ -34,8 +34,6 @@ public class CharacterStateMachine : StateMachine<CharacterState>
         Current.body = body;
         Current.input = input;
         Current.inputBuffer = inputBuffer;
-        
-        Debug.Log(Current.name);
     }
 
     private void Update()

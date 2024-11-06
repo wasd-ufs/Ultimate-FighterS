@@ -29,4 +29,9 @@ public class KnockbackComponent : MonoBehaviour
         0.4f + damage * 0.034f + damage * damage * 0.00001f - damage * damage * damage * 0.00000012f,
         0.6f + damage * 0.056f + damage * damage * 0.00018f - damage * damage * damage * 0.0000002f
     );
+
+    private void OnDestroy()
+    {
+        onKnockback.RemoveAllListeners();
+    }
 }

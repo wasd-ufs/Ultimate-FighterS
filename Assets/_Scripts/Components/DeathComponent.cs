@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.Events;
 public class DeathComponent : MonoBehaviour
 {
@@ -7,7 +8,11 @@ public class DeathComponent : MonoBehaviour
     public void Kill()
     {
         onDeath.Invoke();
-        GlobalEvents.onPlayerDied.Invoke(gameObject);
-        Destroy(gameObject);
+        MatchManager.KillPlayer(gameObject);
+    }
+
+    private void OnDestroy()
+    {
+        onDeath.RemoveAllListeners();
     }
 }

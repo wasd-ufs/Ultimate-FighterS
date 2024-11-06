@@ -5,7 +5,7 @@ using UnityEngine.Events;
 public class HitlagComponent : CharacterState
 {
     [SerializeField] private CharacterState hitlagstate;
-    [HideInInspector] public UnityEvent<float> onHitlag;
+    [HideInInspector] public UnityEvent<float> onHitlag = new();
     
     private Timer hitlagTimer;
     private StateMachine<CharacterState> stateMachine;
@@ -26,5 +26,10 @@ public class HitlagComponent : CharacterState
              stateMachine.TransitionTo(hitlagstate);
              onHitlag.Invoke(durationHitlag);
         }
+    }
+
+    public void OnDestroy()
+    {
+        onHitlag.RemoveAllListeners();
     }
 }
