@@ -4,7 +4,8 @@ public enum FacingDirection
 {
     Left,
     Right,
-    WallNormal
+    WallNormal,
+    Flip
 }
 
 public class SetFacingDirectionBehaviour : CharacterState
@@ -21,7 +22,8 @@ public class SetFacingDirectionBehaviour : CharacterState
     {
         FacingDirection.Left => body.transform.localScale.x > 0,
         FacingDirection.Right => body.transform.localScale.x < 0,
-        FacingDirection.WallNormal => GetWallNormal().x * body.transform.localScale.x < 0
+        FacingDirection.WallNormal => GetWallNormal().x * body.transform.localScale.x < 0,
+        FacingDirection.Flip => true
     };
 
     private Vector2 GetWallNormal() => (body.IsOnLeftWall())

@@ -16,8 +16,8 @@ public class MatchManager : MonoBehaviour
     public static readonly UnityEvent OnMatchStarting = new();
     public static readonly UnityEvent OnMatchEnding = new();
     
-    public static readonly UnityEvent<ActivePlayer> OnPlayerSpawned = new();
-    public static readonly UnityEvent<ActivePlayer> OnPlayerKilled = new();
+    public static readonly UnityEvent<ActivePlayer, GameObject> OnPlayerSpawned = new();
+    public static readonly UnityEvent<ActivePlayer, GameObject> OnPlayerKilled = new();
     public static readonly UnityEvent<ActivePlayer> OnPlayerEntering = new();
     public static readonly UnityEvent<ActivePlayer> OnPlayerExiting = new();
     
@@ -31,6 +31,8 @@ public class MatchManager : MonoBehaviour
     private static void StartMatch()
     {
         RemoveAllPlayers();
+
+        Instantiate(MatchConfiguration.ScenePrefab);
         
         Stack<Transform> availableSpawnPoints = new();
         foreach (var point in GameObject.FindGameObjectsWithTag(SpawnPointTag))
@@ -46,18 +48,19 @@ public class MatchManager : MonoBehaviour
         OnMatchStarting.Invoke();
         
         foreach (var pair in MatchConfiguration.PlayersPrefabs)
-            AddPlayer(pair.Key, pair.Value, availableSpawnPoints.Pop());
+            if (MatchConfiguration.PlayerInputTypes.TryGetValue(pair.Key, out var type))
+                AddPlayer(pair.Key, type, pair.Value, availableSpawnPoints.Pop());
         
         SpawnAllPlayers();
     }
     
-    private static void AddPlayer(int port, GameObject prefab, Transform spawnPoint)
+    private static void AddPlayer(int port, InputType input, GameObject prefab, Transform spawnPoint)
     {
-        var player = new ActivePlayer(port, prefab, spawnPoint);
+        var player = new ActivePlayer(port, input, prefab, spawnPoint);
         activePlayers[port] = player;
         
-        player.OnPlayerSpawned.AddListener(() => OnPlayerSpawned.Invoke(player));
-        player.OnPlayerKilled.AddListener(() => OnPlayerKilled.Invoke(player));
+        player.OnPlayerSpawned.AddListener(obj => OnPlayerSpawned.Invoke(player, obj));
+        player.OnPlayerKilled.AddListener(obj => OnPlayerKilled.Invoke(player, obj));
         OnPlayerEntering.Invoke(player);
     }
 
@@ -150,21 +153,33 @@ public class MatchManager : MonoBehaviour
         OnMatchEnding.Invoke();
         SceneManager.LoadScene(EndMatchSceneIndex);
     }
+
+    public static List<GameObject> GetAlivePlayers()
+    {
+        var players = new List<GameObject>();
+        foreach (var p in activePlayers.Values)
+            if (p.InGameObject is not null)
+                players.Add(p.InGameObject);
+        
+        return players;
+    }
 }
 
 public class ActivePlayer
 {
-    public readonly UnityEvent OnPlayerSpawned = new();
-    public readonly UnityEvent OnPlayerKilled = new();
+    public readonly UnityEvent<GameObject> OnPlayerSpawned = new();
+    public readonly UnityEvent<GameObject> OnPlayerKilled = new();
     
     public int Port { get; private set; }
+    public InputType Input { get; private set; }
     public GameObject InGameObject { get; private set; }
     public GameObject Prefab { get; private set; }
     public Transform SpawnPoint { get; private set; }
 
-    public ActivePlayer(int port, GameObject prefab, Transform spawnPoint)
+    public ActivePlayer(int port, InputType input, GameObject prefab, Transform spawnPoint)
     {
         Port = port;
+        Input = input;
         Prefab = prefab;
         SpawnPoint = spawnPoint;
         InGameObject = null;
@@ -184,7 +199,23 @@ public class ActivePlayer
         }
         
         idComponent.id = Port;
-        OnPlayerSpawned.Invoke();
+
+        var proxy = InGameObject.GetComponent<ProxyInputSystem>();
+        if (proxy is null)
+        {
+            Debug.LogError("No ProxyInputSystem attached to Player Prefab");
+            return;
+        }
+
+        proxy.input = Input switch
+        {
+            InputType.Player => InGameObject.AddComponent<PlayerInputSystem>(),
+            InputType.NoInput => InGameObject.AddComponent<NoInputSystem>(),
+            _ => throw new ArgumentOutOfRangeException()
+        };
+
+        var obj = InGameObject;
+        OnPlayerSpawned.Invoke(obj);
     }
 
     public void Kill()
@@ -192,9 +223,12 @@ public class ActivePlayer
         if (InGameObject is null)
             return;
 
+        var obj = InGameObject;
+        
         Object.Destroy(InGameObject);
         InGameObject = null;
         
-        OnPlayerKilled.Invoke();
+        OnPlayerKilled.Invoke(obj);
+        
     }
 }

@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class MatchStageConfigurator : MatchConfigurator
 {
-    [SerializeField] public int scene;
+    [SerializeField] public GameObject scene;
 
     public override void Configure()
     {
-        MatchConfiguration.Scene = scene;
+        MatchConfiguration.ScenePrefab = scene;
     }
 }
