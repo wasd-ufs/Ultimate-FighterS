@@ -4,19 +4,33 @@ using UnityEngine;
 
 public class PlayerInPortConfigurator : MatchConfigurator
 {
+    [SerializeField] public CharacterListManager characterListManager;
     [SerializeField] public int port;
-    [SerializeField] public GameObject prefab;
+    [SerializeField] public GameObject[] prefabs;
+    private GameObject selectedCharacter;
+
+    public void SelectCharacter()
+    {
+        selectedCharacter = prefabs[characterListManager.currentIndex];
+        Debug.Log("Port "+port+" selected "+selectedCharacter.name);
+    }
+
+    public void RemoveCharacter()
+    {
+        selectedCharacter = null;
+        Debug.Log("Port "+port+" removed");
+    }
 
     public override void Configure()
     {
-        if (prefab == null)
+        if (selectedCharacter == null)
         {
             MatchConfiguration.PlayersPrefabs.Remove(port);
             MatchConfiguration.PlayerInputTypes.Remove(port);
             return;
         }
-        
-        MatchConfiguration.PlayersPrefabs[port] = prefab;
+
+        MatchConfiguration.PlayersPrefabs[port] = selectedCharacter;
         MatchConfiguration.PlayerInputTypes[port] =
             MatchConfiguration.PlayerInputTypes.GetValueOrDefault(port, InputType.Player);
     }
