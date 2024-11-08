@@ -9,7 +9,7 @@ public class KnockbackComponent : MonoBehaviour
     private CharacterBody2D body;
     private DamageComponent damageComponent;
     
-    [HideInInspector] public UnityEvent<Vector2> onKnockback;
+    [HideInInspector] public UnityEvent<Knockback> onKnockback = new();
 
     public void Awake()
     {
@@ -17,21 +17,28 @@ public class KnockbackComponent : MonoBehaviour
         damageComponent = GetComponent<DamageComponent>();
     }
 
-    public void ApplyKnockback(Vector2 knockback)
+    public void ApplyKnockback(Knockback knockback)
     {
-        body.SkipSnappingFrame();
-        knockback *= KnockbackMultiplier(damageComponent.CurrentDamage);
-        body.SetVelocity(knockback);
+        body.SetVelocity(knockback.Impulse(damageComponent.CurrentDamage));
+        
+        Debug.Log(body.Velocity);
+        
         onKnockback.Invoke(knockback);
     }
+}
 
-    public Vector2 KnockbackMultiplier(float damage) => new(
-        0.4f + damage * 0.034f + damage * damage * 0.00001f - damage * damage * damage * 0.00000012f,
-        0.6f + damage * 0.056f + damage * damage * 0.00018f - damage * damage * damage * 0.0000002f
-    );
+[Serializable]
+public class Knockback
+{
+    public Vector2 direction;
+    public float setKnockback;
+    public float knockbackScaling;
 
-    private void OnDestroy()
-    {
-        onKnockback.RemoveAllListeners();
-    }
+    public Vector2 Impulse(float damage) =>
+        direction.normalized * (setKnockback + knockbackScaling * DamageToImpulseMultiplier(damage));
+    
+    public float DamageToImpulseMultiplier(float damage) => 0.5f
+        + damage * 0.0383f
+        + damage * damage * 0.0001f
+        + damage * damage * damage * -0.000001333f;
 }

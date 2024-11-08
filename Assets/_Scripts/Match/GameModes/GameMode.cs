@@ -17,6 +17,6 @@ public abstract class GameMode : MonoBehaviour
     protected virtual void OnMatchEnding() {}
     protected virtual void OnPlayerEntering(ActivePlayer player) {}
     protected virtual void OnPlayerExiting(ActivePlayer player) {}
-    protected virtual void OnPlayerSpawned(ActivePlayer player) {}
-    protected virtual void OnPlayerKilled(ActivePlayer player) {}
+    protected virtual void OnPlayerSpawned(ActivePlayer player, GameObject obj) {}
+    protected virtual void OnPlayerKilled(ActivePlayer player, GameObject obj) {}
 }

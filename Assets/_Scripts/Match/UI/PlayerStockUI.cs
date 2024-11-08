@@ -18,7 +18,6 @@ public class PlayerStockUI : MonoBehaviour
         
         _stock.Player.OnPlayerSpawned.AddListener(OnPlayerSpawned);
         _stock.Player.OnPlayerKilled.AddListener(OnPlayerKilled);
-        
         _stock.onStockUpdated.AddListener(OnStockUpdated);
         
         var rectTransform = GetComponent<RectTransform>();
@@ -26,12 +25,12 @@ public class PlayerStockUI : MonoBehaviour
         rectTransform.anchorMin = new Vector2(0.5f, 0f);
     }
 
-    private void OnPlayerSpawned()
+    private void OnPlayerSpawned(GameObject player)
     {
         Debug.Log("spawn");
         damageText.text = "0%";
         
-        var damageComponent = _stock.Player.InGameObject.GetComponent<DamageComponent>();
+        var damageComponent = player.GetComponent<DamageComponent>();
         if (damageComponent is null)
         {
             Debug.Log("no damage component");
@@ -41,9 +40,8 @@ public class PlayerStockUI : MonoBehaviour
         damageComponent.onDamageUpdate.AddListener(OnDamageUpdate);
     }
 
-    private void OnPlayerKilled()
+    private void OnPlayerKilled(GameObject player)
     {
-        Debug.Log("killed");
         damageText.text = "0%";
     }
     
@@ -54,7 +52,6 @@ public class PlayerStockUI : MonoBehaviour
 
     private void OnDamageUpdate(float damage)
     {
-        Debug.Log($"damage: {damage}");
         damageText.text = $"{Mathf.Floor(damage)}%";
     }
 }

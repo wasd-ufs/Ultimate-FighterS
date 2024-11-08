@@ -41,7 +41,7 @@ public class StockMatchGameMode : GameMode
         stocks.Remove(player.Port);
     }
 
-    protected override void OnPlayerKilled(ActivePlayer player)
+    protected override void OnPlayerKilled(ActivePlayer player, GameObject obj)
     {
         if (!stocks.ContainsKey(player.Port))
             return;

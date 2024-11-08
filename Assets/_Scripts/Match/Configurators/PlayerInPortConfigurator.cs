@@ -9,6 +9,15 @@ public class PlayerInPortConfigurator : MatchConfigurator
 
     public override void Configure()
     {
+        if (prefab == null)
+        {
+            MatchConfiguration.PlayersPrefabs.Remove(port);
+            MatchConfiguration.PlayerInputTypes.Remove(port);
+            return;
+        }
+        
         MatchConfiguration.PlayersPrefabs[port] = prefab;
+        MatchConfiguration.PlayerInputTypes[port] =
+            MatchConfiguration.PlayerInputTypes.GetValueOrDefault(port, InputType.Player);
     }
 }
