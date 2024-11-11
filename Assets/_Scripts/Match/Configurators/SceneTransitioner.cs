@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class StageTransitioner : MonoBehaviour
 {
     const int MatchSceneIndex = 1;
-    
+     
     public void LoadStageScene()
     {
         if (!CanRun())
