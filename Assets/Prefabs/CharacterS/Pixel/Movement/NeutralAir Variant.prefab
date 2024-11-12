@@ -288,7 +288,9 @@ PrefabInstance:
       value: NeutralAir Variant
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 575897574817447378, guid: 5ddce230955ce1aadb0d2032038fea4f, type: 3}
+    - {fileID: 3636957908022665577, guid: 5ddce230955ce1aadb0d2032038fea4f, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 517060765886738573, guid: 5ddce230955ce1aadb0d2032038fea4f, type: 3}
       insertIndex: -1

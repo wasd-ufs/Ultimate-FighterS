@@ -36,7 +36,8 @@ public class CompositeState : CharacterState
         if (automaticallyIncludeChildren)
         {
             for (int i = 0; i < transform.childCount; i++)
-                states.Add(transform.GetChild(i).GetComponent<CharacterState>());
+                if (transform.GetChild(i).TryGetComponent(out CharacterState child))
+                    states.Add(child);
         }
     }
     

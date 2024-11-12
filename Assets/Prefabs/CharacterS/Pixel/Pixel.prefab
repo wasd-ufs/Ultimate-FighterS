@@ -326,6 +326,10 @@ PrefabInstance:
       propertyPath: animationName
       value: WallJumpAnimation
       objectReference: {fileID: 0}
+    - target: {fileID: 2412441725897861145, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
+      propertyPath: animationName
+      value: HitlagAnimation
+      objectReference: {fileID: 0}
     - target: {fileID: 2504076038960608510, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: m_Controller
       value: 
@@ -390,6 +394,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: a4a6c8eed13089c8ea70938d40d67d66, type: 2}
+    - target: {fileID: 8644982842665969205, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 9ad51df24f34364fab120d3c8421de60, type: 2}
     - target: {fileID: 8707720284622103470, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: animationName
       value: GroundJumpAnimation
@@ -400,7 +408,7 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: 8aeb4148b1d00b3b4b77a1a7856922b4, type: 2}
     - target: {fileID: 8987827170075464331, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: m_Name
-      value: Pixel Variant 1
+      value: Pixel
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

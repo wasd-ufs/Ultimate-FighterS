@@ -285,7 +285,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 740044077445968678, guid: 5ddce230955ce1aadb0d2032038fea4f, type: 3}
       propertyPath: foreignStates.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1127382796091900735, guid: 5ddce230955ce1aadb0d2032038fea4f, type: 3}
       propertyPath: animationName
@@ -298,6 +298,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 446482587533135278, guid: 5ddce230955ce1aadb0d2032038fea4f, type: 3}
+    - {fileID: 3636957908022665577, guid: 5ddce230955ce1aadb0d2032038fea4f, type: 3}
+    - {fileID: 575897574817447378, guid: 5ddce230955ce1aadb0d2032038fea4f, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 517060765886738573, guid: 5ddce230955ce1aadb0d2032038fea4f, type: 3}
       insertIndex: -1
