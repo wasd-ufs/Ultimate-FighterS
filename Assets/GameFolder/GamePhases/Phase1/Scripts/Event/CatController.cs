@@ -1,18 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class CatController : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [Header("Tempo para o ovento")]
+    [SerializeField]private float Timee;
+    [SerializeField] private float TimeSpeed;
+
+    [Header("Conometro")]
+    [SerializeField]private float TimeEvent;
+
+    public UnityEvent cat;
+
     void Start()
     {
-        
+        TimeEvent = Timee;        
     }
 
-    // Update is called once per frame
+
     void Update()
     {
-        
+        TimeEvent -= Time.deltaTime * TimeSpeed;
+
+        if (TimeEvent <= 0)
+        {
+            TimeEvent = Timee;
+
+            //Chama uma animacao
+        }
     }
+
 }
