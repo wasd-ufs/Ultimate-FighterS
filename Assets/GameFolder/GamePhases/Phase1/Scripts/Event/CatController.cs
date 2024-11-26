@@ -1,22 +1,25 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class CatController : MonoBehaviour
 {
     [Header("Tempo para o ovento")]
-    [SerializeField]private float Timee;
+    [SerializeField] private float TimeStart;
     [SerializeField] private float TimeSpeed;
 
     [Header("Conometro")]
     [SerializeField]private float TimeEvent;
 
-    public UnityEvent cat;
+    [SerializeField] private List<CatBaseMoves> CatMoves = new List<CatBaseMoves>();
+
+    public int randomIndex;
+
 
     void Start()
     {
-        TimeEvent = Timee;        
+        TimeEvent = TimeStart;        
     }
 
 
@@ -26,9 +29,18 @@ public class CatController : MonoBehaviour
 
         if (TimeEvent <= 0)
         {
-            TimeEvent = Timee;
+            TimeEvent = TimeStart;
+           
+            if (CatMoves.Count > 0)
+            {
+                randomIndex = UnityEngine.Random.Range(0, CatMoves.Count);
+                CatMoves[randomIndex].Execute();
 
-            //Chama uma animacao
+                if (CatMoves[randomIndex].ShowAnimator())
+                {
+                    CatMoves[randomIndex].Hide();
+                }
+            }
         }
     }
 
