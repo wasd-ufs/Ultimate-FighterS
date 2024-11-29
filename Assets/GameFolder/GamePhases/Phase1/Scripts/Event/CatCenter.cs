@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class CatCenter : CatBaseMoves
@@ -10,27 +11,13 @@ public class CatCenter : CatBaseMoves
 
     void Awake()
     {
-        _skin = transform.GetChild(0).gameObject;
-        _animator = GetComponentInChildren<Animator>();
-        _skin.SetActive(false);
-    }
-
-    public override bool ShowAnimator()
-    {
-        if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Trigger_Center"))
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        _skin.SetActive(false);  
     }
 
     public override void Execute()
     {
         _skin.SetActive(true);
-        _animator.SetTrigger("Trigger_Center");
+        _animator.Play("CenterCat",-1);
     }
 
     public override void Hide()
