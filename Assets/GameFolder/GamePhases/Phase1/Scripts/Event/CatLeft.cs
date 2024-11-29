@@ -9,27 +9,13 @@ public class CatLeft : CatBaseMoves
 
     void Awake()
     {
-        _skin = transform.GetChild(0).gameObject;
-        _animator = GetComponentInChildren<Animator>();
         _skin.SetActive(false);
-    }
-
-    public override bool ShowAnimator()
-    {
-        if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Trigger_Left"))
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
     }
 
     public override void Execute()
     {
         _skin.SetActive(true);
-        _animator.SetTrigger("Trigger_Left");
+        _animator.Play("CatLeftPunch",-1);
     }
 
     public override void Hide()

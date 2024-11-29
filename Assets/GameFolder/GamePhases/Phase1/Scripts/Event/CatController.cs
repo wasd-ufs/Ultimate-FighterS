@@ -29,19 +29,24 @@ public class CatController : MonoBehaviour
 
         if (TimeEvent <= 0)
         {
-            TimeEvent = TimeStart;
-           
-            if (CatMoves.Count > 0)
-            {
-                randomIndex = UnityEngine.Random.Range(0, CatMoves.Count);
-                CatMoves[randomIndex].Execute();
+          
+            randomIndex = UnityEngine.Random.Range(0, CatMoves.Count);
 
-                if (CatMoves[randomIndex].ShowAnimator())
-                {
-                    CatMoves[randomIndex].Hide();
-                }
+            if (CatMoves[randomIndex] != null && TimeEvent <= 0)
+            {
+                CatMoves[randomIndex].Execute();
+                TimeEvent = TimeStart;
             }
+
+            //StartCoroutine(HideAnimation());
+          
         }
+    }
+    IEnumerator HideAnimation()
+    {
+        yield return new WaitForSeconds (3f);
+        CatMoves[randomIndex].Hide();
     }
 
 }
+    
