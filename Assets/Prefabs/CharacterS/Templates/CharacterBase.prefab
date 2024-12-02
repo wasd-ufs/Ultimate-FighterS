@@ -350,7 +350,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 864735502096298819}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -366,7 +366,7 @@ Transform:
   - {fileID: 3667222008979820279}
   - {fileID: 8399859817612176158}
   - {fileID: 8951769778360073936}
-  m_Father: {fileID: 3355877467797406759}
+  m_Father: {fileID: 5905654494941917227}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &874756420702619011
 GameObject:
@@ -402,7 +402,7 @@ Transform:
   - {fileID: 1610487401661839728}
   - {fileID: 4979076557104428544}
   - {fileID: 8154648906984300956}
-  m_Father: {fileID: 3355877467797406759}
+  m_Father: {fileID: 5905654494941917227}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1172223304019994910
 GameObject:
@@ -975,7 +975,7 @@ MonoBehaviour:
   useBuffer: 1
   requiredDirection: 1
   expandedTriggerAngle: 1
-  requireTap: 0
+  requireTap: 1
   requiredButton: 0
   next: {fileID: 2246662184222559695}
 --- !u!114 &5217508779470004614
@@ -1607,7 +1607,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1745,7 +1745,7 @@ MonoBehaviour:
   useBuffer: 1
   requiredDirection: 1
   expandedTriggerAngle: 1
-  requireTap: 0
+  requireTap: 1
   requiredButton: 0
   next: {fileID: 2246662184222559695}
 --- !u!114 &5756345093485081498
@@ -1932,6 +1932,41 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   foreignStates: []
   automaticallyIncludeChildren: 1
+--- !u!1 &4792843746130843697
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5905654494941917227}
+  m_Layer: 3
+  m_Name: FlipPivotPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5905654494941917227
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4792843746130843697}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4204720436968270251}
+  - {fileID: 2910079458933320005}
+  - {fileID: 1690638554528536472}
+  - {fileID: 8168528795857784137}
+  m_Father: {fileID: 3355877467797406759}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4942276274029961872
 GameObject:
   m_ObjectHideFlags: 0
@@ -1985,7 +2020,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2113,7 +2148,7 @@ Transform:
   - {fileID: 2800329425621910841}
   - {fileID: 7464182219707387163}
   - {fileID: 1668652496524584080}
-  m_Father: {fileID: 3355877467797406759}
+  m_Father: {fileID: 5905654494941917227}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5166338933499967675
 GameObject:
@@ -2319,7 +2354,7 @@ Transform:
   - {fileID: 8370257085360401277}
   - {fileID: 4381554763549029347}
   - {fileID: 6628365801429258196}
-  m_Father: {fileID: 3355877467797406759}
+  m_Father: {fileID: 5905654494941917227}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5731997295175225526
 GameObject:
@@ -2504,7 +2539,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2589,7 +2624,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2922,7 +2957,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2977,6 +3012,7 @@ GameObject:
   - component: {fileID: 7575945543377909161}
   - component: {fileID: 535972697284237631}
   - component: {fileID: 703735899490429096}
+  - component: {fileID: 2410181690174754342}
   m_Layer: 3
   m_Name: RunningWithMomentumFlip
   m_TagString: Untagged
@@ -3097,8 +3133,8 @@ MonoBehaviour:
   useBuffer: 1
   requiredDirection: 1
   expandedTriggerAngle: 1
-  requireTap: 0
-  requiredButton: 0
+  requireTap: 1
+  requiredButton: 2
   next: {fileID: 5084339778847397691}
 --- !u!114 &4510472876698078534
 MonoBehaviour:
@@ -3238,6 +3274,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ba2216315a5c7d4295aff673a56ab27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2410181690174754342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8221892985325738080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d629ecc61e064efd8351c01a93e0ab96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  useBuffer: 1
+  requiredDirection: 1
+  expandedTriggerAngle: 1
+  requireTap: 1
+  requiredButton: 0
+  next: {fileID: 2246662184222559695}
 --- !u!1 &8540612732562529788
 GameObject:
   m_ObjectHideFlags: 0
@@ -3426,10 +3480,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4204720436968270251}
-  - {fileID: 2910079458933320005}
-  - {fileID: 1690638554528536472}
-  - {fileID: 8168528795857784137}
+  - {fileID: 5905654494941917227}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &3946274820330982775
@@ -3560,6 +3611,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialState: {fileID: 3711980359578407021}
+  flipPivotPoint: {fileID: 5905654494941917227}
 --- !u!114 &1608615247574519596
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3673,7 +3725,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: baf3a09e24073dcb09d6d8f1c04cc148, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waitTime: 0.16
+  waitTime: 0.24
   elapsedTime: 0
   startOnAwake: 0
   restartOnFinish: 0

@@ -6,6 +6,7 @@ public abstract class CharacterState : State
     public InputSystem input { get; set; }
     public CharacterBody2D body { get; set; }
     public InputBuffer inputBuffer { get; set; }
+    public Transform FlipPivotPoint { get; set; }
 
     public virtual void Process() {}
 

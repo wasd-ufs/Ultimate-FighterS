@@ -12,7 +12,6 @@ public class MovementBehaviour : CharacterState
     public override void PhysicsProcess()
     {
         var forward = body.IsOnFloor() ? body.GetFloorRight() : body.Right;
-        
         var direction = input.GetDirection().x;
         direction = direction < -0.001f ? -1 : direction > 0.001f ? 1f : 0f;
         
@@ -25,6 +24,4 @@ public class MovementBehaviour : CharacterState
             overspeedDeceleration
         );
     }
-    
-    
 }

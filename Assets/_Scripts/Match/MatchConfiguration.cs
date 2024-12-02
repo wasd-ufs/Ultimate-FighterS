@@ -5,7 +5,6 @@ using UnityEngine;
 public class MatchConfiguration
 {
     public static GameObject ScenePrefab = null;
-    public static GameObject GameModePrefab = null;
     public static Dictionary<int, GameObject> PlayersPrefabs = new();
     public static Dictionary<int, InputType> PlayerInputTypes = new();
 }

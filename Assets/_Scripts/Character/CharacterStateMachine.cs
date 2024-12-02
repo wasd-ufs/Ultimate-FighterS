@@ -6,6 +6,7 @@ public class CharacterStateMachine : StateMachine<CharacterState>
     private CharacterBody2D body;
     private InputSystem input;
     private InputBuffer inputBuffer;
+    public Transform flipPivotPoint;
 
     private void Awake()
     {
@@ -34,6 +35,7 @@ public class CharacterStateMachine : StateMachine<CharacterState>
         Current.body = body;
         Current.input = input;
         Current.inputBuffer = inputBuffer;
+        Current.FlipPivotPoint = flipPivotPoint;
     }
 
     private void Update()

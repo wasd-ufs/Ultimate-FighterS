@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class GameMode : MonoBehaviour
@@ -9,14 +10,10 @@ public abstract class GameMode : MonoBehaviour
         MatchManager.OnMatchEnding.AddListener(OnMatchEnding);
         MatchManager.OnPlayerEntering.AddListener(OnPlayerEntering);
         MatchManager.OnPlayerExiting.AddListener(OnPlayerExiting);
-        MatchManager.OnPlayerSpawned.AddListener(OnPlayerSpawned);
-        MatchManager.OnPlayerKilled.AddListener(OnPlayerKilled);
     }
 
     protected virtual void OnMatchStarting() {}
-    protected virtual void OnMatchEnding() {}
+    protected virtual void OnMatchEnding(List<ActivePlayer> players) {}
     protected virtual void OnPlayerEntering(ActivePlayer player) {}
     protected virtual void OnPlayerExiting(ActivePlayer player) {}
-    protected virtual void OnPlayerSpawned(ActivePlayer player, GameObject obj) {}
-    protected virtual void OnPlayerKilled(ActivePlayer player, GameObject obj) {}
 }

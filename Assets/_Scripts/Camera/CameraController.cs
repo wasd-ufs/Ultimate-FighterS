@@ -52,20 +52,22 @@ public class CameraController : MonoBehaviour
 
     void MoveCamera()
     {
-        var players = MatchManager.GetAlivePlayers();
+        var players = GetAlivePlayersPositions();
+        if (players.Count == 0)
+            return;
         
-        Vector3 averagePosition = Vector3.zero;
-        foreach (GameObject player in players)
+        Vector2 averagePosition = Vector2.zero;
+        foreach (Vector2 position in players)
         {
-            averagePosition += player.transform.position;
+            averagePosition += position;
         }
         
         averagePosition /= players.Count;
         
-        float desiredMinY = players.Min(p => p.transform.position.y) - padding / 2f / cam.orthographicSize;
+        float desiredMinY = players.Min(p => p.y) - padding / 2f / cam.orthographicSize;
         float camMinY = transform.position.y - cam.orthographicSize;
         float difference = Mathf.Max(desiredMinY - camMinY, 0f);
-        averagePosition += difference * Vector3.up;
+        averagePosition += difference * Vector2.up;
         
         Vector3 finalPosition = Vector3.Lerp(transform.position, averagePosition, Time.deltaTime * moveSpeed);
                 
@@ -80,18 +82,36 @@ public class CameraController : MonoBehaviour
 
     void ZoomCamera()
     {
-        var players = MatchManager.GetAlivePlayers();
-        float minX = players.Min(p => p.transform.position.x);
-        float maxX = players.Max(p => p.transform.position.x);
-        float minY = players.Min(p => p.transform.position.y);
-        float maxY = players.Max(p => p.transform.position.y);
+        var players = GetAlivePlayersPositions();
+        if (players.Count == 0)
+            return;
+        
+        var desiredZoom = BoundingZoom(players, padding, cam.aspect);
+        
+        minZoom = Mathf.Min(padding / cam.orthographicSize / cam.orthographicSize, maxZoom);
+        
+        cam.orthographicSize = Mathf.Clamp(Mathf.Lerp(cam.orthographicSize, desiredZoom, Time.deltaTime * zoomSpeed), 0f, maxZoom);
+    }
 
+    private List<Vector2> GetAlivePlayersPositions() => MatchManager.GetActivePlayers()
+        .Where(player => player.IsInGameObjectAlive()).ToList()
+        .ConvertAll(player => (Vector2)player.InGameObject.transform.position);
+    
+    private static float BoundingZoom(List<Vector2> points, float padding, float aspect)
+    {
+        float maxX = points.Max(p => p.x);
+        float maxY = points.Max(p => p.y);
+        float minX = points.Min(p => p.x);
+        float minY = points.Min(p => p.y);
+
+        return Zoom(maxX, maxY, minX, minY, padding, aspect);
+    }
+    
+    private static float Zoom(float maxX, float maxY, float minX, float minY, float padding, float aspect)
+    {
         float width = maxX - minX + padding;
         float height = maxY - minY + padding;
 
-        float desiredZoom = Mathf.Max(width / cam.aspect, height) / 2f;
-        minZoom = Mathf.Min(padding / cam.orthographicSize / cam.orthographicSize, maxZoom);
-
-        cam.orthographicSize = Mathf.Clamp(Mathf.Lerp(cam.orthographicSize, desiredZoom, Time.deltaTime * zoomSpeed), 0f, maxZoom);
+        return Mathf.Max(width / aspect, height) / 2f;
     }
 }

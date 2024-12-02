@@ -21,6 +21,8 @@ public class SpeedThresholdTransitionBehavior : CharacterState
     [Header("Transition")]
     public CharacterState next;
 
+    private float lastSpeed;
+    
     public override void Enter()
     {
         TryTransition();
@@ -35,6 +37,8 @@ public class SpeedThresholdTransitionBehavior : CharacterState
     {
         if (ShouldTransition())
             machine.TransitionTo(next);
+
+        lastSpeed = body.GetSpeedOnAxis(GetFinalAxis());
     }
 
     private bool ShouldTransition() => comparison switch
