@@ -20,9 +20,9 @@ public class SetFacingDirectionBehaviour : CharacterState
     
     private bool IsFacingAway() => facingDirection switch
     {
-        FacingDirection.Left => body.transform.localScale.x > 0,
-        FacingDirection.Right => body.transform.localScale.x < 0,
-        FacingDirection.WallNormal => GetWallNormal().x * body.transform.localScale.x < 0,
+        FacingDirection.Left => FlipPivotPoint.localScale.x > 0,
+        FacingDirection.Right => FlipPivotPoint.localScale.x < 0,
+        FacingDirection.WallNormal => GetWallNormal().x * FlipPivotPoint.localScale.x < 0,
         FacingDirection.Flip => true
     };
 
@@ -32,8 +32,8 @@ public class SetFacingDirectionBehaviour : CharacterState
     
     private void Flip()
     {
-        Vector2 scale = body.transform.localScale;
+        Vector2 scale = FlipPivotPoint.localScale;
         scale.x *= -1;
-        body.transform.localScale = scale;
+        FlipPivotPoint.localScale = scale;
     }
 }

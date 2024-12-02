@@ -1,14 +1,13 @@
 using UnityEngine;
 
-[RequireComponent(typeof(IdComponent))]
 public class PlayerInputSystem : InputSystem
 {
     private const string horizontalAxis = "Horizontal";
     private const string verticalAxis = "Vertical";
     private const string specialKey = "Jump";
     private const string attackKey = "Fire";
-
-    private IdComponent id;
+    
+    public int defaultId = 0;
 
     private string portHorizontalAxis;
     private string portVerticalAxis;
@@ -17,12 +16,12 @@ public class PlayerInputSystem : InputSystem
 
     public void Awake()
     {
-        id = GetComponent<IdComponent>();
+        var id = GetComponent<IdComponent>()?.id ?? defaultId;
         
-        portHorizontalAxis = $"{horizontalAxis}{id.id}";
-        portVerticalAxis = $"{verticalAxis}{id.id}";
-        portSpecialKey = $"{specialKey}{id.id}";
-        portAttackKey = $"{attackKey}{id.id}";
+        portHorizontalAxis = $"{horizontalAxis}{id}";
+        portVerticalAxis = $"{verticalAxis}{id}";
+        portSpecialKey = $"{specialKey}{id}";
+        portAttackKey = $"{attackKey}{id}";
     }
     
     public override Vector2 GetDirection()

@@ -4,14 +4,12 @@ using UnityEngine;
 
 public class PlayerInPortConfigurator : MatchConfigurator
 {
-    [SerializeField] public CharacterListManager characterListManager;
     [SerializeField] public int port;
     [SerializeField] public GameObject[] prefabs;
     private GameObject selectedCharacter;
 
     public void SelectCharacter()
     {
-        selectedCharacter = prefabs[characterListManager.currentIndex];
         Debug.Log("Port "+port+" selected "+selectedCharacter.name);
     }
 

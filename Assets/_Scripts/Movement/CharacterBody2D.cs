@@ -371,7 +371,7 @@ public class CharacterBody2D : MonoBehaviour
         LastVelocity = Velocity;
     }
 
-    private void UpdateCurrentContacts()
+    public void UpdateCurrentContacts()
     {
         Floors = Floors.Where(IsSurfaceStable).ToList();
         LeftWalls = LeftWalls.Where(IsSurfaceStable).ToList();
@@ -446,7 +446,7 @@ public class CharacterBody2D : MonoBehaviour
             exit.Invoke(lastNormal);
     }
 
-    private void Snap()
+    public void Snap()
     {
         var hits = Cast(Down, maxSnapLength);
         if (hits.Count == 0)

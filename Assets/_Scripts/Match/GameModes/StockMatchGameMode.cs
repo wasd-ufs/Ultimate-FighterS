@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Properties;
 using UnityEngine;
 using UnityEngine.Events;
@@ -8,7 +9,6 @@ public class StockMatchGameMode : GameMode
 {
     public UnityEvent<PlayerStock> onPlayerEntering = new();
     public UnityEvent<ActivePlayer> onPlayerExiting = new();
-    public UnityEvent<PlayerStock> onStockUpdated = new();
     
     private int initialStockCount = 3;
     private Dictionary<int, PlayerStock> stocks = new();
@@ -23,11 +23,11 @@ public class StockMatchGameMode : GameMode
         stocks[player.Port] = new PlayerStock(player, initialStockCount);
         
         stocks[player.Port].onStockUpdated.AddListener(
-            _ => onStockUpdated.Invoke(stocks[player.Port])
+            count => OnPlayerStockUpdated(stocks[player.Port], count)
         );
         
         stocks[player.Port].onStockZeroed.AddListener(
-            () => MatchManager.RemovePlayer(player.Port)
+            () => OnPlayerStockZeroed(stocks[player.Port])
         );
         
         onPlayerEntering.Invoke(stocks[player.Port]);
@@ -41,18 +41,22 @@ public class StockMatchGameMode : GameMode
         stocks.Remove(player.Port);
     }
 
-    protected override void OnPlayerKilled(ActivePlayer player, GameObject obj)
+    private void OnPlayerStockUpdated(PlayerStock stock, int count)
     {
-        if (!stocks.ContainsKey(player.Port))
+        if (count <= 0)
             return;
         
-        stocks[player.Port].Decrease();
-        
-        if (stocks.Count <= 1)
-            MatchManager.EndMatch();
-        
-        MatchManager.SpawnPlayer(player.Port);
+        stock.Player.Spawn();
     }
+
+    private void OnPlayerStockZeroed(PlayerStock stock)
+    {
+        if (GetAmountOfPlayersWithStock() <= 1)
+            MatchManager.EndMatch();
+    }
+
+    private int GetAmountOfPlayersWithStock() =>
+        stocks.Values.ToList().ConvertAll(stock => stock.Stock > 0 ? 1 : 0).Sum();
 }
 
 public class PlayerStock
@@ -67,6 +71,8 @@ public class PlayerStock
     {
         Player = player;
         Stock = stock;
+        
+        player.OnPlayerKilled.AddListener(_ => Decrease());
     }
 
     public void Decrease()

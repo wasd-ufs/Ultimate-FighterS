@@ -12,10 +12,10 @@ public class FlipByInputBehaviour : CharacterState
 
     private void Flip()
     {
-        Vector2 scale = body.transform.localScale;
+        Vector2 scale = FlipPivotPoint.localScale;
         scale.x *= -1;
-        body.transform.localScale = scale;
+        FlipPivotPoint.localScale = scale;
     }
 
-    private bool IsFacingRight() => body.transform.localScale.x > 0;
+    private bool IsFacingRight() => FlipPivotPoint.localScale.x > 0;
 }

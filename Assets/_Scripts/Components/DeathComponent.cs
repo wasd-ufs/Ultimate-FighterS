@@ -8,7 +8,9 @@ public class DeathComponent : MonoBehaviour
     public void Kill()
     {
         onDeath.Invoke();
-        MatchManager.KillPlayer(gameObject);
+        
+        var player = MatchManager.GetPlayer(gameObject);
+        player.Kill();
     }
 
     private void OnDestroy()
