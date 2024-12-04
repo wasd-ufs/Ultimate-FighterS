@@ -6,7 +6,7 @@ public class PlayerInPortConfigurator : MatchConfigurator
 {
     [SerializeField] public int port;
     [SerializeField] public GameObject[] prefabs;
-    private GameObject selectedCharacter;
+    private Character selectedCharacter;
 
     public void SelectCharacter()
     {
@@ -23,12 +23,12 @@ public class PlayerInPortConfigurator : MatchConfigurator
     {
         if (selectedCharacter == null)
         {
-            MatchConfiguration.PlayersPrefabs.Remove(port);
+            MatchConfiguration.Characters.Remove(port);
             MatchConfiguration.PlayerInputTypes.Remove(port);
             return;
         }
 
-        MatchConfiguration.PlayersPrefabs[port] = selectedCharacter;
+        MatchConfiguration.Characters[port] = selectedCharacter;
         MatchConfiguration.PlayerInputTypes[port] =
             MatchConfiguration.PlayerInputTypes.GetValueOrDefault(port, InputType.Player);
     }
