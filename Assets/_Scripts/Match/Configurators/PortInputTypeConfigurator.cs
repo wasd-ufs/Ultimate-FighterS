@@ -21,7 +21,7 @@ public class PortInputTypeConfigurator : MatchConfigurator
 
     public override void Configure()
     {
-        if (!MatchConfiguration.PlayersPrefabs.ContainsKey(port))
+        if (!MatchConfiguration.Characters.ContainsKey(port))
             return;
         
         MatchConfiguration.PlayerInputTypes[port] = inputType;
