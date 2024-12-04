@@ -13,24 +13,18 @@ public class StockMatchGameMode : GameMode
     
     private int initialStockCount = 3;
     private Dictionary<int, PlayerStock> stocks = new();
-    
-    private int alivePlayerCount = 0;
 
     protected override void OnMatchStarting()
     {
         stocks.Clear();
-        alivePlayerCount = 0;
     }
 
     protected override void OnMatchEnding(List<ActivePlayer> players)
     {
         MatchResult.Results.Clear();
 
-        Debug.Log($"Stock Count: {stocks.Count}");
-        
         foreach (var stock in stocks.Values)
         {
-            Debug.Log($"PORT: {stock.Player.Port} | RANK: {stock.Rank}");
             var rank = stock.Rank;
             var port = stock.Player.Port;
             
@@ -56,14 +50,14 @@ public class StockMatchGameMode : GameMode
         );
         
         onPlayerEntering.Invoke(stocks[player.Port]);
-        alivePlayerCount++;
     }
 
     protected override void OnPlayerExiting(ActivePlayer player)
     {
         stocks[player.Port].ClearEvents();
+        
         onPlayerExiting.Invoke(player);
-        alivePlayerCount--;
+        stocks.Remove(player.Port);
     }
 
     private void OnPlayerStockUpdated(PlayerStock stock, int count)
@@ -76,14 +70,14 @@ public class StockMatchGameMode : GameMode
 
     private void OnPlayerStockZeroed(PlayerStock stock)
     {
-        alivePlayerCount--;
-        stock.Rank = GetAmountOfPlayersWithStock();
+        stock.Rank = GetAmountOfPlayersWithStock() - 1;
         
         if (GetAmountOfPlayersWithStock() <= 1)
             MatchManager.EndMatch();
     }
 
-    private int GetAmountOfPlayersWithStock() => alivePlayerCount;
+    private int GetAmountOfPlayersWithStock() =>
+        stocks.Values.ToList().ConvertAll(stock => stock.Stock > 0 ? 1 : 0).Sum();
 }
 
 public class PlayerStock
