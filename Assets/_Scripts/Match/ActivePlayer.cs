@@ -35,6 +35,8 @@ public class ActivePlayer
             Object.Destroy(InGameObject);
         
         InGameObject = Object.Instantiate(Character.prefab, SpawnPoint.transform.position, SpawnPoint.transform.rotation, SpawnPoint.parent);
+        InGameObject.transform.localScale = SpawnPoint.localScale;
+        
         var idComponent = InGameObject.GetComponent<IdComponent>();
         if (idComponent is null)
         {

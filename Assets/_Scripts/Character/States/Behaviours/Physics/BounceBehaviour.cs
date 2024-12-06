@@ -12,6 +12,7 @@ public class BounceBehaviour : CharacterState
             return;
         
         body.SetVelocity(VectorUtils.Reflected(body.Velocity, normal) * (1f - reductionPerBounce));
+        body.UpdateCurrentContacts();
     }
 
     public override void Enter()
