@@ -352,9 +352,11 @@ public class CharacterBody2D : MonoBehaviour
         GetContactsFromBody();
         CalculateNormals();
         
+        /*
         if (!skipSnapping && lastFloorNormal.sqrMagnitude >= ErrorWindow && FloorNormal.sqrMagnitude < ErrorWindow)
             Snap();
-
+        */
+        
         skipSnapping = false;
         
         CheckAndCallEvent(lastFloorNormal, FloorNormal, onFloorEnter, onFloorExit);
