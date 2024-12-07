@@ -352,10 +352,8 @@ public class CharacterBody2D : MonoBehaviour
         GetContactsFromBody();
         CalculateNormals();
         
-        /*
         if (!skipSnapping && lastFloorNormal.sqrMagnitude >= ErrorWindow && FloorNormal.sqrMagnitude < ErrorWindow)
             Snap();
-        */
         
         skipSnapping = false;
         
@@ -364,11 +362,13 @@ public class CharacterBody2D : MonoBehaviour
         CheckAndCallEvent(lastRightWallNormal, RightWallNormal, onRightWallEnter, onRightWallExit);
         CheckAndCallEvent(lastCeilingNormal, CeilingNormal, onCeilingEnter, onCeilingExit);
         
+        /*
         if (IsOnFloor() && IsOnLeftWall())
             SetSpeed(GetFloorLeft(), 0f);
         
         if (IsOnFloor() && IsOnRightWall())
             SetSpeed(GetFloorRight(), 0f);
+        */
 
         LastVelocity = Velocity;
     }
@@ -470,7 +470,11 @@ public class CharacterBody2D : MonoBehaviour
     {
         var hits = new List<RaycastHit2D>();
         body.Cast(direction, hits, distance);
-        return hits;
+        
+        return hits
+            .Where(hit => body.IsTouchingLayers(hit.collider.gameObject.layer))
+            .Where(hit => hit.normal.sqrMagnitude > 0.01f && hit.distance > 0.01f)
+            .ToList();
     }
 
     private void CalculateNormals()

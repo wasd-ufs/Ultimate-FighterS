@@ -81,9 +81,6 @@ public class CameraController : MonoBehaviour
             return;
         
         var desiredZoom = BoundingZoom(players, padding, cam.aspect);
-        
-        minZoom = Mathf.Min(padding / cam.orthographicSize / cam.orthographicSize, maxZoom);
-        
         cam.orthographicSize = Mathf.Clamp(Mathf.Lerp(cam.orthographicSize, desiredZoom, Time.deltaTime * zoomSpeed), 0f, maxZoom);
     }
 

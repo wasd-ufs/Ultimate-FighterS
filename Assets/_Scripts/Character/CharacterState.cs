@@ -7,6 +7,7 @@ public abstract class CharacterState : State
     public CharacterBody2D body { get; set; }
     public InputBuffer inputBuffer { get; set; }
     public Transform FlipPivotPoint { get; set; }
+    public ParticleSystem DustParticles { get; set; }
 
     public virtual void Process() {}
 
@@ -31,7 +32,8 @@ public abstract class CharacterState : State
         Ceiling,
         Body,
         XY,
-        Input
+        Input,
+        Velocity
     }
     
     public (Vector2, Vector2) GetBasis(CharacterBasis basis) => basis switch
@@ -41,6 +43,7 @@ public abstract class CharacterState : State
         CharacterBasis.Ceiling => (body.GetCeilingLeft(), body.CeilingNormal),
         CharacterBasis.Body => (body.Right, body.Up),
         CharacterBasis.XY => (Vector2.right, Vector2.up),
-        CharacterBasis.Input => (input.GetDirection(), VectorUtils.Orthogonal(input.GetDirection()))
+        CharacterBasis.Input => (input.GetDirection(), VectorUtils.Orthogonal(input.GetDirection())),
+        CharacterBasis.Velocity => (body.Velocity.normalized, VectorUtils.Orthogonal(body.Velocity.normalized))
     };
 }

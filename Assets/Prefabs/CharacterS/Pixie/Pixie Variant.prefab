@@ -266,6 +266,10 @@ PrefabInstance:
       propertyPath: animationName
       value: HitlagAnimation
       objectReference: {fileID: 0}
+    - target: {fileID: 2471398709661058306, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d71fdc84c8669404f829c40dd0cb3ece, type: 3}
     - target: {fileID: 2504076038960608510, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: m_Controller
       value: 
@@ -280,7 +284,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2713255465275164916, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.051
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2943583684516370861, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: initialState
@@ -430,6 +434,22 @@ PrefabInstance:
       propertyPath: animationName
       value: WallSlidingAnimation
       objectReference: {fileID: 0}
+    - target: {fileID: 5303222002921129173, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.200032
+      objectReference: {fileID: 0}
+    - target: {fileID: 5303222002921129173, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.3775879
+      objectReference: {fileID: 0}
+    - target: {fileID: 5303222002921129173, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.0669
+      objectReference: {fileID: 0}
+    - target: {fileID: 5303222002921129173, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.1362
+      objectReference: {fileID: 0}
     - target: {fileID: 5390775723926272798, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: m_FlipX
       value: 1
@@ -474,10 +494,18 @@ PrefabInstance:
       propertyPath: overspeedDeceleration
       value: 25
       objectReference: {fileID: 0}
+    - target: {fileID: 6087417953570541146, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
+      propertyPath: animationName
+      value: Dodge
+      objectReference: {fileID: 0}
     - target: {fileID: 6314334903998467490, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: reductionPerBounce
-      value: 0
+      value: 0.2
       objectReference: {fileID: 0}
+    - target: {fileID: 6332051301066763274, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d71fdc84c8669404f829c40dd0cb3ece, type: 3}
     - target: {fileID: 6404731654606095507, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: m_Controller
       value: 
@@ -497,6 +525,10 @@ PrefabInstance:
     - target: {fileID: 6471356782594029779, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: m_LocalPosition.y
       value: -0.1333
+      objectReference: {fileID: 0}
+    - target: {fileID: 6493122916964506684, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
+      propertyPath: animationName
+      value: FreeFall
       objectReference: {fileID: 0}
     - target: {fileID: 6639817548626741501, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: targetSpeed
@@ -538,6 +570,10 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7577204218767072766, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.245
+      objectReference: {fileID: 0}
     - target: {fileID: 7931124419870507594, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: maxSpeed
       value: 10
@@ -548,7 +584,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8057960562301975422, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: heavyGravity
-      value: 34
+      value: 28
       objectReference: {fileID: 0}
     - target: {fileID: 8057960562301975422, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: normalGravity
@@ -562,6 +598,10 @@ PrefabInstance:
       propertyPath: gravityRelaxationThreshold
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 8151207871916284924, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: a4ef0b2521940793fb9bf03354fea33c, type: 2}
     - target: {fileID: 8309789583420214088, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: impulse.x
       value: 5
@@ -592,7 +632,7 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: b5f083c72d56069168eb8ab9bb94c673, type: 2}
     - target: {fileID: 8826219547781791451, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: acceleration.y
-      value: -12
+      value: -8
       objectReference: {fileID: 0}
     - target: {fileID: 8894284397386515608, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: m_LocalScale.x
@@ -634,9 +674,9 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 7990992678277634219}
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 642976415252463532, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 1119668698631086255, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 9192012550498417358}
+      addedObject: {fileID: 429092430348554205}
   m_SourcePrefab: {fileID: 100100000, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
 --- !u!4 &643014683489084196 stripped
 Transform:
@@ -648,18 +688,18 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7464182219707387163, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
   m_PrefabInstance: {fileID: 5114097555779353493}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &5626301076379026489 stripped
+--- !u!1 &5292063944002526010 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 642976415252463532, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
+  m_CorrespondingSourceObject: {fileID: 1119668698631086255, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
   m_PrefabInstance: {fileID: 5114097555779353493}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &9192012550498417358
+--- !u!114 &429092430348554205
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5626301076379026489}
+  m_GameObject: {fileID: 5292063944002526010}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e7fd93e2ddcd4520a38a837dacfd7c08, type: 3}
@@ -667,7 +707,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   axis: {x: 0, y: 1}
   basis: 3
-  stretchFactor: {x: -0.005, y: 0.015, z: 0}
+  stretchFactor: {x: -0.01, y: 0.02, z: 0}
 --- !u!4 &5895443064448704261 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1668652496524584080, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}

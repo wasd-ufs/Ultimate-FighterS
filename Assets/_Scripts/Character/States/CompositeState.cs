@@ -48,6 +48,7 @@ public class CompositeState : CharacterState
         state.machine = machine;
         state.inputBuffer = inputBuffer;
         state.FlipPivotPoint = FlipPivotPoint;
+        state.DustParticles = DustParticles;
     }
 
     private void ForEachState(Action<CharacterState> action)
