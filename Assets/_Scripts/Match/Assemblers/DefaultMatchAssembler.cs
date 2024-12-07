@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class DefaultMatchAssembler : MonoBehaviour
 {
-    [ReadOnly] private const int ResultSceneIndex = 0;
+    [ReadOnly] private const int ResultSceneIndex = 3;
     [ReadOnly] private const string SpawnPointTag = "SpawnPoint";
 
     private void Start()
@@ -28,17 +28,17 @@ public class DefaultMatchAssembler : MonoBehaviour
     private bool AddPlayers()
     {
         var spawns = GetSpawnPoints();
-        if (spawns.Count < MatchConfiguration.PlayersPrefabs.Count)
+        if (spawns.Count < MatchConfiguration.Characters.Count)
         {
-            Debug.LogError($"Not enough spawn points for all players! Point Count = {spawns.Count}. Player Count = {MatchConfiguration.PlayersPrefabs.Count}");
+            Debug.LogError($"Not enough spawn points for all players! Point Count = {spawns.Count}. Player Count = {MatchConfiguration.Characters.Count}");
             return false;
         }
 
         int spawnPointIndex = 0;
-        foreach (var (port, player) in MatchConfiguration.PlayersPrefabs)
+        foreach (var (port, character) in MatchConfiguration.Characters)
         {
             var spawnPoint = spawns[spawnPointIndex];
-            MatchManager.AddPlayer(port, MatchConfiguration.PlayerInputTypes[port], player, spawnPoint);
+            MatchManager.AddPlayer(port, MatchConfiguration.PlayerInputTypes[port], character, spawnPoint);
             
             spawnPointIndex++;
         }

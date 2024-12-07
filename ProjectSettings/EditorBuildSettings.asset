@@ -14,6 +14,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Match.unity
     guid: 670a91350e5920d03844c3cd238d3b07
+  - enabled: 1
+    path: Assets/Scenes/MatchResults.unity
+    guid: 38756f82615556f10b4c8323a09a5cbf
   - enabled: 0
     path: Assets/GameFolder/Scenes/HowPlayScene.unity
     guid: 1d2194b83b0228040a2062f9cf4e5072

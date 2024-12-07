@@ -11,14 +11,14 @@ public class ActivePlayer
     public int Port { get; private set; }
     public InputType Input { get; private set; }
     public GameObject InGameObject { get; private set; }
-    public GameObject Prefab { get; private set; }
+    public Character Character { get; private set; }
     public Transform SpawnPoint { get; private set; }
 
-    public ActivePlayer(int port, InputType input, GameObject prefab, Transform spawnPoint)
+    public ActivePlayer(int port, InputType input, Character character, Transform spawnPoint)
     {
         Port = port;
         Input = input;
-        Prefab = prefab;
+        Character = character;
         SpawnPoint = spawnPoint;
         InGameObject = null;
     }
@@ -34,7 +34,7 @@ public class ActivePlayer
         if (InGameObject is not null)
             Object.Destroy(InGameObject);
         
-        InGameObject = Object.Instantiate(Prefab, SpawnPoint.transform.position, SpawnPoint.transform.rotation, SpawnPoint.parent);
+        InGameObject = Object.Instantiate(Character.prefab, SpawnPoint.transform.position, SpawnPoint.transform.rotation, SpawnPoint.parent);
         var idComponent = InGameObject.GetComponent<IdComponent>();
         if (idComponent is null)
         {

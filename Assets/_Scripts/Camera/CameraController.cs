@@ -9,7 +9,7 @@ public class CameraController : MonoBehaviour
     public float maxZoom = 17f;
     public float zoomSpeed = 5f;
     public float moveSpeed = 3f;
-    public float padding = 15f;
+    public float padding = 2f;
 
     private Camera cam;
     private Vector2 worldMinBounds, worldMaxBounds;
@@ -63,12 +63,6 @@ public class CameraController : MonoBehaviour
         }
         
         averagePosition /= players.Count;
-        
-        float desiredMinY = players.Min(p => p.y) - padding / 2f / cam.orthographicSize;
-        float camMinY = transform.position.y - cam.orthographicSize;
-        float difference = Mathf.Max(desiredMinY - camMinY, 0f);
-        averagePosition += difference * Vector2.up;
-        
         Vector3 finalPosition = Vector3.Lerp(transform.position, averagePosition, Time.deltaTime * moveSpeed);
                 
         float camHalfHeight = cam.orthographicSize;
@@ -99,10 +93,10 @@ public class CameraController : MonoBehaviour
     
     private static float BoundingZoom(List<Vector2> points, float padding, float aspect)
     {
-        float maxX = points.Max(p => p.x);
-        float maxY = points.Max(p => p.y);
-        float minX = points.Min(p => p.x);
-        float minY = points.Min(p => p.y);
+        float maxX = points.Max(p => p.x) + padding;
+        float maxY = points.Max(p => p.y) + padding;
+        float minX = points.Min(p => p.x) - padding;
+        float minY = points.Min(p => p.y) - padding;
 
         return Zoom(maxX, maxY, minX, minY, padding, aspect);
     }

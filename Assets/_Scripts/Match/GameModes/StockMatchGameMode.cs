@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.Properties;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -16,6 +17,24 @@ public class StockMatchGameMode : GameMode
     protected override void OnMatchStarting()
     {
         stocks.Clear();
+    }
+
+    protected override void OnMatchEnding(List<ActivePlayer> players)
+    {
+        MatchResult.Results.Clear();
+
+        foreach (var stock in stocks.Values)
+        {
+            var rank = stock.Rank;
+            var port = stock.Player.Port;
+            
+            MatchResult.Results[rank] = port;
+        }
+    }
+
+    private int SortByRank(int portA, int portB)
+    {
+        return stocks[portA].Rank.CompareTo(stocks[portB].Rank);
     }
 
     protected override void OnPlayerEntering(ActivePlayer player)
@@ -51,6 +70,8 @@ public class StockMatchGameMode : GameMode
 
     private void OnPlayerStockZeroed(PlayerStock stock)
     {
+        stock.Rank = GetAmountOfPlayersWithStock() - 1;
+        
         if (GetAmountOfPlayersWithStock() <= 1)
             MatchManager.EndMatch();
     }
@@ -66,11 +87,13 @@ public class PlayerStock
     
     public ActivePlayer Player { get; private set; }
     public int Stock { get; private set; }
+    public int Rank;
 
     public PlayerStock(ActivePlayer player, int stock)
     {
         Player = player;
         Stock = stock;
+        Rank = 0;
         
         player.OnPlayerKilled.AddListener(_ => Decrease());
     }

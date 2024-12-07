@@ -50,9 +50,9 @@ public static class MatchManager
         OnPlayerExiting.RemoveAllListeners();
     }
     
-    public static void AddPlayer(int port, InputType input, GameObject prefab, Transform spawnPoint)
+    public static void AddPlayer(int port, InputType input, Character character, Transform spawnPoint)
     {
-        var player = new ActivePlayer(port, input, prefab, spawnPoint);
+        var player = new ActivePlayer(port, input, character, spawnPoint);
         activePlayers[port] = player;
         OnPlayerEntering.Invoke(player);
     }
