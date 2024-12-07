@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PlayerInputSystem : InputSystem
@@ -6,13 +8,18 @@ public class PlayerInputSystem : InputSystem
     private const string verticalAxis = "Vertical";
     private const string specialKey = "Jump";
     private const string attackKey = "Fire";
-    
+
     public int defaultId = 0;
 
     private string portHorizontalAxis;
     private string portVerticalAxis;
     private string portSpecialKey;
     private string portAttackKey;
+
+    private readonly Vector2[] possibleDirections = {
+        Vector2.right, new Vector2(1, -1).normalized, Vector2.down, new Vector2(-1, -1).normalized, Vector2.left,
+        new Vector2(-1, 1).normalized, Vector2.up, new Vector2(1, 1).normalized
+    };
 
     public void Awake()
     {
@@ -28,7 +35,16 @@ public class PlayerInputSystem : InputSystem
     {
         float horizontal = Input.GetAxis(portHorizontalAxis);
         float vertical = Input.GetAxis(portVerticalAxis);
-        return new Vector2(horizontal, vertical).normalized;
+        var direction = new Vector2(horizontal, vertical);
+        
+        if (direction.sqrMagnitude < 0.05f)
+            return Vector2.zero;
+        
+        direction = direction.normalized;
+        var angle = Mathf.Atan2(direction.y, direction.x);
+
+        var section = Mathf.RoundToInt(angle * 8 / (2 * Mathf.PI) + 8) % 8;
+        return possibleDirections[section];
     }
     public override bool IsSpecialBeingHeld() 
     {

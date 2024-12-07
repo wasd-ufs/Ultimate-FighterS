@@ -11,11 +11,17 @@ public class BounceBehaviour : CharacterState
         if (body.Velocity.sqrMagnitude < 0.01f)
             return;
         
+        Debug.Log($"original: {body.Velocity}");
         body.SetVelocity(VectorUtils.Reflected(body.Velocity, normal) * (1f - reductionPerBounce));
         body.UpdateCurrentContacts();
     }
 
     public override void Enter()
+    {
+        CheckAndBounce();   
+    }
+
+    public void CheckAndBounce()
     {
         if (body.IsOnFloor())
             Bounce(body.FloorNormal);
@@ -29,16 +35,14 @@ public class BounceBehaviour : CharacterState
         if (body.IsOnCeiling())
             Bounce(body.CeilingNormal);
     }
-
+    
     public override void PhysicsProcess()
     {
         if (body.Velocity.sqrMagnitude < 0.01f)
             return;
-        
+
         var hits = body
-            .Cast(body.Velocity.normalized, body.Velocity.magnitude * Time.fixedDeltaTime * 1.25f)
-            .Where(hit => hit.normal.sqrMagnitude > 0.01f && hit.distance > 0.01f)
-            .ToList();
+            .Cast(body.Velocity.normalized, body.Velocity.magnitude * Time.fixedDeltaTime * 1.25f);
         
         if (hits.Count > 0)
         {
