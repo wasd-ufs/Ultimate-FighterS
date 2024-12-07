@@ -38,7 +38,12 @@ public class InputTransitionBehaviour : CharacterState
     [Header("Transition")] 
     [SerializeField] public CharacterState next;
 
-    private Vector2 lastDirection = Vector2.zero;
+    private (bool, Vector2) lastTriggerTest = (false, Vector2.zero);
+
+    public override void Enter()
+    {
+        lastTriggerTest = (CurrentInputTriggers(), input.GetDirection().normalized);
+    }
 
     public override void Process()
     {
@@ -51,13 +56,19 @@ public class InputTransitionBehaviour : CharacterState
         {
             inputBuffer.Consume();
             TransitionToNext();
+            
+            lastTriggerTest = (true, input.GetDirection().normalized);
             return;
         }
 
         if (CurrentInputTriggers())
+        {
+            lastTriggerTest = (true, input.GetDirection().normalized);
             TransitionToNext();
+            return;
+        }
 
-        lastDirection = input.GetDirection();
+        lastTriggerTest = (false, input.GetDirection().normalized);
     }
 
     public void TransitionToNext()
@@ -66,9 +77,8 @@ public class InputTransitionBehaviour : CharacterState
     }
 
     public bool CurrentInputTriggers() =>
-        DirectionTriggers(input.GetDirection()) && (!requireTap || !DirectionTriggers(lastDirection))
-                                                && ButtonCombinationTriggers(input.IsAttackJustPressed(),
-                                                    input.IsSpecialJustPressed());
+        DirectionTriggers(input.GetDirection().normalized) && (!requireTap || !lastTriggerTest.Item1 || Vector2.Dot(input.GetDirection().normalized, lastTriggerTest.Item2.normalized) >= 0.01f)
+                                                && ButtonCombinationTriggers(input.IsAttackJustPressed(), input.IsSpecialJustPressed());
 
     public bool InputBufferTriggers() => inputBuffer.Current is not null
                                          && DirectionTriggers(inputBuffer.Current.direction)
@@ -86,21 +96,22 @@ public class InputTransitionBehaviour : CharacterState
     public bool DirectionTriggers(Vector2 direction) => requiredDirection switch
     {
         TriggerDirection.None => true,
-        TriggerDirection.Neutral => direction.sqrMagnitude < 0.01f,
-        _ => Vector2.Dot(direction, RequiredDirection) >= (expandedTriggerAngle ? 0.001f : 0.999f)
+        TriggerDirection.Neutral => direction.sqrMagnitude < 0.001f,
+        _ => Mathf.Abs(AngleOfDirection(requiredDirection) - Mathf.Atan2(direction.y, direction.x)) <= (expandedTriggerAngle ? 0.9 : 0.45),
     };
 
-    public Vector2 RequiredDirection => requiredDirection switch
+    public float AngleOfDirection(TriggerDirection direction) => Mathf.Deg2Rad * direction switch
     {
-        TriggerDirection.Up => Vector2.up,
-        TriggerDirection.Down => Vector2.down,
-        TriggerDirection.Backward => Vector2.left * Mathf.Sign(transform.lossyScale.x),
-        TriggerDirection.Forward => Vector2.right * Mathf.Sign(transform.lossyScale.x),
-        TriggerDirection.UpBackward => new Vector2(-Mathf.Sign(transform.lossyScale.x), 1).normalized,
-        TriggerDirection.UpForward => new Vector2(Mathf.Sign(transform.lossyScale.x), 1).normalized,
-        TriggerDirection.DownBackward => new Vector2(-Mathf.Sign(transform.lossyScale.x), -1).normalized,
-        TriggerDirection.DownForward => new Vector2(Mathf.Sign(transform.lossyScale.x), -1).normalized,
-        _ => Vector2.zero,
+        TriggerDirection.Up => 90f,
+        TriggerDirection.Down => -90f,
+        TriggerDirection.Forward => 180f - 180f * IsLookingForward(),
+        TriggerDirection.Backward => 180f * IsLookingForward(),
+        TriggerDirection.UpForward => 135f - 90f * IsLookingForward(),
+        TriggerDirection.UpBackward => 45f + 90f * IsLookingForward(),
+        TriggerDirection.DownForward => -135f + 90f * IsLookingForward(),
+        TriggerDirection.DownBackward => -45f - 90f * IsLookingForward(),
+        _ => 0f,
     };
-    
+
+    public float IsLookingForward() => (Mathf.Sign(transform.lossyScale.x) + 1) / 2;
 }

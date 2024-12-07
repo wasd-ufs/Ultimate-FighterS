@@ -7,6 +7,7 @@ public class CharacterStateMachine : StateMachine<CharacterState>
     private InputSystem input;
     private InputBuffer inputBuffer;
     public Transform flipPivotPoint;
+    public ParticleSystem dustParticles;
 
     private void Awake()
     {
@@ -36,6 +37,7 @@ public class CharacterStateMachine : StateMachine<CharacterState>
         Current.input = input;
         Current.inputBuffer = inputBuffer;
         Current.FlipPivotPoint = flipPivotPoint;
+        Current.DustParticles = dustParticles;
     }
 
     private void Update()
