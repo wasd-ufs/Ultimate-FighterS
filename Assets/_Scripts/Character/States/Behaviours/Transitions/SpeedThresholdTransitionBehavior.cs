@@ -43,8 +43,8 @@ public class SpeedThresholdTransitionBehavior : CharacterState
 
     private bool ShouldTransition() => comparison switch
     {
-        SpeedComparisonType.ApproximatelyEqual => Mathf.Approximately(body.GetSpeedOnAxis(GetFinalAxis()), threshold),
-        SpeedComparisonType.ApproximatelyDifferent => !Mathf.Approximately(body.GetSpeedOnAxis(GetFinalAxis()), threshold),
+        SpeedComparisonType.ApproximatelyEqual => Approximately(body.GetSpeedOnAxis(GetFinalAxis()), threshold),
+        SpeedComparisonType.ApproximatelyDifferent => !Approximately(body.GetSpeedOnAxis(GetFinalAxis()), threshold),
         SpeedComparisonType.Higher => body.GetSpeedOnAxis(GetFinalAxis()) > threshold,
         SpeedComparisonType.Lower => body.GetSpeedOnAxis(GetFinalAxis()) < threshold,
         _ => false
@@ -55,4 +55,6 @@ public class SpeedThresholdTransitionBehavior : CharacterState
         var (forward, up) = GetBasis(basis);
         return axis.x * forward + axis.y * up;
     }
+    
+    private bool Approximately(float a, float b) => Mathf.Abs(a - b) < 0.01f;
 }

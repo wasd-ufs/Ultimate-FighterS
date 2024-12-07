@@ -34,7 +34,8 @@ public class ActivePlayer
         if (InGameObject is not null)
             Object.Destroy(InGameObject);
         
-        InGameObject = Object.Instantiate(Character.prefab, SpawnPoint.transform.position, SpawnPoint.transform.rotation, SpawnPoint.parent);
+        InGameObject = Object.Instantiate(Character.prefab, SpawnPoint.transform.position, SpawnPoint.transform.rotation);
+        
         var idComponent = InGameObject.GetComponent<IdComponent>();
         if (idComponent is null)
         {

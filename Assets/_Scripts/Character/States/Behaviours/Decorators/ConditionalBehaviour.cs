@@ -21,6 +21,8 @@ public class ConditionalBehaviour : CharacterState
         state.body = body;
         state.input = input;
         state.inputBuffer = inputBuffer;
+        state.FlipPivotPoint = FlipPivotPoint;
+        state.DustParticles = DustParticles;
     }
     
     public override void Enter()
