@@ -41,10 +41,13 @@ public class PlayerInputSystem : InputSystem
             return Vector2.zero;
         
         direction = direction.normalized;
+        return direction;
+        /*
         var angle = Mathf.Atan2(direction.y, direction.x);
 
         var section = Mathf.RoundToInt(angle * 8 / (2 * Mathf.PI) + 8) % 8;
         return possibleDirections[section];
+        */
     }
     public override bool IsSpecialBeingHeld() 
     {

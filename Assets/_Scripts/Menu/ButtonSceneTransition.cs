@@ -18,11 +18,21 @@ public class ButtonSceneTransition : MonoBehaviour
     
     [Header("Transition")]
     [SerializeField] private int nextSceneIndex;
+    
+    private bool transitioning = false;
+
+    public void Start()
+    {
+        SceneChangerController.FadeIn();
+    }
 
     public void Update()
     {
-        if (IsButtonPressed() && CanTransition())
-            SceneManager.LoadScene(nextSceneIndex);
+        if (IsButtonPressed() && CanTransition() && !transitioning)
+        {
+            SceneChangerController.FadeOut(nextSceneIndex);
+            transitioning = true;
+        }
     }
 
     private bool CanTransition() => !requireMinimumPlayerCount

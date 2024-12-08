@@ -1,18 +1,40 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
+[RequireComponent(typeof(Animator))]
 public class SceneChangerController : MonoBehaviour
 {
-    public Animator animator;
+    private static readonly int FadeInTrigger = Animator.StringToHash("in");
+    private static readonly int FadeOutTrigger = Animator.StringToHash("out");
+    private static Animator _animator;
+    private static int _nextScene;
 
-    public void ActivateFadeOut()
+    public void Awake()
     {
-        animator.SetBool("Active", true);
+        DontDestroyOnLoad(gameObject);
+        
+        _animator = GetComponent<Animator>();
     }
 
-    public void ActivateFadeIn()
+    public void LoadNextScene()
     {
-        animator.SetBool("Active", false);
+        SceneManager.LoadScene(_nextScene);
+    }
+
+    public static void FadeIn()
+    {
+        _animator.SetTrigger(FadeInTrigger);
+        _animator.ResetTrigger(FadeOutTrigger);
+    }
+
+    public static void FadeOut(int sceneIndex)
+    {
+        _nextScene = sceneIndex;
+        
+        _animator.ResetTrigger(FadeInTrigger);
+        _animator.SetTrigger(FadeOutTrigger);
     }
 }

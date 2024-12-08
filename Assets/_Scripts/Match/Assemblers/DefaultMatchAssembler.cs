@@ -12,7 +12,7 @@ public class DefaultMatchAssembler : MonoBehaviour
 
     private void Start()
     {
-        MatchManager.OnMatchEnding.AddListener(_ => SceneManager.LoadScene(ResultSceneIndex));
+        MatchManager.OnMatchEnding.AddListener(_ => SceneChangerController.FadeOut(ResultSceneIndex));
         
         Instantiate(MatchConfiguration.ScenePrefab);
         
@@ -23,6 +23,7 @@ public class DefaultMatchAssembler : MonoBehaviour
             MatchManager.EndMatch();
         
         MatchManager.ForEachPlayer(player => player.Spawn());
+        SceneChangerController.FadeIn();
     }
 
     private bool AddPlayers()

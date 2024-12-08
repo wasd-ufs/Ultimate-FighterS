@@ -586,10 +586,22 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7931124419870507594, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
+      propertyPath: maxSpeed
+      value: 7.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8000168769332826831, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: a4a6c8eed13089c8ea70938d40d67d66, type: 2}
+    - target: {fileID: 8057960562301975422, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
+      propertyPath: heavyGravity
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 8057960562301975422, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
+      propertyPath: gravityRelaxationThreshold
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8644982842665969205, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: m_Controller
       value: 
@@ -604,7 +616,7 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: 8aeb4148b1d00b3b4b77a1a7856922b4, type: 2}
     - target: {fileID: 8826219547781791451, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: acceleration.y
-      value: -12
+      value: -6
       objectReference: {fileID: 0}
     - target: {fileID: 8894284397386515608, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: m_LocalScale.x
