@@ -1046,7 +1046,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   port: 2
-  prefab: {fileID: 2571957151682175618, guid: de29e623cebcbf2c6a5ddd32711e6fd7, type: 3}
+  prefabs: []
 --- !u!114 &225814192
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3199,7 +3199,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   port: 0
-  prefab: {fileID: 2571957151682175618, guid: de29e623cebcbf2c6a5ddd32711e6fd7, type: 3}
+  prefabs: []
 --- !u!114 &801106380
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3896,7 +3896,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   port: 1
-  prefab: {fileID: 2571957151682175618, guid: de29e623cebcbf2c6a5ddd32711e6fd7, type: 3}
+  prefabs: []
 --- !u!114 &1025752042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4192,7 +4192,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   port: 1
-  prefab: {fileID: 0}
+  prefabs: []
 --- !u!114 &1087294679
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4340,7 +4340,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   port: 3
-  prefab: {fileID: 2571957151682175618, guid: de29e623cebcbf2c6a5ddd32711e6fd7, type: 3}
+  prefabs: []
 --- !u!114 &1145638428
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4770,7 +4770,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   port: 3
-  prefab: {fileID: 0}
+  prefabs: []
 --- !u!114 &1235685450
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5522,7 +5522,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   port: 0
-  prefab: {fileID: 0}
+  prefabs: []
 --- !u!114 &1382204302
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6354,7 +6354,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   port: 2
-  prefab: {fileID: 0}
+  prefabs: []
 --- !u!114 &1701166727
 MonoBehaviour:
   m_ObjectHideFlags: 0
