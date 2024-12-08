@@ -1,0 +1,6 @@
+Dá uma olhada nos audios para importar para a unity, já é da propria unity é so ir na loja e importar
+
+.https://assetstore.unity.com/packages/audio/sound-fx/weapons/free-laser-weapons-214929
+.https://assetstore.unity.com/packages/audio/sound-fx/voices/damage-sounds-male-npc-player-audio-pack-285385
+.https://assetstore.unity.com/packages/audio/sound-fx/free-deadly-kombat-228835
+.https://assetstore.unity.com/packages/audio/sound-fx/shapeforms-audio-free-sound-effects-183649
