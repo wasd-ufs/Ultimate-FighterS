@@ -5,15 +5,11 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(RawImage))]
 public class StageSelectionCarousel : Carousel
 {
-    private RawImage image;
-
-    private void Awake()
-    {
-        image = GetComponent<RawImage>();
-    }
+    [SerializeField] private StageDisplay previous;
+    [SerializeField] private StageDisplay current;
+    [SerializeField] private StageDisplay next;
 
     private void Start()
     {
@@ -22,10 +18,12 @@ public class StageSelectionCarousel : Carousel
 
     protected override void OnSelected(int index)
     {
-        var selectedStage = StageRegistry.Stages[index];
+        var previousStage = StageRegistry.Stages[PreviousIndex];
+        var selectedStage = StageRegistry.Stages[CurrentIndex];
+        var nextStage = StageRegistry.Stages[NextIndex];
         
         WriteToMatchConfiguration(selectedStage);
-        UpdateUI(selectedStage);
+        UpdateUI(previousStage, selectedStage, nextStage);
     }
 
     private int IndexFromMatchConfiguration() => StageRegistry.Stages
@@ -36,9 +34,11 @@ public class StageSelectionCarousel : Carousel
         MatchConfiguration.ScenePrefab = selectedStage.prefab;
     }
 
-    private void UpdateUI(Stage selectedStage)
+    private void UpdateUI(Stage previousStage, Stage selectedStage, Stage nextStage)
     {
-        image.texture = selectedStage.icon;
+        previous.SetStage(previousStage);
+        current.SetStage(selectedStage);
+        next.SetStage(nextStage);
     }
 
     protected override int GetItemCount() => StageRegistry.StageCount;

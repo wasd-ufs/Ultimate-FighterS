@@ -3998,7 +3998,7 @@ PrefabInstance:
       objectReference: {fileID: 2486921370478200082}
     - target: {fileID: 464490692968376007, guid: e480ad60c31e6fc6ab4ead9257f384df, type: 3}
       propertyPath: expandedTriggerAngle
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1935756953163555772, guid: e480ad60c31e6fc6ab4ead9257f384df, type: 3}
       propertyPath: m_Name
@@ -4014,7 +4014,7 @@ PrefabInstance:
       objectReference: {fileID: 2486921370478200082}
     - target: {fileID: 3865969485689115139, guid: e480ad60c31e6fc6ab4ead9257f384df, type: 3}
       propertyPath: expandedTriggerAngle
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4820365091083372875, guid: e480ad60c31e6fc6ab4ead9257f384df, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4060,6 +4060,10 @@ PrefabInstance:
       propertyPath: next
       value: 
       objectReference: {fileID: 5311492968722036140}
+    - target: {fileID: 6062580711564011682, guid: e480ad60c31e6fc6ab4ead9257f384df, type: 3}
+      propertyPath: expandedTriggerAngle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7217323695410927818, guid: e480ad60c31e6fc6ab4ead9257f384df, type: 3}
       propertyPath: next
       value: 
@@ -4072,6 +4076,10 @@ PrefabInstance:
       propertyPath: next
       value: 
       objectReference: {fileID: 7065228164941769102}
+    - target: {fileID: 8726263576789525712, guid: e480ad60c31e6fc6ab4ead9257f384df, type: 3}
+      propertyPath: expandedTriggerAngle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8793308250881402702, guid: e480ad60c31e6fc6ab4ead9257f384df, type: 3}
       propertyPath: next
       value: 
@@ -4080,7 +4088,9 @@ PrefabInstance:
       propertyPath: useBuffer
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3606642268433055850, guid: e480ad60c31e6fc6ab4ead9257f384df, type: 3}
+    - {fileID: 7217323695410927818, guid: e480ad60c31e6fc6ab4ead9257f384df, type: 3}
     m_RemovedGameObjects:
     - {fileID: 5131955967300212742, guid: e480ad60c31e6fc6ab4ead9257f384df, type: 3}
     - {fileID: 4704474141684095869, guid: e480ad60c31e6fc6ab4ead9257f384df, type: 3}

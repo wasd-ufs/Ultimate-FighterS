@@ -70,7 +70,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1376604196549493961, guid: 5ddce230955ce1aadb0d2032038fea4f, type: 3}
       propertyPath: Knockback.setKnockback
-      value: 1.6
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 1376604196549493961, guid: 5ddce230955ce1aadb0d2032038fea4f, type: 3}
       propertyPath: Knockback.knockbackScaling
