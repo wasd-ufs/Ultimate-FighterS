@@ -32,11 +32,6 @@ public class StockMatchGameMode : GameMode
         }
     }
 
-    private int SortByRank(int portA, int portB)
-    {
-        return stocks[portA].Rank.CompareTo(stocks[portB].Rank);
-    }
-
     protected override void OnPlayerEntering(ActivePlayer player)
     {
         stocks[player.Port] = new PlayerStock(player, initialStockCount);
@@ -57,7 +52,6 @@ public class StockMatchGameMode : GameMode
         stocks[player.Port].ClearEvents();
         
         onPlayerExiting.Invoke(player);
-        stocks.Remove(player.Port);
     }
 
     private void OnPlayerStockUpdated(PlayerStock stock, int count)
@@ -70,7 +64,7 @@ public class StockMatchGameMode : GameMode
 
     private void OnPlayerStockZeroed(PlayerStock stock)
     {
-        stock.Rank = GetAmountOfPlayersWithStock() - 1;
+        stock.Rank = GetAmountOfPlayersWithStock();
         
         if (GetAmountOfPlayersWithStock() <= 1)
             MatchManager.EndMatch();
