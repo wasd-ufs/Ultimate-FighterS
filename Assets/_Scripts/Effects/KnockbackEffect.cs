@@ -8,8 +8,10 @@ public class KnockbackEffect : Effect
 
     public override void Apply(GameObject gameObject)
     {
-        Knockback.direction.x = Mathf.Sign(transform.lossyScale.x) * Mathf.Abs(Knockback.direction.x);
-        gameObject.GetComponent<KnockbackComponent>()?.ApplyKnockback(Knockback);
+        var direction = new Vector2(Mathf.Sign(transform.lossyScale.x) * Knockback.direction.x, Knockback.direction.y);
+
+        var finalKnockback = new Knockback(direction, Knockback.setKnockback, Knockback.knockbackScaling);
+        gameObject.GetComponent<KnockbackComponent>()?.ApplyKnockback(finalKnockback);
     }
 
     public void OnDrawGizmos()

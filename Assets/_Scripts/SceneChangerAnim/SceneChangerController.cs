@@ -11,9 +11,18 @@ public class SceneChangerController : MonoBehaviour
     private static readonly int FadeOutTrigger = Animator.StringToHash("out");
     private static Animator _animator;
     private static int _nextScene;
+    
+    private static GameObject _sceneChanger;
 
     public void Awake()
     {
+        if (_sceneChanger != null)
+        {
+            Destroy(this.gameObject);
+            return;
+        }
+
+        _sceneChanger = this.gameObject;
         DontDestroyOnLoad(gameObject);
         
         _animator = GetComponent<Animator>();

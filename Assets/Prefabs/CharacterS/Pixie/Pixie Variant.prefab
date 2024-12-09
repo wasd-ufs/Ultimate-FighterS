@@ -330,6 +330,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -0.1455
       objectReference: {fileID: 0}
+    - target: {fileID: 3229574802212822314, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
+      propertyPath: deceleration.x
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 3355877467797406759, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.137
@@ -372,23 +376,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3384790423664051265, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: maxSpeed
-      value: 5
+      value: 4.5
       objectReference: {fileID: 0}
     - target: {fileID: 3384790423664051265, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: acceleration
-      value: 10
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3384790423664051265, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: deceleration
-      value: 12.5
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 3384790423664051265, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: turnAcceleration
-      value: 14.28571
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3384790423664051265, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: overspeedDeceleration
-      value: 10
+      value: 4.5
       objectReference: {fileID: 0}
     - target: {fileID: 3612722904057028662, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: m_Sprite
@@ -418,6 +422,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -0.1777
       objectReference: {fileID: 0}
+    - target: {fileID: 3632662830887941643, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
+      propertyPath: deceleration.x
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 4038250490361152083, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -425,6 +433,14 @@ PrefabInstance:
     - target: {fileID: 4349757665019487482, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4387174749113266158, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
+      propertyPath: deceleration.x
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4518897509227370898, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
+      propertyPath: deceleration.x
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 4771896856262430890, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: m_IsActive
@@ -500,7 +516,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5868846442798541627, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: maxSpeed
-      value: 5
+      value: 4.5
       objectReference: {fileID: 0}
     - target: {fileID: 5868846442798541627, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: acceleration
@@ -516,7 +532,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5868846442798541627, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: overspeedDeceleration
-      value: 25
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 6087417953570541146, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: animationName

@@ -21,11 +21,6 @@ public class ButtonSceneTransition : MonoBehaviour
     
     private bool transitioning = false;
 
-    public void Start()
-    {
-        SceneChangerController.FadeIn();
-    }
-
     public void Update()
     {
         if (IsButtonPressed() && CanTransition() && !transitioning)

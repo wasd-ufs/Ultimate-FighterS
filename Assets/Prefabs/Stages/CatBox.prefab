@@ -321,7 +321,7 @@ GameObject:
   - component: {fileID: 4572719029144984942}
   m_Layer: 0
   m_Name: Ground
-  m_TagString: Untagged
+  m_TagString: StageLimits
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -500,6 +500,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5416890020133969004}
+  - {fileID: 674526630055362283}
   m_Father: {fileID: 1248146390271999040}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8075957349512058506
@@ -544,7 +545,7 @@ Transform:
   m_GameObject: {fileID: 2533030033754223756}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.209, y: 0.077, z: 0}
+  m_LocalPosition: {x: 0.088, y: 0.077, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1380,6 +1381,37 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!1 &4819602125914209410
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 674526630055362283}
+  m_Layer: 0
+  m_Name: CatHead
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &674526630055362283
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4819602125914209410}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2560792885081852607}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5302231599498738177
 GameObject:
   m_ObjectHideFlags: 0
@@ -1649,7 +1681,7 @@ GameObject:
   - component: {fileID: 4069533028216870579}
   m_Layer: 0
   m_Name: Roof
-  m_TagString: Untagged
+  m_TagString: StageLimits
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1814,7 +1846,7 @@ GameObject:
   - component: {fileID: 3878506375851590368}
   m_Layer: 0
   m_Name: WallLeft
-  m_TagString: Untagged
+  m_TagString: StageLimits
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2322,7 +2354,7 @@ GameObject:
   - component: {fileID: 6829856466496937102}
   m_Layer: 0
   m_Name: WallRight
-  m_TagString: Untagged
+  m_TagString: StageLimits
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2652,12 +2684,20 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2227210819704976558, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
+      propertyPath: Knockback.direction.y
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2227210819704976558, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
       propertyPath: Knockback.setKnockback
-      value: 5
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 2227210819704976558, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
       propertyPath: Knockback.knockbackScaling
-      value: 5
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5260456630257636301, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
+      propertyPath: damageAmount
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 7198258493091875994, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
       propertyPath: m_LocalScale.x
@@ -2706,6 +2746,14 @@ PrefabInstance:
     - target: {fileID: 7198258493091875994, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 32.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8831089178331489526, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
+      propertyPath: lagTime
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8831089178331489526, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
+      propertyPath: hitstopTime
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8832989050919262465, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
       propertyPath: m_Name
@@ -2780,6 +2828,10 @@ PrefabInstance:
     - target: {fileID: 532325157479049830, guid: c05fff91037c6b005ac3ca5c962094a6, type: 3}
       propertyPath: m_Name
       value: DeathZone (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 532325157479049830, guid: c05fff91037c6b005ac3ca5c962094a6, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 2527999411799549008, guid: c05fff91037c6b005ac3ca5c962094a6, type: 3}
       propertyPath: m_LocalScale.x
@@ -2872,12 +2924,20 @@ PrefabInstance:
       value: -5
       objectReference: {fileID: 0}
     - target: {fileID: 2227210819704976558, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
+      propertyPath: Knockback.direction.y
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2227210819704976558, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
       propertyPath: Knockback.setKnockback
-      value: 5
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 2227210819704976558, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
       propertyPath: Knockback.knockbackScaling
-      value: 0
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5260456630257636301, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
+      propertyPath: damageAmount
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 7198258493091875994, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
       propertyPath: m_LocalScale.x
@@ -2926,6 +2986,14 @@ PrefabInstance:
     - target: {fileID: 7198258493091875994, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -30.92
+      objectReference: {fileID: 0}
+    - target: {fileID: 8831089178331489526, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
+      propertyPath: lagTime
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8831089178331489526, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
+      propertyPath: hitstopTime
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8832989050919262465, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
       propertyPath: m_Name
@@ -2998,12 +3066,20 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2227210819704976558, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
+      propertyPath: Knockback.direction.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2227210819704976558, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
       propertyPath: Knockback.setKnockback
-      value: 5
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 2227210819704976558, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
       propertyPath: Knockback.knockbackScaling
-      value: 0
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5260456630257636301, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
+      propertyPath: damageAmount
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 7198258493091875994, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
       propertyPath: m_LocalScale.x
@@ -3052,6 +3128,14 @@ PrefabInstance:
     - target: {fileID: 7198258493091875994, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -30.92
+      objectReference: {fileID: 0}
+    - target: {fileID: 8831089178331489526, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
+      propertyPath: lagTime
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8831089178331489526, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
+      propertyPath: hitstopTime
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8832989050919262465, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
       propertyPath: m_Name
@@ -3126,6 +3210,10 @@ PrefabInstance:
     - target: {fileID: 532325157479049830, guid: c05fff91037c6b005ac3ca5c962094a6, type: 3}
       propertyPath: m_Name
       value: DeathZone (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 532325157479049830, guid: c05fff91037c6b005ac3ca5c962094a6, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 2527999411799549008, guid: c05fff91037c6b005ac3ca5c962094a6, type: 3}
       propertyPath: m_LocalScale.x
@@ -3216,6 +3304,10 @@ PrefabInstance:
     - target: {fileID: 532325157479049830, guid: c05fff91037c6b005ac3ca5c962094a6, type: 3}
       propertyPath: m_Name
       value: DeathZone (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 532325157479049830, guid: c05fff91037c6b005ac3ca5c962094a6, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 2527999411799549008, guid: c05fff91037c6b005ac3ca5c962094a6, type: 3}
       propertyPath: m_LocalScale.x
@@ -3310,6 +3402,10 @@ PrefabInstance:
     - target: {fileID: 532325157479049830, guid: c05fff91037c6b005ac3ca5c962094a6, type: 3}
       propertyPath: m_Name
       value: DeathZone
+      objectReference: {fileID: 0}
+    - target: {fileID: 532325157479049830, guid: c05fff91037c6b005ac3ca5c962094a6, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 2527999411799549008, guid: c05fff91037c6b005ac3ca5c962094a6, type: 3}
       propertyPath: m_LocalScale.x
