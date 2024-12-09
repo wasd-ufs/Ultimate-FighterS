@@ -8,7 +8,7 @@ public class KnockbackComponent : MonoBehaviour
 {
     private CharacterBody2D body;
     private DamageComponent damageComponent;
-    
+    [SerializeField] private float knockbackMultiplier = 1f;
     [HideInInspector] public UnityEvent<Knockback> onKnockback = new();
 
     public void Awake()
@@ -19,7 +19,7 @@ public class KnockbackComponent : MonoBehaviour
 
     public void ApplyKnockback(Knockback knockback)
     {
-        body.SetVelocity(knockback.Impulse(damageComponent.CurrentDamage));
+        body.SetVelocity(knockback.Impulse(damageComponent.CurrentDamage) * knockbackMultiplier);
         
         Debug.Log(body.Velocity);
         

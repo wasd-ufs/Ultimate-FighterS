@@ -57,6 +57,10 @@ PrefabInstance:
       value: AirAttack
       objectReference: {fileID: 0}
     - target: {fileID: 1376604196549493961, guid: 5ddce230955ce1aadb0d2032038fea4f, type: 3}
+      propertyPath: Knockback.direction.x
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 1376604196549493961, guid: 5ddce230955ce1aadb0d2032038fea4f, type: 3}
       propertyPath: Knockback.direction.y
       value: 1
       objectReference: {fileID: 0}
@@ -66,7 +70,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1376604196549493961, guid: 5ddce230955ce1aadb0d2032038fea4f, type: 3}
       propertyPath: Knockback.knockbackScaling
-      value: 1
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 2411168054719457641, guid: 5ddce230955ce1aadb0d2032038fea4f, type: 3}
       propertyPath: m_LocalScale.x
@@ -126,11 +130,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8609860594988766353, guid: 5ddce230955ce1aadb0d2032038fea4f, type: 3}
       propertyPath: lagTime
-      value: 0.4
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 8609860594988766353, guid: 5ddce230955ce1aadb0d2032038fea4f, type: 3}
       propertyPath: hitstopTime
-      value: 0.4
+      value: 0.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

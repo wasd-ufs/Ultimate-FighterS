@@ -6,6 +6,8 @@ TagManager:
   tags:
   - SpawnPoint
   - StageLimits
+  - Hitbox
+  - Hurtbox
   layers:
   - Default
   - TransparentFX

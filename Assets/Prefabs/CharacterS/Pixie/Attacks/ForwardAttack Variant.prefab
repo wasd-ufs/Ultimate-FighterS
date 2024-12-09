@@ -122,15 +122,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7932901351491697917, guid: 5ddce230955ce1aadb0d2032038fea4f, type: 3}
       propertyPath: m_LocalScale.x
-      value: 2.5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7932901351491697917, guid: 5ddce230955ce1aadb0d2032038fea4f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.342
+      value: 0.355
       objectReference: {fileID: 0}
     - target: {fileID: 7932901351491697917, guid: 5ddce230955ce1aadb0d2032038fea4f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.079
+      value: -0.102
       objectReference: {fileID: 0}
     - target: {fileID: 7935826727329019634, guid: 5ddce230955ce1aadb0d2032038fea4f, type: 3}
       propertyPath: m_Enabled
@@ -142,11 +142,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8609860594988766353, guid: 5ddce230955ce1aadb0d2032038fea4f, type: 3}
       propertyPath: lagTime
-      value: 1
+      value: 0.9
       objectReference: {fileID: 0}
     - target: {fileID: 8609860594988766353, guid: 5ddce230955ce1aadb0d2032038fea4f, type: 3}
       propertyPath: hitstopTime
-      value: 0.7
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

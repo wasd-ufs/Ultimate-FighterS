@@ -126,7 +126,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8609860594988766353, guid: 5ddce230955ce1aadb0d2032038fea4f, type: 3}
       propertyPath: lagTime
-      value: 0.6
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 8609860594988766353, guid: 5ddce230955ce1aadb0d2032038fea4f, type: 3}
       propertyPath: hitstopTime
@@ -223,7 +223,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8831089178331489526, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
       propertyPath: lagTime
-      value: 0.8
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8831089178331489526, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
       propertyPath: hitstopTime

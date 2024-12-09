@@ -614,6 +614,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -0.245
       objectReference: {fileID: 0}
+    - target: {fileID: 7814752911071583053, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
+      propertyPath: knockbackMultiplier
+      value: 1.15
+      objectReference: {fileID: 0}
     - target: {fileID: 7931124419870507594, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: maxSpeed
       value: 8

@@ -41,13 +41,16 @@ public class BounceBehaviour : CharacterState
         if (body.Velocity.sqrMagnitude < 0.01f)
             return;
 
-        var hits = body
-            .Cast(body.Velocity.normalized, body.Velocity.magnitude * Time.fixedDeltaTime * 1.25f);
+        var hits = Physics2D.RaycastAll(body.transform.position, body.Velocity.normalized, body.Velocity.magnitude * Time.fixedDeltaTime).ToList()
+            .Where(hit => !hit.collider.gameObject.CompareTag("Player") && !hit.collider.CompareTag("Hitbox") && !hit.collider.CompareTag("Hurtbox") && !hit.collider.isTrigger)
+            .Where(hit => hit.distance >= 0.01f)
+            .ToList();
         
         if (hits.Count > 0)
         {
             var hit = hits.First();
             Bounce(hit.normal);
+            Debug.Log($"Hit name: {hit.collider.name}");
         }
     }
 }
