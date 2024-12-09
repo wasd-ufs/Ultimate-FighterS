@@ -1,14 +1,16 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class CharacterRegistryLoader : MonoBehaviour
 {
-    private static bool isFirstLoad = true;
-    
     [SerializeField] private List<Character> charactersToRegister;
     
-    private void Awake()
+    private static bool isFirstLoad = true;
+    public static readonly UnityEvent OnLoadComplete = new();
+    
+    private void Start()
     {
         if (isFirstLoad)
         {
@@ -16,6 +18,6 @@ public class CharacterRegistryLoader : MonoBehaviour
             isFirstLoad = false;
         }
         
-        Destroy(this);
+        OnLoadComplete.Invoke();
     }
 }

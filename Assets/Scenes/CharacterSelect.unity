@@ -247,6 +247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c4e47b1bb4841c7b384105d09605e75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  noCharacter: {fileID: 2800000, guid: 2fd14c539cd54e4ba9699278e090c0b0, type: 3}
 --- !u!114 &400844318
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -495,9 +496,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   charactersToRegister:
-  - name: No Character
-    icon: {fileID: 2800000, guid: 2fd14c539cd54e4ba9699278e090c0b0, type: 3}
-    prefab: {fileID: 0}
   - name: Pixel
     icon: {fileID: 2800000, guid: 7d86e13bc66f48dcb84f3ea6e5553b52, type: 3}
     prefab: {fileID: 2571957151682175618, guid: de29e623cebcbf2c6a5ddd32711e6fd7, type: 3}
@@ -829,6 +827,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c4e47b1bb4841c7b384105d09605e75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  noCharacter: {fileID: 2800000, guid: 2fd14c539cd54e4ba9699278e090c0b0, type: 3}
 --- !u!114 &1476346195
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -956,6 +955,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c4e47b1bb4841c7b384105d09605e75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  noCharacter: {fileID: 2800000, guid: 2fd14c539cd54e4ba9699278e090c0b0, type: 3}
 --- !u!114 &1890876933
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1262,6 +1262,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c4e47b1bb4841c7b384105d09605e75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  noCharacter: {fileID: 2800000, guid: 2fd14c539cd54e4ba9699278e090c0b0, type: 3}
 --- !u!114 &2131723952
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1340,10 +1341,10 @@ MonoBehaviour:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 962486186}
   - {fileID: 2071992773}
   - {fileID: 1001937076}
   - {fileID: 1270618072}
   - {fileID: 1120715496}
-  - {fileID: 962486186}
   - {fileID: 1993812292}
   - {fileID: 464260018}

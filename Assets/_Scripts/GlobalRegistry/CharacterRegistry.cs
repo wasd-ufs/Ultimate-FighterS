@@ -9,8 +9,11 @@ public static class CharacterRegistry
     
     public static List<Character> Characters => CharacterSet.Values.ToList();
     public static int CharacterCount => CharacterSet.Count;
-    
-    public static void Register(Character character) => CharacterSet.TryAdd(character.prefab, character);
+
+    public static void Register(Character character)
+    {
+        CharacterSet[character.prefab] = character;
+    }
 
     public static void RegisterRange(IEnumerable<Character> characters)
     {
