@@ -1735,6 +1735,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1668652496524584080}
   - component: {fileID: 2411277096798783833}
+  - component: {fileID: 3632662830887941643}
   m_Layer: 0
   m_Name: SpecialMove  (Put Special State As Children)
   m_TagString: Untagged
@@ -1771,6 +1772,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   foreignStates: []
   automaticallyIncludeChildren: 1
+--- !u!114 &3632662830887941643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4038250490361152083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8f346dbada165a96961ce1ba7e6a9ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deceleration: {x: 40, y: 0}
+  basis: 0
 --- !u!1 &4349757665019487482
 GameObject:
   m_ObjectHideFlags: 0
@@ -1781,6 +1796,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1485772475580119434}
   - component: {fileID: 5311492968722036140}
+  - component: {fileID: 4387174749113266158}
   m_Layer: 0
   m_Name: NeutralGroundAttack  (Put Attack State As Children)
   m_TagString: Untagged
@@ -1817,6 +1833,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   foreignStates: []
   automaticallyIncludeChildren: 1
+--- !u!114 &4387174749113266158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4349757665019487482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8f346dbada165a96961ce1ba7e6a9ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deceleration: {x: 40, y: 0}
+  basis: 0
 --- !u!1 &4399141385339415395
 GameObject:
   m_ObjectHideFlags: 0
@@ -1997,6 +2027,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2800329425621910841}
   - component: {fileID: 7065228164941769102}
+  - component: {fileID: 3229574802212822314}
   m_Layer: 0
   m_Name: DownGroundAttack  (Put Attack State As Children)
   m_TagString: Untagged
@@ -2033,6 +2064,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   foreignStates: []
   automaticallyIncludeChildren: 1
+--- !u!114 &3229574802212822314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4771896856262430890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8f346dbada165a96961ce1ba7e6a9ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deceleration: {x: 40, y: 0}
+  basis: 0
 --- !u!1 &4792843746130843697
 GameObject:
   m_ObjectHideFlags: 0
@@ -2681,6 +2726,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5626296464579877041}
   - component: {fileID: 2486921370478200082}
+  - component: {fileID: 4518897509227370898}
   m_Layer: 0
   m_Name: ForwardGroundAttack (Put Attack State As Children)
   m_TagString: Untagged
@@ -2717,6 +2763,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   foreignStates: []
   automaticallyIncludeChildren: 1
+--- !u!114 &4518897509227370898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5844040207117650909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8f346dbada165a96961ce1ba7e6a9ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deceleration: {x: 40, y: 0}
+  basis: 0
 --- !u!1 &6118739708680542158
 GameObject:
   m_ObjectHideFlags: 0
@@ -3912,7 +3972,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: baf3a09e24073dcb09d6d8f1c04cc148, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waitTime: 0.24
+  waitTime: 0.128
   elapsedTime: 0
   startOnAwake: 0
   restartOnFinish: 0
