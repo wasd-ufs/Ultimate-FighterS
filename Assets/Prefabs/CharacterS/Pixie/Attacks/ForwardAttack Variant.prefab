@@ -109,6 +109,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 04ee10c36462c214a844e404efd20b87, type: 3}
     - target: {fileID: 2983822913143927052, guid: 5ddce230955ce1aadb0d2032038fea4f, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2983822913143927052, guid: 5ddce230955ce1aadb0d2032038fea4f, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
@@ -154,6 +158,9 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8570971339021505021, guid: 5ddce230955ce1aadb0d2032038fea4f, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 1071180339976427607}
+    - targetCorrespondingSourceObject: {fileID: 8570971339021505021, guid: 5ddce230955ce1aadb0d2032038fea4f, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 8864647601109692765}
   m_SourcePrefab: {fileID: 100100000, guid: 5ddce230955ce1aadb0d2032038fea4f, type: 3}
 --- !u!1 &5031919681599269901 stripped
@@ -161,6 +168,20 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8570971339021505021, guid: 5ddce230955ce1aadb0d2032038fea4f, type: 3}
   m_PrefabInstance: {fileID: 3685859087765683696}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1071180339976427607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5031919681599269901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e895953b0d774e7fab1b5aaec2a428c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pitchRandomRadius: 0.1
+  volumeRandomRadius: 0.1
 --- !u!82 &8864647601109692765
 AudioSource:
   m_ObjectHideFlags: 0
@@ -171,10 +192,10 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: cce6b1a5248885e4dad6161ac84b4aac, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 8695250d37d7ed846bb962ac08b10666, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
+  m_Volume: 0.5
+  m_Pitch: 0.7
   Loop: 0
   Mute: 0
   Spatialize: 0

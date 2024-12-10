@@ -251,7 +251,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3636957908022665577}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -555,6 +555,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3786327252403093749}
     m_Modifications:
+    - target: {fileID: 983514370275189481, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
+      propertyPath: onHurtboxDetected.m_PersistentCalls.m_Calls.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 983514370275189481, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
+      propertyPath: onHurtboxDetected.m_PersistentCalls.m_Calls.Array.data[3].m_Target
+      value: 
+      objectReference: {fileID: 2407525245695084906}
     - target: {fileID: 7198258493091875994, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.002
@@ -604,6 +612,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
+--- !u!114 &2407525245695084906 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3214221295281387789, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
+  m_PrefabInstance: {fileID: 1004876978052853863}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e895953b0d774e7fab1b5aaec2a428c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &7932901351491697917 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7198258493091875994, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}

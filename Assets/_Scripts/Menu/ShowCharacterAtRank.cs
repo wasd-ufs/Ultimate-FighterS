@@ -18,7 +18,10 @@ public class ShowCharacterAtRank : MonoBehaviour
     {
         var character = GetCharacter(rank);
         if (character is null)
+        {
+            image.color = new Color(1, 1, 1, 0);
             return;
+        }
 
         image.texture = character.icon;
     }
