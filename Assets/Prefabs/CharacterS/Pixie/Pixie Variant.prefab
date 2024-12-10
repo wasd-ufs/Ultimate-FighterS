@@ -376,7 +376,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3384790423664051265, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: maxSpeed
-      value: 4.5
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: 3384790423664051265, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: acceleration
@@ -448,7 +448,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4850358722616365715, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: impulse.y
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4979076557104428544, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -457,6 +457,18 @@ PrefabInstance:
     - target: {fileID: 4979076557104428544, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.057
+      objectReference: {fileID: 0}
+    - target: {fileID: 5025355244562892888, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5025355244562892888, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5025355244562892888, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5071900036913172781, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: m_IsActive
@@ -516,7 +528,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5868846442798541627, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: maxSpeed
-      value: 4.5
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: 5868846442798541627, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: acceleration
@@ -532,7 +544,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5868846442798541627, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: overspeedDeceleration
-      value: 18
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6087417953570541146, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: animationName
@@ -616,11 +628,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7814752911071583053, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: knockbackMultiplier
-      value: 1.15
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 7931124419870507594, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: maxSpeed
-      value: 8
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8033799267325228522, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: axis.y
@@ -628,15 +640,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8057960562301975422, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: heavyGravity
-      value: 18
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 8057960562301975422, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: normalGravity
-      value: 10
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8057960562301975422, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: fastFallGravity
-      value: 14
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8057960562301975422, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: gravityRelaxationThreshold
@@ -648,7 +660,7 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: a4ef0b2521940793fb9bf03354fea33c, type: 2}
     - target: {fileID: 8309789583420214088, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: impulse.x
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8309789583420214088, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: impulse.y
@@ -660,7 +672,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8580944098810190747, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: impulse.y
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8644982842665969205, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: m_Controller

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,8 +16,13 @@ public class ArrowBehavior : MonoBehaviour
     [SerializeField] private IdComponent idcomponent;
     [SerializeField] private List<Sprite> sprites;
     [SerializeField] private SpriteRenderer myRenderer;
-    [SerializeField] private Camera cam;
-    
+    private Camera cam;
+
+    private void Awake()
+    {
+        cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+    }
+
     void Start()
     {
         id = idcomponent.id;

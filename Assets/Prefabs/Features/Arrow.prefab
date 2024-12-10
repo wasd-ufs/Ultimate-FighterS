@@ -59,7 +59,7 @@ MonoBehaviour:
   - {fileID: 777730370, guid: db68f73a383296f4ab4834ef5d8c5a19, type: 3}
   - {fileID: 1715189349, guid: db68f73a383296f4ab4834ef5d8c5a19, type: 3}
   - {fileID: -2097932010, guid: db68f73a383296f4ab4834ef5d8c5a19, type: 3}
-  myRenderer: {fileID: 0}
+  myRenderer: {fileID: 5611534787703972939}
   cam: {fileID: 0}
 --- !u!1 &8884452361691090376
 GameObject:
