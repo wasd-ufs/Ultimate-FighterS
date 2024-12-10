@@ -157,8 +157,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.000041007996}
-  m_SizeDelta: {x: 1920, y: 1080}
+  m_AnchoredPosition: {x: 3.786, y: 7.571}
+  m_SizeDelta: {x: 2427.287, y: 1420.715}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &55217349
 MonoBehaviour:
@@ -240,8 +240,8 @@ MonoBehaviour:
   - name: Ufs Entrance
     icon: {fileID: 2800000, guid: 45821bb8b5a910b48bc1dd58493c1654, type: 3}
     prefab: {fileID: 6742153116544496494, guid: 85b781dbfed71cc08af62725e6e45644, type: 3}
-  - name: MediumStage
-    icon: {fileID: 2800000, guid: d2b259cf467ca975ca347e9079e9d506, type: 3}
+  - name: CatBox
+    icon: {fileID: 2800000, guid: aab301a8e0b4f261cbd3995aedf737dd, type: 3}
     prefab: {fileID: 3839404611912806755, guid: 4c9a264af2f79f3c38e01df8610e470a, type: 3}
   - name: TestStage
     icon: {fileID: 2800000, guid: 4ef488ce43ffa024b8712a4dc1b88f2e, type: 3}
@@ -473,8 +473,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -2239, y: -38}
-  m_SizeDelta: {x: 1920, y: 1080}
+  m_AnchoredPosition: {x: -2240.038, y: -31.484}
+  m_SizeDelta: {x: 2119.797, y: 1271.291}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &850848288
 MonoBehaviour:
@@ -978,8 +978,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2239, y: -38}
-  m_SizeDelta: {x: 1920, y: 1080}
+  m_AnchoredPosition: {x: 2241.242, y: -35.759}
+  m_SizeDelta: {x: 2132.93, y: 1287.327}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1534693291
 MonoBehaviour:

@@ -233,7 +233,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -720, y: 0}
-  m_SizeDelta: {x: 480, y: 1080}
+  m_SizeDelta: {x: 480, y: 480}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &400844315
 MonoBehaviour:
@@ -247,7 +247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c4e47b1bb4841c7b384105d09605e75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  noCharacter: {fileID: 2800000, guid: 2fd14c539cd54e4ba9699278e090c0b0, type: 3}
+  noCharacter: {fileID: 2800000, guid: 4c80079b0b06484d4b3543509c4bd275, type: 3}
 --- !u!114 &400844318
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -497,10 +497,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   charactersToRegister:
   - name: Pixel
-    icon: {fileID: 2800000, guid: 7d86e13bc66f48dcb84f3ea6e5553b52, type: 3}
+    icon: {fileID: 2800000, guid: c54a0403ddc496aa0947e29b2239d91e, type: 3}
     prefab: {fileID: 2571957151682175618, guid: de29e623cebcbf2c6a5ddd32711e6fd7, type: 3}
   - name: Pixie
-    icon: {fileID: 2800000, guid: a0d580cc6b6c40c439f1d09d042647b4, type: 3}
+    icon: {fileID: 2800000, guid: ff202c5b92246027db90c1933ee03bcd, type: 3}
     prefab: {fileID: 4198412104276388126, guid: de3ac87c394f6561c96f91b89e721580, type: 3}
   - name: Kali
     icon: {fileID: 2800000, guid: 2b8b03de39ad1ff4a9ab0fcb5710e496, type: 3}
@@ -813,7 +813,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 240, y: 0}
-  m_SizeDelta: {x: 480, y: 1080}
+  m_SizeDelta: {x: 480, y: 480}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1476346194
 MonoBehaviour:
@@ -827,7 +827,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c4e47b1bb4841c7b384105d09605e75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  noCharacter: {fileID: 2800000, guid: 2fd14c539cd54e4ba9699278e090c0b0, type: 3}
+  noCharacter: {fileID: 2800000, guid: 4c80079b0b06484d4b3543509c4bd275, type: 3}
 --- !u!114 &1476346195
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -941,7 +941,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -240, y: 0}
-  m_SizeDelta: {x: 480, y: 1080}
+  m_SizeDelta: {x: 480, y: 480}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1890876932
 MonoBehaviour:
@@ -955,7 +955,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c4e47b1bb4841c7b384105d09605e75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  noCharacter: {fileID: 2800000, guid: 2fd14c539cd54e4ba9699278e090c0b0, type: 3}
+  noCharacter: {fileID: 2800000, guid: 4c80079b0b06484d4b3543509c4bd275, type: 3}
 --- !u!114 &1890876933
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1248,7 +1248,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 720, y: 0}
-  m_SizeDelta: {x: 480, y: 1080}
+  m_SizeDelta: {x: 480, y: 480}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2131723951
 MonoBehaviour:
@@ -1262,7 +1262,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c4e47b1bb4841c7b384105d09605e75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  noCharacter: {fileID: 2800000, guid: 2fd14c539cd54e4ba9699278e090c0b0, type: 3}
+  noCharacter: {fileID: 2800000, guid: 4c80079b0b06484d4b3543509c4bd275, type: 3}
 --- !u!114 &2131723952
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1345,6 +1345,6 @@ SceneRoots:
   - {fileID: 2071992773}
   - {fileID: 1001937076}
   - {fileID: 1270618072}
+  - {fileID: 464260018}
   - {fileID: 1120715496}
   - {fileID: 1993812292}
-  - {fileID: 464260018}
