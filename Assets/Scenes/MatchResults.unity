@@ -614,7 +614,7 @@ GameObject:
   - component: {fileID: 1462567049}
   - component: {fileID: 1462567050}
   m_Layer: 0
-  m_Name: GoToCharacterSelection
+  m_Name: GotoTitleScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

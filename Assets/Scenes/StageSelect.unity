@@ -848,7 +848,7 @@ MonoBehaviour:
   buttonType: 1
   input: {fileID: 1124132633}
   requireMinimumPlayerCount: 0
-  nextSceneIndex: 0
+  nextSceneIndex: 1
 --- !u!4 &959706639
 Transform:
   m_ObjectHideFlags: 0
@@ -1104,7 +1104,7 @@ MonoBehaviour:
   buttonType: 0
   input: {fileID: 1124132633}
   requireMinimumPlayerCount: 0
-  nextSceneIndex: 2
+  nextSceneIndex: 3
 --- !u!4 &2095706114
 Transform:
   m_ObjectHideFlags: 0

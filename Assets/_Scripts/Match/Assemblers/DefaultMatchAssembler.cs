@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class DefaultMatchAssembler : MonoBehaviour
 {
-    [ReadOnly] private const int ResultSceneIndex = 3;
+    [ReadOnly] private const int ResultSceneIndex = 4;
     [ReadOnly] private const string SpawnPointTag = "SpawnPoint";
 
     private void Start()
