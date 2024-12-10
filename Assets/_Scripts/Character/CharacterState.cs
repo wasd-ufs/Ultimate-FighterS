@@ -31,6 +31,7 @@ public abstract class CharacterState : State
         Wall,
         Ceiling,
         Body,
+        BodyForward,
         XY,
         Input,
         Velocity
@@ -42,6 +43,7 @@ public abstract class CharacterState : State
         CharacterBasis.Wall => body.IsOnLeftWall() ? (body.LeftWallNormal, body.GetLeftWallUp()) : (body.RightWallNormal, body.GetRightWallUp()),
         CharacterBasis.Ceiling => (body.GetCeilingLeft(), body.CeilingNormal),
         CharacterBasis.Body => (body.Right, body.Up),
+        CharacterBasis.BodyForward => (body.Right * Mathf.Sign(FlipPivotPoint.lossyScale.x), body.Up),
         CharacterBasis.XY => (Vector2.right, Vector2.up),
         CharacterBasis.Input => (input.GetDirection(), VectorUtils.Orthogonal(input.GetDirection())),
         CharacterBasis.Velocity => (body.Velocity.normalized, VectorUtils.Orthogonal(body.Velocity.normalized))

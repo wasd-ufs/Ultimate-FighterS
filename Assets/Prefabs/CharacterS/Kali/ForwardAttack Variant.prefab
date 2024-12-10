@@ -88,6 +88,22 @@ PrefabInstance:
       propertyPath: damageAmount
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 7411366648044972439, guid: 5ddce230955ce1aadb0d2032038fea4f, type: 3}
+      propertyPath: m_Size.x
+      value: 0.1531384
+      objectReference: {fileID: 0}
+    - target: {fileID: 7411366648044972439, guid: 5ddce230955ce1aadb0d2032038fea4f, type: 3}
+      propertyPath: m_Size.y
+      value: 0.5005593
+      objectReference: {fileID: 0}
+    - target: {fileID: 7411366648044972439, guid: 5ddce230955ce1aadb0d2032038fea4f, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.011580735
+      objectReference: {fileID: 0}
+    - target: {fileID: 7411366648044972439, guid: 5ddce230955ce1aadb0d2032038fea4f, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.00257352
+      objectReference: {fileID: 0}
     - target: {fileID: 7932901351491697917, guid: 5ddce230955ce1aadb0d2032038fea4f, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
