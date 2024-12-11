@@ -480,6 +480,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SceneChanger
       objectReference: {fileID: 0}
+    - target: {fileID: 5378126404199967461, guid: 472dd79d2995e5d4b9eba6bbc783e999, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5597329687004647953, guid: 472dd79d2995e5d4b9eba6bbc783e999, type: 3}
       propertyPath: m_Camera
       value: 

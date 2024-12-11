@@ -363,7 +363,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93ceb814a726480a9e8d09fc4160f0b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clipName: 
 --- !u!4 &1363567994
 Transform:
   m_ObjectHideFlags: 0
@@ -430,6 +429,14 @@ PrefabInstance:
     - target: {fileID: 7049129737845785419, guid: 95d79623a6aa290ebb8bc2b5c89cb271, type: 3}
       propertyPath: m_Name
       value: StockMatchGameMode
+      objectReference: {fileID: 0}
+    - target: {fileID: 8105396733984646103, guid: 95d79623a6aa290ebb8bc2b5c89cb271, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1126694525}
+    - target: {fileID: 8105396733984646103, guid: 95d79623a6aa290ebb8bc2b5c89cb271, type: 3}
+      propertyPath: m_RenderMode
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
