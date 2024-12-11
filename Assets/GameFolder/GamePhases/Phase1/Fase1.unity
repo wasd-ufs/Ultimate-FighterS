@@ -296,7 +296,7 @@ Canvas:
   m_GameObject: {fileID: 457280542}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 1910850912}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -678,21 +678,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 741278892202614163, guid: 4c9a264af2f79f3c38e01df8610e470a, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -2.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 3023656418273063420, guid: 4c9a264af2f79f3c38e01df8610e470a, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3023656418273063420, guid: 4c9a264af2f79f3c38e01df8610e470a, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3023656418273063420, guid: 4c9a264af2f79f3c38e01df8610e470a, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
+    - target: {fileID: 2533030033754223756, guid: 4c9a264af2f79f3c38e01df8610e470a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3023656418273063420, guid: 4c9a264af2f79f3c38e01df8610e470a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -738,17 +726,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: CatBox
       objectReference: {fileID: 0}
-    - target: {fileID: 5302231599498738177, guid: 4c9a264af2f79f3c38e01df8610e470a, type: 3}
+    - target: {fileID: 5971050296812096415, guid: 4c9a264af2f79f3c38e01df8610e470a, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5831320536022152709, guid: 4c9a264af2f79f3c38e01df8610e470a, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 5.8
+    - target: {fileID: 7531801893436148294, guid: 4c9a264af2f79f3c38e01df8610e470a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 1355072820129087968, guid: 4c9a264af2f79f3c38e01df8610e470a, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4c9a264af2f79f3c38e01df8610e470a, type: 3}
