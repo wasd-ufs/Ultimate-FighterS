@@ -137,7 +137,8 @@ PrefabInstance:
       value: 0.4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 8603879661656336742, guid: 5ddce230955ce1aadb0d2032038fea4f, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 3786327252403093749, guid: 5ddce230955ce1aadb0d2032038fea4f, type: 3}
       insertIndex: -1
@@ -146,9 +147,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8570971339021505021, guid: 5ddce230955ce1aadb0d2032038fea4f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6728729853224097033}
-    - targetCorrespondingSourceObject: {fileID: 8570971339021505021, guid: 5ddce230955ce1aadb0d2032038fea4f, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 5089679940852987146}
     - targetCorrespondingSourceObject: {fileID: 8570971339021505021, guid: 5ddce230955ce1aadb0d2032038fea4f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8343884930445179992}
@@ -218,20 +216,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5089679940852987146
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6867388018539481925}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8f346dbada165a96961ce1ba7e6a9ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  deceleration: {x: 60, y: 0}
-  basis: 0
 --- !u!82 &8343884930445179992
 AudioSource:
   m_ObjectHideFlags: 0
@@ -356,15 +340,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2227210819704976558, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
       propertyPath: Knockback.direction.y
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2227210819704976558, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
-      propertyPath: Knockback.setKnockback
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2227210819704976558, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
+      propertyPath: Knockback.setKnockback
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2227210819704976558, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
       propertyPath: Knockback.knockbackScaling
-      value: 1.75
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 5260456630257636301, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
       propertyPath: damageAmount
@@ -376,7 +360,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7198258493091875994, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7198258493091875994, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
       propertyPath: m_LocalScale.y
@@ -384,11 +368,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7198258493091875994, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.359
+      value: -0.164
       objectReference: {fileID: 0}
     - target: {fileID: 7198258493091875994, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.126
+      value: 0.116
       objectReference: {fileID: 0}
     - target: {fileID: 7198258493091875994, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
       propertyPath: m_LocalPosition.z
@@ -428,7 +412,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8831089178331489526, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
       propertyPath: hitstopTime
-      value: 0.4
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8832989050919262465, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
       propertyPath: m_Name

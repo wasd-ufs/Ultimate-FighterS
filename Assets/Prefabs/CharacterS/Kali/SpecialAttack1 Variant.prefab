@@ -361,6 +361,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2236689355290905832, guid: 0a023f384f7ea7d4c8f94bc613593984, type: 3}
+      propertyPath: lagTime
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 2236689355290905832, guid: 0a023f384f7ea7d4c8f94bc613593984, type: 3}
       propertyPath: hitstopTime
       value: 0.05
       objectReference: {fileID: 0}
@@ -390,7 +394,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7034646701209846337, guid: 0a023f384f7ea7d4c8f94bc613593984, type: 3}
       propertyPath: damageAmount
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8930565529268898077, guid: 0a023f384f7ea7d4c8f94bc613593984, type: 3}
       propertyPath: shootPoint

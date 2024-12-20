@@ -544,7 +544,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5868846442798541627, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: overspeedDeceleration
-      value: 8
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6087417953570541146, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: animationName
@@ -628,7 +628,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7814752911071583053, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: knockbackMultiplier
-      value: 1.2
+      value: 1.15
       objectReference: {fileID: 0}
     - target: {fileID: 7931124419870507594, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: maxSpeed
@@ -648,7 +648,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8057960562301975422, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: fastFallGravity
-      value: 10
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 8057960562301975422, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: gravityRelaxationThreshold

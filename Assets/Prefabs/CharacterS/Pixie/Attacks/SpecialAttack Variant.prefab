@@ -66,15 +66,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1376604196549493961, guid: 5ddce230955ce1aadb0d2032038fea4f, type: 3}
       propertyPath: Knockback.setKnockback
-      value: 1.75
+      value: 1.1
       objectReference: {fileID: 0}
     - target: {fileID: 1376604196549493961, guid: 5ddce230955ce1aadb0d2032038fea4f, type: 3}
       propertyPath: Knockback.knockbackScaling
-      value: 2.3
+      value: 1.75
       objectReference: {fileID: 0}
     - target: {fileID: 2411168054719457641, guid: 5ddce230955ce1aadb0d2032038fea4f, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.214558
+      value: 0.43342865
       objectReference: {fileID: 0}
     - target: {fileID: 2411168054719457641, guid: 5ddce230955ce1aadb0d2032038fea4f, type: 3}
       propertyPath: m_LocalScale.y
@@ -82,7 +82,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2411168054719457641, guid: 5ddce230955ce1aadb0d2032038fea4f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.0151
+      value: 0.0926
       objectReference: {fileID: 0}
     - target: {fileID: 2411168054719457641, guid: 5ddce230955ce1aadb0d2032038fea4f, type: 3}
       propertyPath: m_LocalPosition.y
@@ -114,7 +114,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4968296288468870058, guid: 5ddce230955ce1aadb0d2032038fea4f, type: 3}
       propertyPath: damageAmount
-      value: 12
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 7932901351491697917, guid: 5ddce230955ce1aadb0d2032038fea4f, type: 3}
       propertyPath: m_LocalScale.x
@@ -138,11 +138,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8609860594988766353, guid: 5ddce230955ce1aadb0d2032038fea4f, type: 3}
       propertyPath: lagTime
-      value: 1.25
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 8609860594988766353, guid: 5ddce230955ce1aadb0d2032038fea4f, type: 3}
       propertyPath: hitstopTime
-      value: 1.2
+      value: 0.8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:

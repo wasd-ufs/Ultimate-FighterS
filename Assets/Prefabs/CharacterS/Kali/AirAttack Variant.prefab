@@ -70,11 +70,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1376604196549493961, guid: 5ddce230955ce1aadb0d2032038fea4f, type: 3}
       propertyPath: Knockback.setKnockback
-      value: 1.75
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1376604196549493961, guid: 5ddce230955ce1aadb0d2032038fea4f, type: 3}
       propertyPath: Knockback.knockbackScaling
-      value: 1.75
+      value: 1.65
       objectReference: {fileID: 0}
     - target: {fileID: 2411168054719457641, guid: 5ddce230955ce1aadb0d2032038fea4f, type: 3}
       propertyPath: m_LocalScale.x
@@ -102,15 +102,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4968296288468870058, guid: 5ddce230955ce1aadb0d2032038fea4f, type: 3}
       propertyPath: damageAmount
-      value: 7
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 7932901351491697917, guid: 5ddce230955ce1aadb0d2032038fea4f, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.5
+      value: 1.25
       objectReference: {fileID: 0}
     - target: {fileID: 7932901351491697917, guid: 5ddce230955ce1aadb0d2032038fea4f, type: 3}
       propertyPath: m_LocalScale.y
       value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7932901351491697917, guid: 5ddce230955ce1aadb0d2032038fea4f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.089
       objectReference: {fileID: 0}
     - target: {fileID: 7935826727329019634, guid: 5ddce230955ce1aadb0d2032038fea4f, type: 3}
       propertyPath: m_Enabled
@@ -122,19 +126,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8609860594988766353, guid: 5ddce230955ce1aadb0d2032038fea4f, type: 3}
       propertyPath: lagTime
-      value: 0.5
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 8609860594988766353, guid: 5ddce230955ce1aadb0d2032038fea4f, type: 3}
       propertyPath: hitstopTime
-      value: 0.7
+      value: 0.6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8570971339021505021, guid: 5ddce230955ce1aadb0d2032038fea4f, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 4098755801875682237}
     - targetCorrespondingSourceObject: {fileID: 8570971339021505021, guid: 5ddce230955ce1aadb0d2032038fea4f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4389767859580956395}
@@ -150,21 +151,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8570971339021505021, guid: 5ddce230955ce1aadb0d2032038fea4f, type: 3}
   m_PrefabInstance: {fileID: 3905474923240098176}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4098755801875682237
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4666078608413055101}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 864ae927b20e4385d9119b98e675d64b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  impulse: {x: 5, y: 5}
-  impulseBasis: 0
-  momentumPreservation: 0
 --- !u!212 &4389767859580956395
 SpriteRenderer:
   m_ObjectHideFlags: 0

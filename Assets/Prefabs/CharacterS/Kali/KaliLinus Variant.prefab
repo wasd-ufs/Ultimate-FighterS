@@ -71,36 +71,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4666078608413055101, guid: e1d6afcd1bc8b4146afc7564ebbc292c, type: 3}
-      insertIndex: 6
-      addedObject: {fileID: 2106813211783057885}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e1d6afcd1bc8b4146afc7564ebbc292c, type: 3}
 --- !u!4 &3325350833360836178 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3539812568737806605, guid: e1d6afcd1bc8b4146afc7564ebbc292c, type: 3}
   m_PrefabInstance: {fileID: 2250097976432258911}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &6915499284608825122 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4666078608413055101, guid: e1d6afcd1bc8b4146afc7564ebbc292c, type: 3}
-  m_PrefabInstance: {fileID: 2250097976432258911}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2106813211783057885
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6915499284608825122}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 864ae927b20e4385d9119b98e675d64b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  impulse: {x: 5, y: 0}
-  impulseBasis: 4
-  momentumPreservation: 3
 --- !u!1001 &4527527075354262548
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -395,7 +372,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3384790423664051265, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: maxSpeed
-      value: 3
+      value: 1.75
       objectReference: {fileID: 0}
     - target: {fileID: 3384790423664051265, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: acceleration
@@ -408,6 +385,10 @@ PrefabInstance:
     - target: {fileID: 3384790423664051265, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: turnAcceleration
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 3384790423664051265, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
+      propertyPath: overspeedDeceleration
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3612722904057028662, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: m_Enabled
@@ -447,7 +428,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4850358722616365715, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: impulse.y
-      value: 7
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4979076557104428544, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: m_LocalScale.x
@@ -495,7 +476,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5868846442798541627, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: maxSpeed
-      value: 3
+      value: 1.75
       objectReference: {fileID: 0}
     - target: {fileID: 5868846442798541627, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: acceleration
@@ -603,11 +584,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7814752911071583053, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: knockbackMultiplier
-      value: 0.85
+      value: 0.9
       objectReference: {fileID: 0}
     - target: {fileID: 7931124419870507594, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: maxSpeed
-      value: 7
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8033799267325228522, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: maxSpeed
@@ -615,19 +596,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8057960562301975422, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: heavyGravity
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 8057960562301975422, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
-      propertyPath: normalGravity
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 8057960562301975422, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
-      propertyPath: fastFallGravity
       value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 8057960562301975422, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
+      propertyPath: normalGravity
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8057960562301975422, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
+      propertyPath: fastFallGravity
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 8057960562301975422, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: gravityRelaxationThreshold
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8151207871916284924, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: m_Controller
@@ -647,11 +628,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8580944098810190747, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: impulse.x
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8580944098810190747, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: impulse.y
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8644982842665969205, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: m_Controller
@@ -667,7 +648,7 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: a6440f1c9fee02d4fa8294343d261a40, type: 2}
     - target: {fileID: 8826219547781791451, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: acceleration.y
-      value: -8
+      value: -11
       objectReference: {fileID: 0}
     - target: {fileID: 8894284397386515608, guid: b6b716a2d753da74e8ebf5a2655004e1, type: 3}
       propertyPath: m_LocalScale.x
