@@ -14,6 +14,6 @@ public class PlayOnStart : MonoBehaviour
 
     public void Play()
     {
-        audioManager.Play(clipName);
+        //audioManager.PlayAudio(clipName);
     }
 }

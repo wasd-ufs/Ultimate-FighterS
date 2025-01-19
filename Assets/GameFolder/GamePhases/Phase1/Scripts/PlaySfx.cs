@@ -6,6 +6,6 @@ public class PlaySfx : MonoBehaviour
 {
     public void PlayClipEfx(string nameClip)
     {
-        AudioManager.instance.Play(nameClip);
+        //AudioManager.audioManagerInstance.PlayAudio(nameClip);
     }
 }
