@@ -46,8 +46,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a67e2e4d4bab12f41b3c3648e42ef46d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sounds: []
-  overallVolume: 1
+  _audioSourceBg: {fileID: -5612924717373002793}
+  _currentclipBg: []
+  _sceneAudioDataList:
+  - {fileID: 11400000, guid: 1517f817afcecb749a36d5d992fc90cd, type: 2}
+  - {fileID: 11400000, guid: 63cbe7593497b994e8a7a054065eae68, type: 2}
+  - {fileID: 11400000, guid: 11f396df570051c4a829a872de58eccc, type: 2}
+  _audioSourceExf: {fileID: -787522829728624148}
+  _fadeDuration: 1
 --- !u!82 &-5612924717373002793
 AudioSource:
   m_ObjectHideFlags: 0
@@ -155,7 +161,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
