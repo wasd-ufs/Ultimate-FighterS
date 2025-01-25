@@ -16,6 +16,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioSource _audioSourceBg;
     [SerializeField] private AudioClip[] _currentclipBg;
     [SerializeField] private List<SceneAudioData> _sceneAudioDataList;
+    private bool _isPaused;
 
     [Header("AudioEffects")]
     [SerializeField] private AudioSource _audioSourceExf;
@@ -47,7 +48,7 @@ public class AudioManager : MonoBehaviour
 
     void Update()
     {
-        if (!_audioSourceBg.isPlaying && _currentclipBg != null)
+        if (!_audioSourceBg.isPlaying && _currentclipBg != null && !_isPaused)
         {
             PlayRadomBackGroudMusic();
         }
@@ -136,5 +137,27 @@ public class AudioManager : MonoBehaviour
         _audioSourceExf.pitch = picth;
         _audioSourceExf.PlayOneShot(clip,volume);
     }
+
+    /// <summary>
+    /// Inicia as musicas de backGround
+    /// </summary>
+    /// <returns>void</returns>
+    public void StartBackGroundMusic()
+    {
+        _audioSourceBg.Play();
+        _isPaused = false;
+    }
+
+    /// <summary>
+    /// Para as musicas de backGround
+    /// </summary>
+    /// <returns>void</returns>
+    public void StopBackGroundMusic()
+    {
+        _audioSourceBg.Pause();
+        _isPaused = true;
+    }
+
+
 }
 
