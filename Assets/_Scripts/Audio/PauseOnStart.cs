@@ -13,6 +13,6 @@ public class PauseOnStart : MonoBehaviour
 
     public void Pause()
     {
-        audioManager.Pause();
+        //audioManager.Pause();
     }
 }

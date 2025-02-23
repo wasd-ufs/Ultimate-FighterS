@@ -25,7 +25,7 @@ public class Volume : MonoBehaviour
         {
             percent++;
         }
-        audioManager.SetGlobalVolume(percent);
+        //audioManager.SetGlobalVolume(percent);
         textMeshPro.text = percent.ToString();
     }
 }
