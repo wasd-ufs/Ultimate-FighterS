@@ -1,0 +1,11 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Prefabs/CharacterS/Pixel/AerialAttacks/DownAir.prefab.meta
+guid: 9a0d3459ca0dccf28b3364aa0c1351d7
+========
+guid: ee4f597b95224e1048413840a2d67ad2
+>>>>>>>> origin/feature/actionrefactor:Assets/GameFolder/Prefabs/CharacterS/Pixel/AerialAttacks/NeutralAir Variant.prefab.meta
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

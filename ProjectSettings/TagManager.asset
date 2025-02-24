@@ -3,15 +3,19 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - SpawnPoint
+  - StageLimits
+  - Hitbox
+  - Hurtbox
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
-  - 
+  - SceneTransition
   - 
   - 
   - 
@@ -40,4 +44,13 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Back
+    uniqueID: 544812205
+    locked: 0
+  - name: Mid
+    uniqueID: 298696087
+    locked: 0
+  - name: Front
+    uniqueID: 117043289
     locked: 0
