@@ -1,3 +1,4 @@
-# wasd-portifolio
+# WASD-Portfólio
 
-Versão da unity utilizada neste projeto: 2022.3.38f1 
+## 🎮 Versão da Unity  
+Este projeto foi desenvolvido utilizando **Unity 2022.3.38f1**.
