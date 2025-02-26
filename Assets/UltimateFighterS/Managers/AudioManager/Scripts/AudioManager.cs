@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 using System.Collections;
 
 /// <summary>
-/// Faz o gerenciamento dos audios
+/// Responsavel por gerenciar os audios do jogo
 /// </summary>
 public class AudioManager : MonoBehaviour
 {
@@ -41,8 +41,6 @@ public class AudioManager : MonoBehaviour
     void Start()
     {
         UpdateMusicListScene(SceneManager.GetActiveScene().name);
-
-        //Executa toda vez que a cena eh carregada 
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
@@ -59,6 +57,8 @@ public class AudioManager : MonoBehaviour
     /// </summary>
     /// <param name="scene">Cena atual</param>
     /// <param name="mode">Modo da cena atual</param>
+    /// <return>void</return>
+    /// <author>Wallisson de jesus</author>
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         UpdateMusicListScene(scene.name);
@@ -70,23 +70,24 @@ public class AudioManager : MonoBehaviour
     /// </summary>
     /// <param name="sceneName">Nome da cena atual</param>
     /// <returns>void</returns>
+    /// <author>Wallisson de jesus</author>
     public void UpdateMusicListScene(string sceneName)
     {
         SceneAudioData data = _sceneAudioDataList.Find(d => d.sceneName == sceneName);
         if (data != null)
         {
             _currentclipBg = data.backgroundClips;
+            return;
         }
-        else
-        {
-            _currentclipBg = null;
-        }
+        
+        _currentclipBg = null;
     }
 
     /// <summary>
     /// Escolhe uma musica aleatorio da cena atual
     /// </summary>
     /// <returns>void</returns>
+    /// <author>Wallisson de jesus</author>
     private void PlayRadomBackGroudMusic()
     {
         AudioClip clip = _currentclipBg[UnityEngine.Random.Range(0, _currentclipBg.Length)];
@@ -98,10 +99,11 @@ public class AudioManager : MonoBehaviour
     }
 
     /// <summary>
-    ///  Toca uma musica aleatoria do cena fazendo o fade entre as musicas
+    ///  Toca uma musica aleatoria da cena, fazendo o fade entre as musicas
     /// </summary>
-    /// <param name="clip">Aduio que vai ser tocado</param>
+    /// <param name="clip">Audio que vai ser tocado</param>
     /// <returns>null</returns>
+    /// <author>Wallisson de jesus</author>
     private IEnumerator FadeMusic(AudioClip clip)
     {
         if (_audioSourceBg.isPlaying)
@@ -132,6 +134,7 @@ public class AudioManager : MonoBehaviour
     /// <param name="volume">O volume do audioclip</param>
     /// <param name="picth">A velocidade do audioclip </param>
     /// <returns>void</returns>
+    /// <author>Wallisson de jesus</author>
     public void PlayAudio(AudioClip clip,float volume,float picth) 
     {  
         _audioSourceExf.pitch = picth;
@@ -142,6 +145,7 @@ public class AudioManager : MonoBehaviour
     /// Inicia as musicas de backGround
     /// </summary>
     /// <returns>void</returns>
+    /// <author>Wallisson de jesus</author>
     public void StartBackGroundMusic()
     {
         _audioSourceBg.Play();
@@ -152,6 +156,7 @@ public class AudioManager : MonoBehaviour
     /// Para as musicas de backGround
     /// </summary>
     /// <returns>void</returns>
+    /// <author>Wallisson de jesus</author>
     public void StopBackGroundMusic()
     {
         _audioSourceBg.Pause();
