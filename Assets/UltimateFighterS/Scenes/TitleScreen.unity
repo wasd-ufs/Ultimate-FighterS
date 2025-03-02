@@ -347,7 +347,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -1013,10 +1013,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -5612924717373002793, guid: 9dfd1f7799162fb4c9f50c83cc90a565, type: 3}
-      propertyPath: m_audioClip
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 6777082622726293526, guid: 9dfd1f7799162fb4c9f50c83cc90a565, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.5933758

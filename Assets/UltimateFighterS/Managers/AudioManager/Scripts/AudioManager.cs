@@ -17,6 +17,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private List<SettingBaseAudio> _settingBaseAudioList;
     [SerializeField] private List<SceneAudioData> _sceneAudioDataList;
     private bool _isPaused;
+    private bool _isPhase = false;
 
     [Header("AudioEffects")]
     [SerializeField] private AudioSource _audioSourceExf;
@@ -36,6 +37,8 @@ public class AudioManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+
+        _isPhase = SceneManager.GetActiveScene().buildIndex == 3 ? true : false;
     }
 
     void Start()
@@ -61,7 +64,7 @@ public class AudioManager : MonoBehaviour
     /// <return>void</return>
     /// <author>Wallisson de jesus</author>
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
+    { 
         UpdateMusicListScene(scene.name);
         PlayRadomBackGroudMusic();
     }
@@ -74,10 +77,10 @@ public class AudioManager : MonoBehaviour
     /// <author>Wallisson de jesus</author>
     public void UpdateMusicListScene(string sceneName)
     {
-        SceneAudioData data = _sceneAudioDataList.Find(d => d.sceneName == sceneName);
+        SceneAudioData data = _sceneAudioDataList.Find(d => d.SceneName == sceneName);
         if (data != null)
         {
-            _settingBaseAudioList = data.backgroundClipList;
+            _settingBaseAudioList = data.BackGroundClipList;
             return;     
         }
 
@@ -116,10 +119,10 @@ public class AudioManager : MonoBehaviour
             }
         }
 
-        _audioSourceBg.clip = settingBaseAudio.clip;
-        _audioSourceBg.loop = settingBaseAudio.isLoop;
-        _audioSourceBg.volume = settingBaseAudio.volume;
-        _audioSourceBg.pitch = settingBaseAudio.pitch;
+        _audioSourceBg.clip = settingBaseAudio.Clip;
+        _audioSourceBg.loop = settingBaseAudio.IsLoop;
+        _audioSourceBg.volume = settingBaseAudio.Volume;
+        _audioSourceBg.pitch = settingBaseAudio.Pitch;
         _audioSourceBg.Play();
 
 

@@ -8,6 +8,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName ="Data",menuName ="Audio/Scene Data Audio BackGround")]
 public class SceneAudioData : ScriptableObject
 {
-    public string sceneName;
-    public List<SettingBaseAudio> backgroundClipList;
+    [SerializeField] private string _sceneName;
+    [SerializeField] private List<SettingBaseAudio> _backGroundClipList;
+
+    public string SceneName => _sceneName;
+    public List<SettingBaseAudio> BackGroundClipList => _backGroundClipList;
 }
