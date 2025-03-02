@@ -14,7 +14,7 @@ public class AudioManager : MonoBehaviour
 
     [Header("BackGroundMusic")]
     [SerializeField] private AudioSource _audioSourceBg;
-    [SerializeField] private AudioClip[] _currentclipBg;
+    [SerializeField] private SettingBaseAudio _settingBaseAudio;
     [SerializeField] private List<SceneAudioData> _sceneAudioDataList;
     private bool _isPaused;
 
@@ -40,13 +40,14 @@ public class AudioManager : MonoBehaviour
 
     void Start()
     {
-        UpdateMusicListScene(SceneManager.GetActiveScene().name);
         SceneManager.sceneLoaded += OnSceneLoaded;
+        UpdateMusicListScene(SceneManager.GetActiveScene().name);
+        PlayRadomBackGroudMusic();
     }
 
     void Update()
     {
-        if (!_audioSourceBg.isPlaying && _currentclipBg != null && !_isPaused)
+        if (!_audioSourceBg.isPlaying && _settingBaseAudio != null && !_isPaused && !_audioSourceBg.loop)
         {
             PlayRadomBackGroudMusic();
         }
@@ -76,11 +77,11 @@ public class AudioManager : MonoBehaviour
         SceneAudioData data = _sceneAudioDataList.Find(d => d.sceneName == sceneName);
         if (data != null)
         {
-            _currentclipBg = data.backgroundClips;
-            return;
+            //_settingBaseAudio = data.backgroundClip;
+            return;     
         }
-        
-        _currentclipBg = null;
+
+        _settingBaseAudio = null;
     }
 
     /// <summary>
@@ -90,12 +91,13 @@ public class AudioManager : MonoBehaviour
     /// <author>Wallisson de jesus</author>
     private void PlayRadomBackGroudMusic()
     {
-        AudioClip clip = _currentclipBg[UnityEngine.Random.Range(0, _currentclipBg.Length)];
+        AudioClip[] _clips = _settingBaseAudio.clips;
+        AudioClip clip = _clips[UnityEngine.Random.Range(0, _clips.Length)];
         if (_coroutine != null)
         {
             StopCoroutine(_coroutine);
         }
-        _coroutine = StartCoroutine(FadeMusic(clip));
+        _coroutine = StartCoroutine(FadeMusic(clip,_settingBaseAudio));
     }
 
     /// <summary>
@@ -104,7 +106,7 @@ public class AudioManager : MonoBehaviour
     /// <param name="clip">Audio que vai ser tocado</param>
     /// <returns>null</returns>
     /// <author>Wallisson de jesus</author>
-    private IEnumerator FadeMusic(AudioClip clip)
+    private IEnumerator FadeMusic(AudioClip clip,SettingBaseAudio settingBaseAudio)
     {
         if (_audioSourceBg.isPlaying)
         {
@@ -116,7 +118,11 @@ public class AudioManager : MonoBehaviour
         }
 
         _audioSourceBg.clip = clip;
+        _audioSourceBg.loop = settingBaseAudio.isLoop;
+        _audioSourceBg.volume = settingBaseAudio.volume;
+        _audioSourceBg.pitch = settingBaseAudio.pitch;
         _audioSourceBg.Play();
+
 
         for (float t = 0; t < _fadeDuration; t += Time.deltaTime)
         {

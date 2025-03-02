@@ -47,11 +47,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _audioSourceBg: {fileID: -5612924717373002793}
-  _currentclipBg: []
+  _settingBaseAudio: {fileID: 0}
   _sceneAudioDataList:
   - {fileID: 11400000, guid: 1517f817afcecb749a36d5d992fc90cd, type: 2}
   - {fileID: 11400000, guid: 63cbe7593497b994e8a7a054065eae68, type: 2}
   - {fileID: 11400000, guid: 11f396df570051c4a829a872de58eccc, type: 2}
+  - {fileID: 11400000, guid: 8ed9f25493f2bf84aaa66c52656d5eb7, type: 2}
   _audioSourceExf: {fileID: -787522829728624148}
   _fadeDuration: 1
 --- !u!82 &-5612924717373002793

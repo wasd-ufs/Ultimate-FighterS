@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Controla os dados da cena como seu nome e audios que podem ser tocados
+/// Responsavel por armazenar os dados de audio da cena
 /// </summary>
-[CreateAssetMenu(fileName ="Data",menuName ="Audio/Scene Audio Data")]
+[CreateAssetMenu(fileName ="Data",menuName ="Audio/Scene Data Audio BackGround")]
 public class SceneAudioData : ScriptableObject
 {
     public string sceneName;
-    public AudioClip[] backgroundClips;
+    public SettingBaseAudio backgroundClip;
 }
