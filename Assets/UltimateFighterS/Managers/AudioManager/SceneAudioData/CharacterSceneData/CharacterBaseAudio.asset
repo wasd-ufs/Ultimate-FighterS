@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d9a7ecca0fbfec46be0232a88832bbb, type: 3}
   m_Name: CharacterBaseAudio
   m_EditorClassIdentifier: 
-  clips:
-  - {fileID: 8300000, guid: b0ff9c08196ec1f6aa02b6e33eae780c, type: 3}
+  clip: {fileID: 8300000, guid: b0ff9c08196ec1f6aa02b6e33eae780c, type: 3}
   volume: 0.5
   pitch: 1
   isLoop: 1

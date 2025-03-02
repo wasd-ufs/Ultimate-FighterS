@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: StageSelectSceneDataAudio
   m_EditorClassIdentifier: 
   sceneName: StageSelect
-  backgroundClip: {fileID: 11400000, guid: 5789ad552d9dcab4e962f76a730402d8, type: 2}
+  backgroundClipList:
+  - {fileID: 11400000, guid: 5789ad552d9dcab4e962f76a730402d8, type: 2}

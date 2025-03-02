@@ -9,5 +9,5 @@ using UnityEngine;
 public class SceneAudioData : ScriptableObject
 {
     public string sceneName;
-    public SettingBaseAudio backgroundClip;
+    public List<SettingBaseAudio> backgroundClipList;
 }

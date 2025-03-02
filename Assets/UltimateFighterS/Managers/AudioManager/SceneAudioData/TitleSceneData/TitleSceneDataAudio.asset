@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: TitleSceneDataAudio
   m_EditorClassIdentifier: 
   sceneName: TitleScreen
-  backgroundClip: {fileID: 11400000, guid: 4d66ba2d96f36ae44a56eef803a51452, type: 2}
+  backgroundClipList:
+  - {fileID: 11400000, guid: 4d66ba2d96f36ae44a56eef803a51452, type: 2}
