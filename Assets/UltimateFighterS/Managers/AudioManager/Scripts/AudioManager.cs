@@ -68,13 +68,14 @@ public class AudioManager : MonoBehaviour
         UpdateMusicListScene(scene.name);
         PlayRadomBackGroudMusic();
     }
-
+    
     /// <summary>
     /// Atualiza a lista de musicas do background para a configuracao de musicas da cena atual
     /// </summary>
     /// <param name="sceneName">Nome da cena atual</param>
     /// <returns>void</returns>
     /// <author>Wallisson de jesus</author>
+    /// TODO: Implementar a verificacao se é fase ou cena
     public void UpdateMusicListScene(string sceneName)
     {
         SceneAudioData data = _sceneAudioDataList.Find(d => d.SceneName == sceneName);
