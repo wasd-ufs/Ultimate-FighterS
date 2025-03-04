@@ -73,7 +73,7 @@ public class AudioManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Responsavel por definir a fase atual e muda de musica
+    /// Responsavel por definir a fase atual e muda as musicas
     /// </summary>
     /// <param name="phaseName">Nome da fase atual</param>
     /// <return>void</return>
@@ -85,6 +85,11 @@ public class AudioManager : MonoBehaviour
         PlayRadomBackGroudMusic();
     }
 
+    /// <summary>
+    /// Responsavel por definir se é uma cena normal ou uma fase
+    /// </summary>
+    /// <return>void</return>
+    /// <author>Wallisson de jesus</author>
     private void DetectedSceneOrPhase()
     {
         _isPhase = false;
@@ -98,7 +103,6 @@ public class AudioManager : MonoBehaviour
     /// <param name="sceneName">Nome da cena atual</param>
     /// <returns>void</returns>
     /// <author>Wallisson de jesus</author>
-    /// TODO: Implementar a verificacao se é fase ou cena
     public void UpdateMusicListScene(string sceneName,bool isPhase)
     {
         SceneAudioData _audioData;
