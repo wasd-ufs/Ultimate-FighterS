@@ -15,8 +15,9 @@ public class DefaultMatchAssembler : MonoBehaviour
         MatchManager.OnMatchEnding.AddListener(_ => SceneChangerController.FadeOut(ResultSceneIndex));
         
         Instantiate(MatchConfiguration.ScenePrefab);
-        
         MatchManager.StartMatch();
+
+        AudioManager.audioManagerInstance.SetCurrentPhase(MatchConfiguration.ScenePrefab.tag);
         
         var success = AddPlayers();
         if (!success)

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d9a7ecca0fbfec46be0232a88832bbb, type: 3}
   m_Name: CatBaseAudio
   m_EditorClassIdentifier: 
-  _clip: {fileID: 0}
+  _clip: {fileID: 8300000, guid: cf36cc3987a5f204ba785ebb1d80144d, type: 3}
   _volume: 0.5
   _pitch: 1
   _isLoop: 1

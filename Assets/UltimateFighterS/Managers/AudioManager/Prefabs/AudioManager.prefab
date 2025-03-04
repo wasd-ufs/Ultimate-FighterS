@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a67e2e4d4bab12f41b3c3648e42ef46d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _audioMixer: {fileID: 24100000, guid: 61baad9fc6bc3c846bd2a1cfcd1112da, type: 2}
   _audioSourceBg: {fileID: -5612924717373002793}
   _settingBaseAudioList: []
   _sceneAudioDataList:
@@ -53,6 +54,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 63cbe7593497b994e8a7a054065eae68, type: 2}
   - {fileID: 11400000, guid: 11f396df570051c4a829a872de58eccc, type: 2}
   - {fileID: 11400000, guid: 8ed9f25493f2bf84aaa66c52656d5eb7, type: 2}
+  _scenePhaseAudioDataList:
+  - {fileID: 11400000, guid: c8174ff6d5cf3734c996a4e91e92ce49, type: 2}
+  - {fileID: 11400000, guid: 2d90cf645284dbc4fb75135c966939ff, type: 2}
+  - {fileID: 11400000, guid: 79528531e86f24f488d7f14d05b05fc6, type: 2}
+  _isPhase: 0
   _audioSourceExf: {fileID: -787522829728624148}
   _fadeDuration: 1
 --- !u!82 &-5612924717373002793

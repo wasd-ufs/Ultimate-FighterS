@@ -729,6 +729,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UFSEntraceStage Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 8934448865371506286, guid: be7091fd3dd449848b43b447456e3fa5, type: 3}
+      propertyPath: m_TagString
+      value: UfsPhase
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 3721407107753959254, guid: be7091fd3dd449848b43b447456e3fa5, type: 3}
