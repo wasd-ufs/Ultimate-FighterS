@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: CatBaseAudio
   m_EditorClassIdentifier: 
   _clip: {fileID: 8300000, guid: cf36cc3987a5f204ba785ebb1d80144d, type: 3}
-  _volume: 0.5
+  _volume: 0.04
   _pitch: 1
   _isLoop: 1
