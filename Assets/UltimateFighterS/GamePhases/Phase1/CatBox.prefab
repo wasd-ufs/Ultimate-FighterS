@@ -2886,14 +2886,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ee92bcee093cc44a8a40270c315767a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TimeStart: 15
-  TimeSpeed: 1.5
-  TimeEvent: 0
-  CatMoves:
+  _timeStart: 5
+  _timeSpeed: 0.5
+  _timeEvent: 0
+  _catMoves:
   - {fileID: 5429747578859966996}
   - {fileID: 8597322961375123899}
   - {fileID: 8075957349512058506}
-  randomIndex: 0
 --- !u!1 &8868849630879366869
 GameObject:
   m_ObjectHideFlags: 0
@@ -3441,6 +3440,10 @@ PrefabInstance:
     - target: {fileID: 8832989050919262465, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
       propertyPath: m_Name
       value: AttackHitbox
+      objectReference: {fileID: 0}
+    - target: {fileID: 8832989050919262465, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8092085097568009884, guid: 2b7250bed86369a9f9d6c150a88b7698, type: 3}

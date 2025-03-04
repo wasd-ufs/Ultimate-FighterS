@@ -3,50 +3,43 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Classe responsavel por gerenciar qual acao vai ser executada                                                                                                                                                                                                                
+/// </summary>
 public class CatController : MonoBehaviour
 {
     [Header("Tempo para o ovento")]
-    [SerializeField] private float TimeStart;
-    [SerializeField] private float TimeSpeed;
+    [SerializeField] private float _timeStart;
+    [SerializeField] private float _timeSpeed;
 
     [Header("Conometro")]
-    [SerializeField]private float TimeEvent;
+    [SerializeField]private float _timeEvent;
 
-    [SerializeField] private List<CatBaseMoves> CatMoves = new List<CatBaseMoves>();
+    [SerializeField] private List<CatBaseMoves> _catMoves = new List<CatBaseMoves>();
 
-    public int randomIndex;
+    private int _randomIndex;
 
 
     void Start()
     {
-        TimeEvent = TimeStart;        
+       _timeEvent = _timeStart;        
     }
 
 
     void Update()
     {
-        TimeEvent -= Time.deltaTime * TimeSpeed;
+        _timeEvent -= Time.deltaTime * _timeSpeed;
 
-        if (TimeEvent <= 0)
+        if (_timeEvent <= 0)
         {
-          
-            randomIndex = UnityEngine.Random.Range(0, CatMoves.Count);
+            _randomIndex = UnityEngine.Random.Range(0, _catMoves.Count);
 
-            if (CatMoves[randomIndex] != null && TimeEvent <= 0)
+            if (_catMoves[_randomIndex] != null && _timeEvent <= 0)
             {
-                CatMoves[randomIndex].Execute();
-                TimeEvent = TimeStart;
+                _catMoves[_randomIndex].Execute();
+                _timeEvent = _timeStart;
             }
-
-            //StartCoroutine(HideAnimation());
-          
         }
     }
-    IEnumerator HideAnimation()
-    {
-        yield return new WaitForSeconds (3f);
-        CatMoves[randomIndex].Hide();
-    }
-
 }
     
