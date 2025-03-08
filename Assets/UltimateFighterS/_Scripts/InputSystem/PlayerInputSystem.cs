@@ -1,13 +1,11 @@
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class PlayerInputSystem : InputSystem
 {
-    private const string horizontalAxis = "Horizontal";
-    private const string verticalAxis = "Vertical";
-    private const string specialKey = "Jump";
-    private const string attackKey = "Fire";
+    private const string HorizontalAxis = "Horizontal";
+    private const string VerticalAxis = "Vertical";
+    private const string SpecialKey = "Jump";
+    private const string AttackKey = "Fire";
 
     public int defaultId = 0;
 
@@ -23,25 +21,25 @@ public class PlayerInputSystem : InputSystem
 
     public void Awake()
     {
-        var id = GetComponent<IdComponent>()?.id ?? defaultId;
+        var _id = GetComponent<IdComponent>()?.id ?? defaultId;
         
-        portHorizontalAxis = $"{horizontalAxis}{id}";
-        portVerticalAxis = $"{verticalAxis}{id}";
-        portSpecialKey = $"{specialKey}{id}";
-        portAttackKey = $"{attackKey}{id}";
+        portHorizontalAxis = $"{HorizontalAxis}{_id}";
+        portVerticalAxis = $"{VerticalAxis}{_id}";
+        portSpecialKey = $"{SpecialKey}{_id}";
+        portAttackKey = $"{AttackKey}{_id}";
     }
     
     public override Vector2 GetDirection()
     {
-        float horizontal = Input.GetAxis(portHorizontalAxis);
-        float vertical = Input.GetAxis(portVerticalAxis);
-        var direction = new Vector2(horizontal, vertical);
+        float _horizontal = Input.GetAxis(portHorizontalAxis);
+        float _vertical = Input.GetAxis(portVerticalAxis);
+        var _direction = new Vector2(_horizontal, _vertical);
         
-        if (direction.sqrMagnitude < 0.05f)
+        if (_direction.sqrMagnitude < 0.05f)
             return Vector2.zero;
         
-        direction = direction.normalized;
-        return direction;
+        _direction = _direction.normalized;
+        return _direction;
         /*
         var angle = Mathf.Atan2(direction.y, direction.x);
 
