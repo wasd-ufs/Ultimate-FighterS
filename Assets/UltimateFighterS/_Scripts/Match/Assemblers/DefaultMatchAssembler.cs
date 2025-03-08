@@ -1,9 +1,7 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class DefaultMatchAssembler : MonoBehaviour
 {
@@ -18,8 +16,8 @@ public class DefaultMatchAssembler : MonoBehaviour
         
         MatchManager.StartMatch();
         
-        var success = AddPlayers();
-        if (!success)
+        bool _success = AddPlayers();
+        if (!_success)
             MatchManager.EndMatch();
         
         MatchManager.ForEachPlayer(player => player.Spawn());
@@ -28,20 +26,20 @@ public class DefaultMatchAssembler : MonoBehaviour
 
     private bool AddPlayers()
     {
-        var spawns = GetSpawnPoints();
-        if (spawns.Count < MatchConfiguration.Characters.Count)
+        List<Transform> _spawns = GetSpawnPoints();
+        if (_spawns.Count < MatchConfiguration.Characters.Count)
         {
-            Debug.LogError($"Not enough spawn points for all players! Point Count = {spawns.Count}. Player Count = {MatchConfiguration.Characters.Count}");
+            Debug.LogError($"Not enough spawn points for all players! Point Count = {_spawns.Count}. Player Count = {MatchConfiguration.Characters.Count}");
             return false;
         }
 
-        int spawnPointIndex = 0;
-        foreach (var (port, character) in MatchConfiguration.Characters)
+        int _spawnPointIndex = 0;
+        foreach (var (_port, _character) in MatchConfiguration.Characters)
         {
-            var spawnPoint = spawns[spawnPointIndex];
-            MatchManager.AddPlayer(port, MatchConfiguration.PlayerInputTypes[port], character, spawnPoint);
+            var _spawnPoint = _spawns[_spawnPointIndex];
+            MatchManager.AddPlayer(_port, MatchConfiguration.PlayerInputTypes[_port], _character, _spawnPoint);
             
-            spawnPointIndex++;
+            _spawnPointIndex++;
         }
 
         return true;
