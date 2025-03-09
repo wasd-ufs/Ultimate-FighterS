@@ -12,11 +12,11 @@ public class ShakeByVelocityBehaviour : CharacterState
     
     public override void Enter()
     {
-        originalPos = body.transform.localPosition;
+        originalPos = Body.transform.localPosition;
         
-        shakeDirection = body.Velocity;
+        shakeDirection = Body.Velocity;
         if (shakeDirection.sqrMagnitude < 0.01f)
-            shakeDirection = body.Right;
+            shakeDirection = Body.Right;
         
         speedForce = Mathf.Sqrt(shakeDirection.magnitude);
         shakeDirection.Normalize();
@@ -29,12 +29,12 @@ public class ShakeByVelocityBehaviour : CharacterState
 
     private void Shake()
     {
-        body.transform.localPosition = originalPos + (Vector3)shakeDirection * (speedForce * scaledForce * Random.Range(0.5f, 1f));
+        Body.transform.localPosition = originalPos + (Vector3)shakeDirection * (speedForce * scaledForce * Random.Range(0.5f, 1f));
         shakeDirection *= -1;
     }
 
     public override void Exit()
     {
-        body.transform.localPosition = originalPos;
+        Body.transform.localPosition = originalPos;
     }
 }

@@ -12,6 +12,6 @@ public class LimitSpeedBehaviour : CharacterState
     {
         var (forward, up) = GetBasis(basis);
         var axis = forward * this.axis.x + up * this.axis.y;
-        body.LimitSpeed(axis, maxSpeed);
+        Body.LimitSpeed(axis, maxSpeed);
     }
 }

@@ -8,12 +8,12 @@ public class BounceBehaviour : CharacterState
     
     void Bounce(Vector2 normal)
     {
-        if (body.Velocity.sqrMagnitude < 0.01f)
+        if (Body.Velocity.sqrMagnitude < 0.01f)
             return;
         
-        Debug.Log($"original: {body.Velocity}");
-        body.SetVelocity(VectorUtils.Reflected(body.Velocity, normal) * (1f - reductionPerBounce));
-        body.UpdateCurrentContacts();
+        Debug.Log($"original: {Body.Velocity}");
+        Body.SetVelocity(VectorUtils.Reflected(Body.Velocity, normal) * (1f - reductionPerBounce));
+        Body.UpdateCurrentContacts();
     }
 
     public override void Enter()
@@ -23,25 +23,25 @@ public class BounceBehaviour : CharacterState
 
     public void CheckAndBounce()
     {
-        if (body.IsOnFloor())
-            Bounce(body.FloorNormal);
+        if (Body.IsOnFloor())
+            Bounce(Body.FloorNormal);
         
-        if (body.IsOnLeftWall())
-            Bounce(body.LeftWallNormal);
+        if (Body.IsOnLeftWall())
+            Bounce(Body.LeftWallNormal);
         
-        if (body.IsOnRightWall())
-            Bounce(body.RightWallNormal);
+        if (Body.IsOnRightWall())
+            Bounce(Body.RightWallNormal);
         
-        if (body.IsOnCeiling())
-            Bounce(body.CeilingNormal);
+        if (Body.IsOnCeiling())
+            Bounce(Body.CeilingNormal);
     }
     
     public override void PhysicsProcess()
     {
-        if (body.Velocity.sqrMagnitude < 0.01f)
+        if (Body.Velocity.sqrMagnitude < 0.01f)
             return;
 
-        var hits = Physics2D.RaycastAll(body.transform.position, body.Velocity.normalized, body.Velocity.magnitude * Time.fixedDeltaTime).ToList()
+        var hits = Physics2D.RaycastAll(Body.transform.position, Body.Velocity.normalized, Body.Velocity.magnitude * Time.fixedDeltaTime).ToList()
             .Where(hit => !hit.collider.gameObject.CompareTag("Player") && !hit.collider.CompareTag("Hitbox") && !hit.collider.CompareTag("Hurtbox") && !hit.collider.isTrigger)
             .Where(hit => hit.distance >= 0.01f)
             .ToList();

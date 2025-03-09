@@ -17,6 +17,6 @@ public class HurtboxTransition : CharacterState
 
     void OnHitboxDetected(GameObject obj)
     {
-        machine.TransitionTo(next);
+        Machine.TransitionTo(next);
     }
 }

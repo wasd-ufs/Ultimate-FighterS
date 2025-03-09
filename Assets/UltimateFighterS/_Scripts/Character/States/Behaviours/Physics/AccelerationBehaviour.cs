@@ -9,6 +9,6 @@ public class AccelerateBehaviour : CharacterState
     public override void PhysicsProcess()
     {
         var (forward, up) = GetBasis(basis);
-        body.Accelerate(acceleration.x * forward + acceleration.y * up);
+        Body.Accelerate(acceleration.x * forward + acceleration.y * up);
     }
 }

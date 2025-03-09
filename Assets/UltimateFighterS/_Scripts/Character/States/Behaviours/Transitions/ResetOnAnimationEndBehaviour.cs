@@ -13,6 +13,6 @@ public class ResetOnAnimationEndBehaviour : CharacterState
     public override void Process()
     {
         if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1f && !animator.IsInTransition(0))
-            machine.Reset();
+            Machine.Reset();
     }
 }

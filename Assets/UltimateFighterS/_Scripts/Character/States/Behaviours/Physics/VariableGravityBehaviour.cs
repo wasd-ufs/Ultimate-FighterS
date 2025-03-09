@@ -20,18 +20,18 @@ public class VariableGravityBehaviour : CharacterState
     {
         isFastFalling = ShouldFastFall();
         
-        if (isFastFalling && body.IsGoingUp())
-            body.Accelerate(body.Down * heavyGravity);
+        if (isFastFalling && Body.IsGoingUp())
+            Body.Accelerate(Body.Down * heavyGravity);
         
         var gravity = isFastFalling ? fastFallGravity 
-            : body.GetSpeedUp() > gravityRelaxationThreshold ? heavyGravity
+            : Body.GetSpeedUp() > gravityRelaxationThreshold ? heavyGravity
             : normalGravity;
 
-        body.Accelerate(body.Down * gravity);
+        Body.Accelerate(Body.Down * gravity);
     }
     
-    public bool ShouldFastFall() => isFastFalling || body.IsGoingDown() 
-        || !(input.IsSpecialBeingHeld() || input.IsAttackBeingHeld() || InputPointsUp());
+    public bool ShouldFastFall() => isFastFalling || Body.IsGoingDown() 
+        || !(Input.IsSpecialBeingHeld() || Input.IsAttackBeingHeld() || InputPointsUp());
     
-    public bool InputPointsUp() => Vector2.Dot(input.GetDirection(), body.Up) > 0f;
+    public bool InputPointsUp() => Vector2.Dot(Input.GetDirection(), Body.Up) > 0f;
 }

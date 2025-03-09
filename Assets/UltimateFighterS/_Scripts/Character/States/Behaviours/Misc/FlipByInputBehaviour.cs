@@ -6,7 +6,7 @@ public class FlipByInputBehaviour : CharacterState
 {
     public override void Process()
     {
-        if ((IsFacingRight() && body.GetSpeedRight() < 0) || (!IsFacingRight() && body.GetSpeedLeft() < 0))
+        if ((IsFacingRight() && Body.GetSpeedRight() < 0) || (!IsFacingRight() && Body.GetSpeedLeft() < 0))
             Flip();
     }
 

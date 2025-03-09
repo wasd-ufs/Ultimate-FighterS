@@ -23,13 +23,13 @@ public class SurfaceTransitionBehaviour : CharacterState
     public override void Enter()
     {
         if (Landed())
-            machine.TransitionTo(next);
+            Machine.TransitionTo(next);
     }
 
     public override void PhysicsProcess()
     {
         if (Landed())
-            machine.TransitionTo(next);
+            Machine.TransitionTo(next);
     }
 
     private bool Landed() =>
@@ -37,9 +37,9 @@ public class SurfaceTransitionBehaviour : CharacterState
     
     public bool IsOnLand() => land switch
     {
-        LandType.Floor => body.IsOnFloor(),
-        LandType.Ceiling => body.IsOnCeiling(),
-        LandType.Wall => body.IsOnLeftWall() || body.IsOnRightWall(),
-        _ => body.IsOnFloor() || body.IsOnCeiling() || body.IsOnLeftWall() || body.IsOnRightWall(),
+        LandType.Floor => Body.IsOnFloor(),
+        LandType.Ceiling => Body.IsOnCeiling(),
+        LandType.Wall => Body.IsOnLeftWall() || Body.IsOnRightWall(),
+        _ => Body.IsOnFloor() || Body.IsOnCeiling() || Body.IsOnLeftWall() || Body.IsOnRightWall(),
     };
 }

@@ -42,7 +42,7 @@ public class InputTransitionBehaviour : CharacterState
 
     public override void Enter()
     {
-        lastTriggerTest = (CurrentInputTriggers(), input.GetDirection().normalized);
+        lastTriggerTest = (CurrentInputTriggers(), Input.GetDirection().normalized);
     }
 
     public override void Process()
@@ -54,36 +54,36 @@ public class InputTransitionBehaviour : CharacterState
     {
         if (useBuffer && InputBufferTriggers())
         {
-            inputBuffer.Consume();
+            InputBuffer.Consume();
             TransitionToNext();
             
-            lastTriggerTest = (true, input.GetDirection().normalized);
+            lastTriggerTest = (true, Input.GetDirection().normalized);
             return;
         }
 
         if (CurrentInputTriggers())
         {
-            lastTriggerTest = (true, input.GetDirection().normalized);
+            lastTriggerTest = (true, Input.GetDirection().normalized);
             TransitionToNext();
             return;
         }
 
-        lastTriggerTest = (false, input.GetDirection().normalized);
+        lastTriggerTest = (false, Input.GetDirection().normalized);
     }
 
     public void TransitionToNext()
     {
-        machine.TransitionTo(next);
+        Machine.TransitionTo(next);
     }
 
     public bool CurrentInputTriggers() =>
-        DirectionTriggers(input.GetDirection().normalized) && (!requireTap || !lastTriggerTest.Item1 || Vector2.Dot(input.GetDirection().normalized, lastTriggerTest.Item2.normalized) >= 0.01f)
-                                                && ButtonCombinationTriggers(input.IsAttackJustPressed(), input.IsSpecialJustPressed());
+        DirectionTriggers(Input.GetDirection().normalized) && (!requireTap || !lastTriggerTest.Item1 || Vector2.Dot(Input.GetDirection().normalized, lastTriggerTest.Item2.normalized) >= 0.01f)
+                                                && ButtonCombinationTriggers(Input.IsAttackJustPressed(), Input.IsSpecialJustPressed());
 
-    public bool InputBufferTriggers() => inputBuffer.Current is not null
-                                         && DirectionTriggers(inputBuffer.Current.direction)
-                                         && ButtonCombinationTriggers(inputBuffer.Current.isAttackJustPressed,
-                                             inputBuffer.Current.isSpecialJustPressed);
+    public bool InputBufferTriggers() => InputBuffer.Current is not null
+                                         && DirectionTriggers(InputBuffer.Current.direction)
+                                         && ButtonCombinationTriggers(InputBuffer.Current.isAttackJustPressed,
+                                             InputBuffer.Current.isSpecialJustPressed);
 
     public bool ButtonCombinationTriggers(bool attack, bool special) => requiredButton switch
     {

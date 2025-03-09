@@ -6,11 +6,11 @@ public class RotateBehaviour : CharacterState
 
     public override void PhysicsProcess()
     {
-        var direction = input.GetDirection();
+        var direction = Input.GetDirection();
         if (direction.sqrMagnitude < 0.01f)
             return;
         
         direction.x = direction.x < -0.01f ? 1f : direction.x > 0.01f ? -1f : 0f;
-        body.RotateVelocity(speed * direction * Time.fixedDeltaTime);
+        Body.RotateVelocity(speed * direction * Time.fixedDeltaTime);
     }
 }

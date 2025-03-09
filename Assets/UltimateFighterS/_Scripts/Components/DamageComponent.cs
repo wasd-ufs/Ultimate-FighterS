@@ -2,6 +2,9 @@ using Unity.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
+///<summary>
+/// Controla o recebimento de dano do jogador.
+///</summary>
 public class DamageComponent : MonoBehaviour
 {
     [SerializeField] [ReadOnly] public float currentDamage = 0f;
@@ -9,6 +12,11 @@ public class DamageComponent : MonoBehaviour
     
     public float CurrentDamage => currentDamage;
 
+    ///<summary>
+    /// Aplica o dano no jogador.
+    ///<param name="damage"> A quantidade de dano a ser aplicada.
+    ///</summary>
+    ///<author>Davi Fontes</author>
     public void TakeDamage(float damage)
     {
         currentDamage += damage;

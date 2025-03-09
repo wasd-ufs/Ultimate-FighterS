@@ -11,11 +11,11 @@ public class MovementBehaviour : CharacterState
 
     public override void PhysicsProcess()
     {
-        var forward = body.IsOnFloor() ? body.GetFloorRight() : body.Right;
-        var direction = input.GetDirection().x;
+        var forward = Body.IsOnFloor() ? Body.GetFloorRight() : Body.Right;
+        var direction = Input.GetDirection().x;
         direction = direction < -0.001f ? -1 : direction > 0.001f ? 1f : 0f;
         
-        body.MoveSmoothly(forward, 
+        Body.MoveSmoothly(forward, 
             direction,
             acceleration,
             turnAcceleration,
