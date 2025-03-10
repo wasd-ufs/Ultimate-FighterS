@@ -43,10 +43,10 @@ public class CharacterSelectionCarousel : Carousel
     ///<author>Davi Fontes</author>
     protected override void OnSelected(int index)
     {
-        var selectedCharacter = index == 0 ? null : CharacterRegistry.Characters[index - 1];
+        Character _selectedCharacter = index == 0 ? null : CharacterRegistry.Characters[index - 1];
         
-        WriteToMatchConfiguration(selectedCharacter);
-        UpdateUI(selectedCharacter);
+        WriteToMatchConfiguration(_selectedCharacter);
+        UpdateUI(_selectedCharacter);
     }
 
     ///<summary>
