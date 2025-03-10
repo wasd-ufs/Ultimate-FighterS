@@ -39,9 +39,9 @@ public class KnockbackComponent : MonoBehaviour
 [Serializable]
 public class Knockback
 {
-    public Vector2 Direction;
-    public float SetKnockback;
-    public float KnockbackScaling;
+    public Vector2 Direction { get; private set; }
+    public float SetKnockback { get; private set; }
+    public float KnockbackScaling { get; private set; }
 
     public Knockback(Vector2 direction, float setKnockback, float knockbackScaling)
     {
