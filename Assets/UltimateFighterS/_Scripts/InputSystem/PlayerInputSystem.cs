@@ -21,7 +21,7 @@ public class PlayerInputSystem : InputSystem
 
     public void Awake()
     {
-        var _id = GetComponent<IdComponent>()?.id ?? defaultId;
+        int _id = GetComponent<IdComponent>()?.id ?? defaultId;
         
         portHorizontalAxis = $"{HorizontalAxis}{_id}";
         portVerticalAxis = $"{VerticalAxis}{_id}";
@@ -33,7 +33,7 @@ public class PlayerInputSystem : InputSystem
     {
         float _horizontal = Input.GetAxis(portHorizontalAxis);
         float _vertical = Input.GetAxis(portVerticalAxis);
-        var _direction = new Vector2(_horizontal, _vertical);
+        Vector2 _direction = new Vector2(_horizontal, _vertical);
         
         if (_direction.sqrMagnitude < 0.05f)
             return Vector2.zero;

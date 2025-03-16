@@ -34,14 +34,14 @@ public class DefaultMatchAssembler : MonoBehaviour
         }
 
         int _spawnPointIndex = 0;
-        foreach (var (_port, _character) in MatchConfiguration.Characters)
+        foreach ((int _port, Character _character) in MatchConfiguration.Characters)
         {
-            var _spawnPoint = _spawns[_spawnPointIndex];
+            Transform _spawnPoint = _spawns[_spawnPointIndex];
             MatchManager.AddPlayer(_port, MatchConfiguration.PlayerInputTypes[_port], _character, _spawnPoint);
             
             _spawnPointIndex++;
         }
-
+        
         return true;
     }
     
