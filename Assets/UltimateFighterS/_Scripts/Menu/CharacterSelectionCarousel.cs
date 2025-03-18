@@ -16,7 +16,7 @@ public class CharacterSelectionCarousel : Carousel
 {
     private IdComponent _idComponent;
     private RawImage _image;
-    [SerializeField] private Texture _noCharacter;
+    [SerializeField] private Texture _noCharacterSelected;
 
     private void Awake()
     {
@@ -88,7 +88,7 @@ public class CharacterSelectionCarousel : Carousel
     ///<author>Davi Fontes</author>
     public void UpdateUI(Character selectedCharacter)
     {
-        _image.texture = selectedCharacter?.icon ?? _noCharacter;
+        _image.texture = selectedCharacter?.icon ?? _noCharacterSelected;
     }
 
     ///<summary>

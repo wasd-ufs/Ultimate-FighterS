@@ -43,6 +43,12 @@ public class Knockback
     public float SetKnockback { get; private set; }
     public float KnockbackScaling { get; private set; }
 
+    ///<summary>
+    /// Construtor da classe Knockback.
+    ///</summary>
+    ///<param name="direction">Direção do knockback.</param>
+    ///<param name="setKnockback">Valor base do knockback.</param>
+    ///<param name="knockbackScaling">Escala do knockback baseada no dano.</param>
     public Knockback(Vector2 direction, float setKnockback, float knockbackScaling)
     {
         this.Direction = direction.normalized;

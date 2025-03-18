@@ -8,8 +8,8 @@ using UnityEngine.Serialization;
 ///</summary>
 public class HitlagComponent : CharacterState
 {
-    [SerializeField] private CharacterState _hitlagState;
-    [SerializeField] private CharacterState _hitstopState;
+    [SerializeField] private CharacterState OnHitLag;
+    [SerializeField] private CharacterState OnHitStop;
     
     [HideInInspector] public UnityEvent<float> onHitlag = new();
     
@@ -20,8 +20,8 @@ public class HitlagComponent : CharacterState
     
     public void Start()
     {
-        _hitlagTimer = _hitlagState.GetComponent<Timer>();
-        _hitstopTimer = _hitstopState.GetComponent<Timer>();
+        _hitlagTimer = OnHitLag.GetComponent<Timer>();
+        _hitstopTimer = OnHitStop.GetComponent<Timer>();
         
         _stateMachine = GetComponent<StateMachine<CharacterState>>();
     }
@@ -34,12 +34,12 @@ public class HitlagComponent : CharacterState
     ///<author>Davi Fontes</author>
     public void Apply(float durationHitlag, float durationHitstop)
     {
-        if (_hitlagState != null && _hitstopTimer != null && _stateMachine != null)
+        if (OnHitLag != null && _hitstopTimer != null && _stateMachine != null)
         {
             _hitlagTimer.waitTime = durationHitlag;
             _hitstopTimer.waitTime = durationHitstop;
             
-            _stateMachine.TransitionTo(_hitstopState);
+            _stateMachine.TransitionTo(OnHitStop);
             onHitlag.Invoke(durationHitlag);
         }
     }

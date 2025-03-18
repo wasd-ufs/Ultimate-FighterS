@@ -21,10 +21,10 @@ public class MomentumFlipBehaviour : CharacterState
     ///<author>Davi Fontes</author>
     public override void Enter()
     {
-        var directionOrtho = Vector2.Dot(SurfaceForward, Input.GetDirection());
-        var velocityOrtho = Vector2.Dot(SurfaceForward, Body.Velocity);
+        float _directionOrtho = Vector2.Dot(SurfaceForward, Input.GetDirection());
+        float _velocityOrtho = Vector2.Dot(SurfaceForward, Body.Velocity);
         
-        if (directionOrtho * velocityOrtho < 0f)
+        if (_directionOrtho * _velocityOrtho < 0f)
             Body.ModifyVelocityOnAxis(SurfaceForward, vel => -vel);
     }
 }
