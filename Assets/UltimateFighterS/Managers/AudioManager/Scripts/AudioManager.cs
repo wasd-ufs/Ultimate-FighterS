@@ -22,7 +22,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private List<SceneAudioData> _sceneAudioDataList;
     [SerializeField] private List<SceneAudioData> _scenePhaseAudioDataList;
     private bool _isPaused;
-    public bool _isPhase = false;
+    private bool _isPhase = false;
 
     [Header("AudioEffects")]
     [SerializeField] private AudioSource _audioSourceExf;
@@ -105,12 +105,12 @@ public class AudioManager : MonoBehaviour
     /// <author>Wallisson de jesus</author>
     public void UpdateMusicListScene(string sceneName,bool isPhase)
     {
-        SceneAudioData _audioData;
+        SceneAudioData audioData;
 
-        _audioData = !isPhase ? _sceneAudioDataList.Find(d => d.SceneName == sceneName)
+        audioData = !isPhase ? _sceneAudioDataList.Find(d => d.SceneName == sceneName)
                              : _scenePhaseAudioDataList.Find(d => d.SceneName == sceneName);
 
-        _settingBaseAudioList = _audioData != null ? _audioData.BackGroundClipList : null;
+        _settingBaseAudioList = audioData != null ? audioData.BackGroundClipList : null;
     }
 
     /// <summary>
@@ -147,11 +147,11 @@ public class AudioManager : MonoBehaviour
             }
         }
 
-        float _decibel = Mathf.Log10(Mathf.Clamp(settingBaseAudio.Volume, 0.0001f, 1f)) * 20;
+        float decibel = Mathf.Log10(Mathf.Clamp(settingBaseAudio.Volume, 0.0001f, 1f)) * 20;
 
         _audioSourceBg.clip = settingBaseAudio.Clip;
         _audioSourceBg.loop = settingBaseAudio.IsLoop;
-        _audioMixer.SetFloat("MusicVolume", _decibel);
+        _audioMixer.SetFloat("MusicVolume", decibel);
         _audioMixer.SetFloat("MusicPitch", settingBaseAudio.Pitch);
         _audioSourceBg.Play();
 

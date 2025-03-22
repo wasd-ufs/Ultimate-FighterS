@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class HideAnimation : MonoBehaviour
 {
-    public GameObject skin;
+    [SerializeField] private GameObject _skin;
     public void Hide()
     {
-        skin.SetActive(false);
+        _skin.SetActive(false);
     }
 }
