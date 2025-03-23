@@ -6,15 +6,18 @@ using UnityEngine;
 public static class StageRegistry
 {
     private static readonly Dictionary<GameObject, Stage> StageSet = new();
-    
+
     public static List<Stage> Stages => StageSet.Values.ToList();
     public static int StageCount => StageSet.Count;
-    
-    public static void Register(Stage character) => StageSet.TryAdd(character.prefab, character);
+
+    public static void Register(Stage character)
+    {
+        StageSet.TryAdd(character.prefab, character);
+    }
 
     public static void RegisterRange(IEnumerable<Stage> stages)
     {
-        foreach (var stage in stages)
+        foreach (Stage stage in stages)
             Register(stage);
     }
 }

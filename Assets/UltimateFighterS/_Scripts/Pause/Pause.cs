@@ -1,17 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Pause : MonoBehaviour
 {
     [SerializeField] private Transform pauseMenu;
-    
-    void Start()
+
+    private void Start()
     {
         pauseMenu.gameObject.SetActive(false);
     }
 
-    void Update()
+    private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P))
         {
@@ -27,6 +25,4 @@ public class Pause : MonoBehaviour
             }
         }
     }
-
-
 }

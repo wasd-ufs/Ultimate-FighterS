@@ -1,27 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Collections;
 using UnityEngine;
 
 public class Parallax : MonoBehaviour
 {
     [SerializeField] private Transform cam;
-    private float spritelength;
-    private Vector2 startPos;
     public float speedParallaxEfx;
+    private float _spritelength;
+    private Vector2 _startPos;
 
-    void Start()
+    private void Start()
     {
-        startPos = transform.position;
-        spritelength = GetComponent<SpriteRenderer>().bounds.size.x;
+        _startPos = transform.position;
+        _spritelength = GetComponent<SpriteRenderer>().bounds.size.x;
     }
 
-    void LateUpdate()
+    private void LateUpdate()
     {
         //0 = Dont move & 1 = Move with cam
         Vector2 distance = cam.position * speedParallaxEfx;
 
         //Move
-        transform.position = new Vector3(startPos.x + distance.x, startPos.y + distance.y,transform.position.z);
+        transform.position = new Vector3(_startPos.x + distance.x, _startPos.y + distance.y, transform.position.z);
     }
 }

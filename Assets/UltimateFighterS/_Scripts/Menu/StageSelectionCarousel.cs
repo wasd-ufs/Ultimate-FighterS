@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class StageSelectionCarousel : Carousel
 {
@@ -18,16 +13,19 @@ public class StageSelectionCarousel : Carousel
 
     protected override void OnSelected(int index)
     {
-        var previousStage = StageRegistry.Stages[PreviousIndex];
-        var selectedStage = StageRegistry.Stages[CurrentIndex];
-        var nextStage = StageRegistry.Stages[NextIndex];
-        
+        Stage previousStage = StageRegistry.Stages[PreviousIndex];
+        Stage selectedStage = StageRegistry.Stages[CurrentIndex];
+        Stage nextStage = StageRegistry.Stages[NextIndex];
+
         WriteToMatchConfiguration(selectedStage);
         UpdateUI(previousStage, selectedStage, nextStage);
     }
 
-    private int IndexFromMatchConfiguration() => StageRegistry.Stages
-        .FindIndex(stage => stage.prefab == MatchConfiguration.ScenePrefab);
+    private int IndexFromMatchConfiguration()
+    {
+        return StageRegistry.Stages
+            .FindIndex(stage => stage.prefab == MatchConfiguration.ScenePrefab);
+    }
 
     private void WriteToMatchConfiguration(Stage selectedStage)
     {
@@ -41,5 +39,8 @@ public class StageSelectionCarousel : Carousel
         next.SetStage(nextStage);
     }
 
-    protected override int GetItemCount() => StageRegistry.StageCount;
+    protected override int GetItemCount()
+    {
+        return StageRegistry.StageCount;
+    }
 }

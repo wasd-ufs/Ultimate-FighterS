@@ -3,69 +3,87 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Serialization;
 
+/// <summary>
+/// Um estado compatible com a máquina de estados do personagem que funciona como a junção de múltiplos estados.
+/// Para cada evento do Estado do personagem, é executado, seguindo a sequência de adição, o evento equivalente de cada estado subordinado.
+/// Casa ocorra uma transição em um estado subordinado, a execução é parada imediatamente  
+/// </summary>
 public class CompositeState : CharacterState
 {
+    [FormerlySerializedAs("foreignStates")]
     [Header("States outside of this object that should be included. Others Are Automatically included.")]
-    [SerializeField] private List<CharacterState> foreignStates = new();
+    [SerializeField]
+    private List<CharacterState> _foreignStates = new();
 
-    [SerializeField] private bool automaticallyIncludeChildren = false;
+    [FormerlySerializedAs("automaticallyIncludeChildren")] [SerializeField] private bool _automaticallyIncludeChildren;
+    private bool _skip;
 
     // All States used by the composite
-    private HashSet<CharacterState> states = new();
-    private bool skip;
+    private readonly HashSet<CharacterState> _states = new();
 
     private void Awake()
     {
         if (GetComponent<CharacterState>() != this)
             Destroy(this);
-        
-        GrabStates();
+
+        LoadStates();
     }
 
-    private void GrabStates()
+    /// <summary>
+    /// Recria a lista de estados subordinados que estão na composição
+    /// </summary>
+    private void LoadStates()
     {
-        states.Clear();
-        
-        var local = GetComponents<CharacterState>().ToList();
-        local.Remove(this);
-        
-        states.AddRange(local);
-        states.AddRange(foreignStates);
+        _states.Clear();
 
-        if (automaticallyIncludeChildren)
-        {
+        List<CharacterState> local = GetComponents<CharacterState>().ToList();
+        local.Remove(this);
+
+        _states.AddRange(local);
+        _states.AddRange(_foreignStates);
+
+        if (_automaticallyIncludeChildren)
             for (int i = 0; i < transform.childCount; i++)
                 if (transform.GetChild(i).TryGetComponent(out CharacterState child))
-                    states.Add(child);
-        }
+                    _states.Add(child);
     }
-    
+
+    /// <summary>
+    /// Carrega os atributos de um estado com os valores do Estado Composto.
+    /// Usado para passar os atributos da máquina para os estados subordinados
+    /// </summary>
+    /// <param name="state">O estado a ser configurado</param>
     private void Configure(CharacterState state)
     {
-        state.body = body;
-        state.input = input;
-        state.machine = machine;
-        state.inputBuffer = inputBuffer;
+        state.Body = Body;
+        state.Input = Input;
+        state.Machine = Machine;
+        state.InputBuffer = InputBuffer;
         state.FlipPivotPoint = FlipPivotPoint;
         state.DustParticles = DustParticles;
     }
 
+    /// <summary>
+    /// Executa uma Ação para cada estado participante da composição
+    /// </summary>
+    /// <param name="action">A ação a ser executada</param>
     private void ForEachState(Action<CharacterState> action)
     {
-        foreach (var state in states)
+        foreach (CharacterState state in _states)
         {
             Configure(state);
             action(state);
-            
-            if (skip)
+
+            if (_skip)
                 break;
         }
     }
-    
+
     public override void Enter()
     {
-        skip = false;
+        _skip = false;
         ForEachState(Configure);
         ForEachState(state => state.Enter());
     }
@@ -73,17 +91,17 @@ public class CompositeState : CharacterState
     public override void Exit()
     {
         ForEachState(state => state.Exit());
-        skip = true;
+        _skip = true;
     }
 
-    public override void Process()
+    public override void StateUpdate()
     {
-        ForEachState(state => state.Process());
+        ForEachState(state => state.StateUpdate());
     }
 
-    public override void PhysicsProcess()
+    public override void StateFixedUpdate()
     {
-        ForEachState(state => state.PhysicsProcess());
+        ForEachState(state => state.StateFixedUpdate());
     }
 
     public override void OnCeilingEnter(Vector2 normal)

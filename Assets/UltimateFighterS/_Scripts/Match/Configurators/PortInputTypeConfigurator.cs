@@ -10,12 +10,12 @@ public class PortInputTypeConfigurator : MatchConfigurator
         if (inputType == InputType.Player)
         {
             inputType = InputType.NoInput;
-            Debug.Log("Port " + port + " " + inputType.ToString());
+            Debug.Log("Port " + port + " " + inputType);
         }
         else
         {
             inputType = InputType.Player;
-            Debug.Log("Port " + port + " " + inputType.ToString());
+            Debug.Log("Port " + port + " " + inputType);
         }
     }
 
@@ -23,7 +23,7 @@ public class PortInputTypeConfigurator : MatchConfigurator
     {
         if (!MatchConfiguration.Characters.ContainsKey(port))
             return;
-        
+
         MatchConfiguration.PlayerInputTypes[port] = inputType;
     }
 }

@@ -1,44 +1,51 @@
-using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
+/// <summary>
+/// Realiza a transição assim que o timer terminar
+/// </summary>
 [RequireComponent(typeof(Timer))]
 public class TimedTransitionBehaviour : CharacterState
 {
-    [SerializeField] private CharacterState next;
-    private Timer timer;
-    private bool skip;
+    [FormerlySerializedAs("next")] [SerializeField] private CharacterState _next;
+    private bool _skip;
+    private Timer _timer;
 
     private void Awake()
     {
-        timer = GetComponent<Timer>();
-        timer.onTimerFinish.AddListener(OnTimerFinish);
-        skip = true;
+        _timer = GetComponent<Timer>();
+        _timer.onTimerFinish.AddListener(OnTimerFinish);
+        _skip = true;
     }
 
     public override void Enter()
     {
-        skip = false;
-        timer.Init();
-        
-        timer.enabled = true;
+        _skip = false;
+        _timer.Init();
+
+        _timer.enabled = true;
     }
 
-    public override void Process()
+    public override void StateUpdate()
     {
-        timer.Update();
+        _timer.Update();
     }
 
     public override void Exit()
     {
-        skip = true;
-        timer.enabled = false;
+        _skip = true;
+        _timer.enabled = false;
     }
 
+    /// <summary>
+    /// Callback de quando o Timer acaba.
+    /// Realiza a transição
+    /// </summary>
     private void OnTimerFinish()
     {
-        if (skip)
+        if (_skip)
             return;
-        
-        machine.TransitionTo(next);
+
+        Machine.TransitionTo(_next);
     }
 }

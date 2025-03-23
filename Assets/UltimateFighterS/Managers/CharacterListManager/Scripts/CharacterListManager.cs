@@ -5,8 +5,8 @@ public class CharacterListManager : MonoBehaviour
 {
     [SerializeField] private Image currentImage;
     [SerializeField] private Sprite[] characters;
-    [SerializeField] public int currentIndex = 0; 
-    
+    [SerializeField] public int currentIndex;
+
 
     public void ShowNextImage()
     {

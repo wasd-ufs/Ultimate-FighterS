@@ -1,18 +1,21 @@
 using UnityEngine;
 
+/// <summary>
+/// Retorna a máquina de estados ao estado inicial assim que a animação atual acaba
+/// </summary>
 [RequireComponent(typeof(Animator))]
 public class ResetOnAnimationEndBehaviour : CharacterState
 {
-    private Animator animator;
+    private Animator _animator;
 
     public void Awake()
     {
-        animator = GetComponent<Animator>();
+        _animator = GetComponent<Animator>();
     }
 
-    public override void Process()
+    public override void StateUpdate()
     {
-        if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1f && !animator.IsInTransition(0))
-            machine.Reset();
+        if (_animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1f && !_animator.IsInTransition(0))
+            Machine.Reset();
     }
 }

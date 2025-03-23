@@ -1,16 +1,12 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
 using UnityEngine;
-using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(Timer))]
 public class Train : MonoBehaviour
-{   
-    [Header("Parameters")]
-    [SerializeField] private float maxRequiredTimeForTrain;
+{
+    [Header("Parameters")] [SerializeField]
+    private float maxRequiredTimeForTrain;
+
     [SerializeField] private float minRequiredTimeForTrain;
     [SerializeField] private float maxStoppedTime;
     [SerializeField] private float minStoppedTime;
@@ -18,8 +14,10 @@ public class Train : MonoBehaviour
     [SerializeField] private float minTimeToArriveOrigin;
     [SerializeField] private float trainLength;
     [SerializeField] private float trainHeight;
-    [Tooltip("positive coordinate")]
-    [SerializeField] private Vector3 spawnPoint;
+
+    [Tooltip("positive coordinate")] [SerializeField]
+    private Vector3 spawnPoint;
+
     [SerializeField] private Vector3 originPoint;
     [SerializeField] private Vector3 restPoint;
     [SerializeField] private Passenger passenger;
@@ -27,9 +25,10 @@ public class Train : MonoBehaviour
     [SerializeField] private Timer stoppedTimer;
     [SerializeField] private Timer runningTimer;
 
-    
-    [Header("just to see")]
-    [SerializeField] private float distance;
+
+    [Header("just to see")] [SerializeField]
+    private float distance;
+
     [SerializeField] private bool isPassengerOutOfTrain;
     [SerializeField] private float aceleration;
     [SerializeField] private float speedAux;
@@ -37,12 +36,12 @@ public class Train : MonoBehaviour
     [SerializeField] private int direction;
     [SerializeField] private bool isDecelerating;
     [SerializeField] private bool isAcelerating;
-   
-    void Start()
-    {   
+
+    private void Start()
+    {
         MoveToRestPosition();
         isDecelerating = false;
-        isAcelerating = false;              
+        isAcelerating = false;
         isPassengerOutOfTrain = false;
         transform.localScale.Scale(new Vector3(trainLength, trainHeight, 1));
         runningTimer.waitTime = Random.Range(minRequiredTimeForTrain, maxRequiredTimeForTrain);
@@ -50,14 +49,14 @@ public class Train : MonoBehaviour
         distance = spawnPoint.x - originPoint.x;
     }
 
-    void Update()
-    {   
+    private void Update()
+    {
         if (isDecelerating)
         {
             Vector3 currentPosition = transform.position;
-            transform.position = Vector3.MoveTowards(currentPosition, originPoint, speedAux * Time.deltaTime);  
+            transform.position = Vector3.MoveTowards(currentPosition, originPoint, speedAux * Time.deltaTime);
             speedAux = Mathf.MoveTowards(speedAux, 0, aceleration * Time.deltaTime);
-                            
+
             if (currentPosition.x == 0)
             {
                 stoppedTimer.waitTime = Random.Range(minStoppedTime, maxStoppedTime);
@@ -75,19 +74,19 @@ public class Train : MonoBehaviour
                 else if (isPassengerOutOfTrain)
                 {
                     passenger.MoveToRestPoint();
-                    isPassengerOutOfTrain = false;  
+                    isPassengerOutOfTrain = false;
                 }
             }
         }
         else if (isAcelerating)
         {
             Vector3 currentPosition = transform.position;
-                    Vector3 target = new Vector3(direction * spawnPoint.x, spawnPoint.y, 0);
+            Vector3 target = new(direction * spawnPoint.x, spawnPoint.y, 0);
 
             transform.position = Vector3.MoveTowards(currentPosition, target, speedAux * Time.deltaTime);
-            speedAux = Mathf.MoveTowards(speedAux, speed, 2*aceleration * Time.deltaTime);
-            
-            if (Mathf.Approximately(currentPosition.x, direction * spawnPoint.x)) 
+            speedAux = Mathf.MoveTowards(speedAux, speed, 2 * aceleration * Time.deltaTime);
+
+            if (Mathf.Approximately(currentPosition.x, direction * spawnPoint.x))
             {
                 runningTimer.waitTime = Random.Range(minRequiredTimeForTrain, maxRequiredTimeForTrain);
                 runningTimer.Init();
@@ -95,9 +94,9 @@ public class Train : MonoBehaviour
             }
         }
     }
-    
+
     public void RunTrain()
-    {                   
+    {
         direction = GetRandomSign();
         speed = CalculateSpeed();
         aceleration = CalculateAceleration(speed);
@@ -106,23 +105,23 @@ public class Train : MonoBehaviour
         FlipInDirection(direction);
 
         Wave wave = FindObjectOfType<Wave>();
-        if (wave) {
+        if (wave)
+        {
             wave.SetDirection(direction);
             wave.ActiveWave(false);
         }
-        
+
         isDecelerating = true;
     }
-    public void ResetTrain()                
-    {   
-        if(transform.localScale.x < 0)
+
+    public void ResetTrain()
+    {
+        if (transform.localScale.x < 0)
             FlipInDirection(-1);
         MoveToRestPosition();
         isAcelerating = false;
         Wave wave = FindObjectOfType<Wave>();
-        if (wave) {
-            wave.ActiveWave(false);
-        }  
+        if (wave) wave.ActiveWave(false);
     }
 
     public void Acelerate()
@@ -132,31 +131,57 @@ public class Train : MonoBehaviour
         aceleration = CalculateAceleration(speed);
         speedAux = 0;
         Wave wave = FindObjectOfType<Wave>();
-        if (wave) {
-            wave.ActiveWave(true);
-        }  
+        if (wave) wave.ActiveWave(true);
     }
+
     public float CalculateAceleration(float speed)
-        =>  speed * speed / (2 * distance);
+    {
+        return speed * speed / (2 * distance);
+    }
+
     public float CalculateSpeed()
-        => spawnPoint.x / Random.Range(minTimeToArriveOrigin, maxTimeToArriveOrigin);
+    {
+        return spawnPoint.x / Random.Range(minTimeToArriveOrigin, maxTimeToArriveOrigin);
+    }
+
     public void MoveToRestPosition()
-        => this.transform.position = restPoint;    
+    {
+        transform.position = restPoint;
+    }
+
     private void MoveToSpawnPosition(int direction)
-        => this.transform.position = new Vector3(-direction*spawnPoint.x,spawnPoint.y,spawnPoint.z);
+    {
+        transform.position = new Vector3(-direction * spawnPoint.x, spawnPoint.y, spawnPoint.z);
+    }
+
     private void FlipInDirection(int sign)
     {
-        Vector3 scale = this.transform.localScale;
+        Vector3 scale = transform.localScale;
         transform.localScale.Scale(new Vector3(sign * scale.x, scale.y, scale.z));
     }
+
     private int GetRandomSign()
-        => Random.Range(-1.0f, 1.0f) < 0 ? -1 : 1;
-    public float GetTrainLength() 
-        => this.trainLength;
+    {
+        return Random.Range(-1.0f, 1.0f) < 0 ? -1 : 1;
+    }
+
+    public float GetTrainLength()
+    {
+        return trainLength;
+    }
+
     public float GetTrainHeight()
-        => this.trainHeight;
+    {
+        return trainHeight;
+    }
+
     public Vector3 GetSpawnPoint()
-        => spawnPoint;
+    {
+        return spawnPoint;
+    }
+
     public Vector3 GetRestPoint()
-        => restPoint;               
+    {
+        return restPoint;
+    }
 }

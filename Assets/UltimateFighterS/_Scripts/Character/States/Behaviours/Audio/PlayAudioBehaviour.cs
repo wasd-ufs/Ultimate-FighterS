@@ -1,21 +1,25 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
+/// <summary>
+/// Toca um audio, com variações aleatórias no volume e tom, ao entrar no estado 
+/// </summary>
 [RequireComponent(typeof(AudioSource))]
 public class PlayAudioBehaviour : CharacterState
 {
-    [SerializeField] private float pitchRandomRadius = 0.1f;
-    [SerializeField] private float volumeRandomRadius = 0.1f;
-    
-    private AudioSource audioSource;
-    
-    private float volume;
-    private float pitch;
-    
-    void Awake()
+    [FormerlySerializedAs("pitchRandomRadius")] [SerializeField] private float _pitchRandomRadius = 0.1f;
+    [FormerlySerializedAs("volumeRandomRadius")] [SerializeField] private float _volumeRandomRadius = 0.1f;
+
+    private AudioSource _audioSource;
+    private float _pitch;
+
+    private float _volume;
+
+    private void Awake()
     {
-        audioSource = GetComponent<AudioSource>();
-        volume = audioSource.volume;
-        pitch = audioSource.pitch;
+        _audioSource = GetComponent<AudioSource>();
+        _volume = _audioSource.volume;
+        _pitch = _audioSource.pitch;
     }
 
     public override void Enter()
@@ -23,11 +27,14 @@ public class PlayAudioBehaviour : CharacterState
         PlayAudio();
     }
 
-    void PlayAudio()
+    /// <summary>
+    /// Toca o audio com tom e volume aleatórios a cada execução.
+    /// </summary>
+    private void PlayAudio()
     {
-        audioSource.pitch = pitch + Random.Range(-pitchRandomRadius, pitchRandomRadius);
-        audioSource.volume = volume + Random.Range(-volumeRandomRadius, volumeRandomRadius);
-        
-        audioSource.Play();
+        _audioSource.pitch = _pitch + Random.Range(-_pitchRandomRadius, _pitchRandomRadius);
+        _audioSource.volume = _volume + Random.Range(-_volumeRandomRadius, _volumeRandomRadius);
+
+        _audioSource.Play();
     }
 }

@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,20 +8,20 @@ public class SceneChangerController : MonoBehaviour
     private static readonly int FadeOutTrigger = Animator.StringToHash("out");
     private static Animator _animator;
     private static int _nextScene;
-    
+
     private static GameObject _sceneChanger;
 
     public void Awake()
     {
         if (_sceneChanger != null)
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
             return;
         }
 
-        _sceneChanger = this.gameObject;
+        _sceneChanger = gameObject;
         DontDestroyOnLoad(gameObject);
-        
+
         _animator = GetComponent<Animator>();
     }
 
@@ -42,7 +39,7 @@ public class SceneChangerController : MonoBehaviour
     public static void FadeOut(int sceneIndex)
     {
         _nextScene = sceneIndex;
-        
+
         _animator.ResetTrigger(FadeInTrigger);
         _animator.SetTrigger(FadeOutTrigger);
     }

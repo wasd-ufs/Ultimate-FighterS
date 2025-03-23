@@ -1,23 +1,21 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class CharacterRegistryLoader : MonoBehaviour
 {
-    [SerializeField] private List<Character> charactersToRegister;
-    
-    private static bool isFirstLoad = true;
+    private static bool _isFirstLoad = true;
     public static readonly UnityEvent OnLoadComplete = new();
-    
+    [SerializeField] private List<Character> charactersToRegister;
+
     private void Start()
     {
-        if (isFirstLoad)
+        if (_isFirstLoad)
         {
             CharacterRegistry.RegisterRange(charactersToRegister);
-            isFirstLoad = false;
+            _isFirstLoad = false;
         }
-        
+
         OnLoadComplete.Invoke();
     }
 }

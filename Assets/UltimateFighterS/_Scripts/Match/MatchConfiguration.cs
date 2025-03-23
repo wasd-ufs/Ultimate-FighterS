@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,5 +11,5 @@ public class MatchConfiguration
 public enum InputType
 {
     Player,
-    NoInput,
+    NoInput
 }

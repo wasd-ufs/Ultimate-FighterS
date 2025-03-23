@@ -1,26 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class CatCenter : CatBaseMoves
 {
+    [FormerlySerializedAs("_animator")] [SerializeField] private Animator animator;
+    [FormerlySerializedAs("_skin")] [SerializeField] private GameObject skin;
 
-    [SerializeField]private Animator _animator;
-    [SerializeField]private GameObject _skin;
-
-    void Awake()
+    private void Awake()
     {
-        _skin.SetActive(false);  
+        skin.SetActive(false);
     }
 
     public override void Execute()
     {
-        _skin.SetActive(true);
-        _animator.Play("CenterCat",-1);
+        skin.SetActive(true);
+        animator.Play("CenterCat", -1);
     }
 
     public override void Hide()
     {
-        _skin.SetActive(false);
+        skin.SetActive(false);
     }
 }

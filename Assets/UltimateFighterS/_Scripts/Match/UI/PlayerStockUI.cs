@@ -15,12 +15,12 @@ public class PlayerStockUI : MonoBehaviour
 
         playerNameText.text = $"P{_stock.Player.Port + 1}";
         stockText.text = _stock.Stock.ToString();
-        
+
         _stock.Player.OnPlayerSpawned.AddListener(OnPlayerSpawned);
         _stock.Player.OnPlayerKilled.AddListener(OnPlayerKilled);
-        _stock.onStockUpdated.AddListener(OnStockUpdated);
-        
-        var rectTransform = GetComponent<RectTransform>();
+        _stock.OnStockUpdated.AddListener(OnStockUpdated);
+
+        RectTransform rectTransform = GetComponent<RectTransform>();
         rectTransform.anchorMax = new Vector2(0.5f, 0f);
         rectTransform.anchorMin = new Vector2(0.5f, 0f);
     }
@@ -29,14 +29,14 @@ public class PlayerStockUI : MonoBehaviour
     {
         Debug.Log("spawn");
         damageText.text = "0%";
-        
-        var damageComponent = player.GetComponent<DamageComponent>();
+
+        DamageComponent damageComponent = player.GetComponent<DamageComponent>();
         if (damageComponent is null)
         {
             Debug.Log("no damage component");
             return;
         }
-        
+
         damageComponent.onDamageUpdate.AddListener(OnDamageUpdate);
     }
 
@@ -44,7 +44,7 @@ public class PlayerStockUI : MonoBehaviour
     {
         damageText.text = "0%";
     }
-    
+
     private void OnStockUpdated(int stock)
     {
         stockText.text = stock.ToString();

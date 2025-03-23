@@ -1,11 +1,15 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
+/// <summary>
+/// Realiza uma transição imediatamente ao entrar no estado
+/// </summary>
 public class InstantTransitionBehaviour : CharacterState
 {
-    [SerializeField] public CharacterState next;
+    [FormerlySerializedAs("next")] [SerializeField] private CharacterState _next;
 
     public override void Enter()
     {
-        machine.TransitionTo(next);
+        Machine.TransitionTo(_next);
     }
 }

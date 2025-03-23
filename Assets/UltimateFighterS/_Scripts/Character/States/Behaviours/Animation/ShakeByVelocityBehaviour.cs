@@ -1,40 +1,47 @@
-using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
-
+/// <summary>
+/// Shakes character based on its velocity and position entering this state and a scale factor, changing its position every frame
+/// Resets back to Entering position when exiting this state
+/// </summary>
 public class ShakeByVelocityBehaviour : CharacterState
 {
-    [SerializeField] private float scaledForce;
-    
-    private Vector3 originalPos;
-    private Vector2 shakeDirection;
-    private float speedForce;
-    
+    [FormerlySerializedAs("scaledForce")] [SerializeField] private float _scaledForce;
+
+    private Vector3 _enteringPosition;
+    private Vector2 _shakeDirection;
+    private float _speedForce;
+
     public override void Enter()
     {
-        originalPos = body.transform.localPosition;
-        
-        shakeDirection = body.Velocity;
-        if (shakeDirection.sqrMagnitude < 0.01f)
-            shakeDirection = body.Right;
-        
-        speedForce = Mathf.Sqrt(shakeDirection.magnitude);
-        shakeDirection.Normalize();
+        _enteringPosition = Body.transform.localPosition;
+
+        _shakeDirection = Body.Velocity;
+        if (_shakeDirection.sqrMagnitude < 0.01f)
+            _shakeDirection = Body.Right;
+
+        _speedForce = Mathf.Sqrt(_shakeDirection.magnitude);
+        _shakeDirection.Normalize();
     }
 
-    public override void PhysicsProcess()
+    public override void StateFixedUpdate()
     {
         Shake();
     }
 
+    /// <summary>
+    /// Repositions the character to a random radius centered around character's original position, in the opposite direction of the previous shake
+    /// </summary>
     private void Shake()
     {
-        body.transform.localPosition = originalPos + (Vector3)shakeDirection * (speedForce * scaledForce * Random.Range(0.5f, 1f));
-        shakeDirection *= -1;
+        Body.transform.localPosition =
+            _enteringPosition + (Vector3)_shakeDirection * (_speedForce * _scaledForce * Random.Range(0.5f, 1f));
+        _shakeDirection *= -1;
     }
 
     public override void Exit()
     {
-        body.transform.localPosition = originalPos;
+        Body.transform.localPosition = _enteringPosition;
     }
 }

@@ -1,17 +1,25 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
+/// <summary>
+/// Faz o jogador deslisar na parede, ou ir para baixo caso não esteja na parede, e convergir para uma velocidade alvo, acelerando caso esteja abaixo ou desacelerando caso esteja acima
+/// </summary>
 public class SlidingBehaviour : CharacterState
 {
-    [Header("Sliding Variables")]
-    [SerializeField] private float targetSpeed;
-    [SerializeField] private float acceleration;
-    [SerializeField] private float deceleration;
+    [FormerlySerializedAs("targetSpeed")] [Header("Sliding Variables")] [SerializeField]
+    private float _targetSpeed;
 
-    public override void PhysicsProcess()
+    [FormerlySerializedAs("acceleration")] [SerializeField] private float _acceleration;
+    [FormerlySerializedAs("deceleration")] [SerializeField] private float _deceleration;
+
+    public override void StateFixedUpdate()
     {
-        var down = body.IsOnLeftWall() 
-            ? body.GetLeftWallDown() : body.IsOnRightWall() ? body.GetRightWallDown() : body.Down;
-        
-        body.ConvergeSpeed(down, acceleration, deceleration, targetSpeed);
+        Vector2 down = Body.IsOnLeftWall()
+            ? Body.GetLeftWallDown()
+            : Body.IsOnRightWall()
+                ? Body.GetRightWallDown()
+                : Body.Down;
+
+        Body.ConvergeSpeed(down, _acceleration, _deceleration, _targetSpeed);
     }
 }

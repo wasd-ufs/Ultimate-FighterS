@@ -1,20 +1,20 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
+
 public class DeathComponent : MonoBehaviour
 {
     [HideInInspector] public UnityEvent onDeath;
 
-    public void Kill()
-    {
-        onDeath.Invoke();
-        
-        var player = MatchManager.GetPlayer(gameObject);
-        player.Kill();
-    }
-
     private void OnDestroy()
     {
         onDeath.RemoveAllListeners();
+    }
+
+    public void Kill()
+    {
+        onDeath.Invoke();
+
+        ActivePlayer player = MatchManager.GetPlayer(gameObject);
+        player.Kill();
     }
 }

@@ -1,30 +1,43 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
+/// <summary>
+/// Executa os métodos do comportamento subordinado ao Comportamento Condicional se, e somente se, o atributo publico run for true
+/// </summary>
 public class ConditionalBehaviour : CharacterState
 {
-    [SerializeField] public CharacterState subordinate;
-    [SerializeField] public bool run;
+    [FormerlySerializedAs("subordinate")] [SerializeField] private CharacterState _subordinate;
+    [FormerlySerializedAs("run")] [SerializeField] private bool _run;
 
+    /// <summary>
+    /// Executa a ação action apenas se run for true
+    /// Antes de executar, configura o estado subordinado, garantindo que os atributos do estado estejam sincronizados
+    /// </summary>
+    /// <param name="action">A ação a ser executada condicionalmente</param>
     private void TryRun(Action<CharacterState> action)
     {
-        if (run)
+        if (_run)
         {
-            Configure(subordinate);
-            action.Invoke(subordinate);
+            Configure(_subordinate);
+            action.Invoke(_subordinate);
         }
     }
 
+    /// <summary>
+    /// Sincroniza os atributos do estado state com os valores atualmente nesse estado
+    /// </summary>
+    /// <param name="state">O estado a ser configurado</param>
     private void Configure(CharacterState state)
     {
-        state.machine = machine;
-        state.body = body;
-        state.input = input;
-        state.inputBuffer = inputBuffer;
+        state.Machine = Machine;
+        state.Body = Body;
+        state.Input = Input;
+        state.InputBuffer = InputBuffer;
         state.FlipPivotPoint = FlipPivotPoint;
         state.DustParticles = DustParticles;
     }
-    
+
     public override void Enter()
     {
         TryRun(state => state.Enter());
@@ -35,14 +48,14 @@ public class ConditionalBehaviour : CharacterState
         TryRun(state => state.Exit());
     }
 
-    public override void Process()
+    public override void StateUpdate()
     {
-        TryRun(state => state.Process());
+        TryRun(state => state.StateUpdate());
     }
 
-    public override void PhysicsProcess()
+    public override void StateFixedUpdate()
     {
-        TryRun(state => state.PhysicsProcess());
+        TryRun(state => state.StateFixedUpdate());
     }
 
     public override void OnCeilingEnter(Vector2 normal)

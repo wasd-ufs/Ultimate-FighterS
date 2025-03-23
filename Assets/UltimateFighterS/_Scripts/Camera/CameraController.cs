@@ -1,7 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
@@ -12,86 +10,91 @@ public class CameraController : MonoBehaviour
     public float moveSpeed = 0.5f;
     public float padding = 2f;
 
-    private Camera cam;
-    private Vector2 worldMinBounds, worldMaxBounds;
-    
-    void Awake()
+    private Camera _cam;
+    private Vector2 _worldMinBounds, _worldMaxBounds;
+
+    private void Awake()
     {
-        cam = GetComponent<Camera>();
+        _cam = GetComponent<Camera>();
         MatchManager.OnMatchStarting.AddListener(OnMatchStarting);
     }
 
-    void OnMatchStarting()
-    {
-        GetBounds();
-    }
-
-    void GetBounds()
-    {
-        worldMinBounds = Vector2.negativeInfinity;
-        worldMaxBounds = Vector2.positiveInfinity;
-        
-        var limits = GameObject.FindGameObjectsWithTag("StageLimits").ToList();
-        if (limits.Count > 0)
-        {
-            worldMinBounds.x = limits.Min(x => x.transform.position.x);
-            worldMinBounds.y = limits.Min(x => x.transform.position.y);
-
-            worldMaxBounds.x = limits.Max(x => x.transform.position.x);
-            worldMaxBounds.y = limits.Max(x => x.transform.position.y);
-        }
-        
-        maxZoom = Mathf.Min((worldMaxBounds.x - worldMinBounds.x) / cam.aspect, worldMaxBounds.y - worldMinBounds.y) / 2f;
-        cam.orthographicSize = maxZoom;
-    }
-
-    void LateUpdate()
+    private void LateUpdate()
     {
         MoveCamera();
         ZoomCamera();
     }
 
-    void MoveCamera()
+    private void OnMatchStarting()
     {
-        var players = GetAlivePlayersPositions();
+        GetBounds();
+    }
+
+    private void GetBounds()
+    {
+        _worldMinBounds = Vector2.negativeInfinity;
+        _worldMaxBounds = Vector2.positiveInfinity;
+
+        List<GameObject> limits = GameObject.FindGameObjectsWithTag("StageLimits").ToList();
+        if (limits.Count > 0)
+        {
+            _worldMinBounds.x = limits.Min(x => x.transform.position.x);
+            _worldMinBounds.y = limits.Min(x => x.transform.position.y);
+
+            _worldMaxBounds.x = limits.Max(x => x.transform.position.x);
+            _worldMaxBounds.y = limits.Max(x => x.transform.position.y);
+        }
+
+        maxZoom = Mathf.Min((_worldMaxBounds.x - _worldMinBounds.x) / _cam.aspect, _worldMaxBounds.y - _worldMinBounds.y) /
+                  2f;
+        _cam.orthographicSize = maxZoom;
+    }
+
+    private void MoveCamera()
+    {
+        List<Vector2> players = GetAlivePlayersPositions();
         if (players.Count == 0)
             return;
-        
+
         Vector2 averagePosition = Vector2.zero;
-        foreach (Vector2 position in players)
-        {
-            averagePosition += position;
-        }
+        foreach (Vector2 position in players) averagePosition += position;
         averagePosition /= players.Count;
-        
-        float camHalfHeight = cam.orthographicSize;
-        float camHalfWidth = camHalfHeight * cam.aspect;
-        
-        Vector3 finalPosition = Vector3.Lerp(transform.position, averagePosition, 1 - Mathf.Exp(-Time.deltaTime * moveSpeed));
-        
-        finalPosition.x = Mathf.Clamp(finalPosition.x, worldMinBounds.x + camHalfWidth, worldMaxBounds.x - camHalfWidth);
-        finalPosition.y = Mathf.Clamp(finalPosition.y, worldMinBounds.y + camHalfHeight, worldMaxBounds.y - camHalfHeight);
-        
+
+        float camHalfHeight = _cam.orthographicSize;
+        float camHalfWidth = camHalfHeight * _cam.aspect;
+
+        Vector3 finalPosition =
+            Vector3.Lerp(transform.position, averagePosition, 1 - Mathf.Exp(-Time.deltaTime * moveSpeed));
+
+        finalPosition.x =
+            Mathf.Clamp(finalPosition.x, _worldMinBounds.x + camHalfWidth, _worldMaxBounds.x - camHalfWidth);
+        finalPosition.y = Mathf.Clamp(finalPosition.y, _worldMinBounds.y + camHalfHeight,
+            _worldMaxBounds.y - camHalfHeight);
+
         transform.position = new Vector3(finalPosition.x, finalPosition.y, transform.position.z);
     }
 
-    void ZoomCamera()
+    private void ZoomCamera()
     {
-        var players = GetAlivePlayersPositions();
+        List<Vector2> players = GetAlivePlayersPositions();
         if (players.Count == 0)
             return;
 
-        var bounding = BoundingZoom(players, padding, cam.aspect);
-        var desiredZoom = Mathf.Clamp(bounding, 0f, maxZoom);
-        
+        float bounding = BoundingZoom(players, padding, _cam.aspect);
+        float desiredZoom = Mathf.Clamp(bounding, 0f, maxZoom);
+
         Debug.Log($"Bounding: {bounding}, desired: {desiredZoom}, min: {minZoom}, max: {maxZoom}");
-        cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, desiredZoom, 1 - Mathf.Exp(-Time.deltaTime * zoomSpeed));
+        _cam.orthographicSize =
+            Mathf.Lerp(_cam.orthographicSize, desiredZoom, 1 - Mathf.Exp(-Time.deltaTime * zoomSpeed));
     }
 
-    private List<Vector2> GetAlivePlayersPositions() => MatchManager.GetActivePlayers()
-        .Where(player => player.IsInGameObjectAlive()).ToList()
-        .ConvertAll(player => (Vector2)player.InGameObject.transform.position);
-    
+    private List<Vector2> GetAlivePlayersPositions()
+    {
+        return MatchManager.GetActivePlayers()
+            .Where(player => player.IsInGameObjectAlive()).ToList()
+            .ConvertAll(player => (Vector2)player.InGameObject.transform.position);
+    }
+
     private static float BoundingZoom(List<Vector2> points, float padding, float aspect)
     {
         float maxX = points.Max(p => p.x);
@@ -101,7 +104,7 @@ public class CameraController : MonoBehaviour
 
         return Zoom(maxX, maxY, minX, minY, padding, aspect);
     }
-    
+
     private static float Zoom(float maxX, float maxY, float minX, float minY, float padding, float aspect)
     {
         float halfWidth = (maxX - minX) / 2f + padding;

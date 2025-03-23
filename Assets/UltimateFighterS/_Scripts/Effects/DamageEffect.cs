@@ -6,6 +6,6 @@ public class DamageEffect : Effect
 
     public override void Apply(GameObject target)
     {
-        target.GetComponent<DamageComponent>()?.TakeDamage(damageAmount);        
+        target.GetComponent<DamageComponent>()?.TakeDamage(damageAmount);
     }
 }

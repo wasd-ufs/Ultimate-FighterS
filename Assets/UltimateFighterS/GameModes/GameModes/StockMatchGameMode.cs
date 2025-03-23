@@ -1,4 +1,3 @@
-
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.Events;
@@ -7,47 +6,47 @@ public class StockMatchGameMode : GameMode
 {
     public UnityEvent<PlayerStock> onPlayerEntering = new();
     public UnityEvent<ActivePlayer> onPlayerExiting = new();
-    
-    private int initialStockCount = 3;
-    private Dictionary<int, PlayerStock> stocks = new();
+
+    private readonly int _initialStockCount = 3;
+    private readonly Dictionary<int, PlayerStock> _stocks = new();
 
     protected override void OnMatchStarting()
     {
-        stocks.Clear();
+        _stocks.Clear();
     }
 
     protected override void OnMatchEnding(List<ActivePlayer> players)
     {
         MatchResult.Results.Clear();
 
-        foreach (var stock in stocks.Values)
+        foreach (PlayerStock stock in _stocks.Values)
         {
-            var rank = stock.Rank;
-            var port = stock.Player.Port;
-            
+            int rank = stock.Rank;
+            int port = stock.Player.Port;
+
             MatchResult.Results[rank] = port;
         }
     }
 
     protected override void OnPlayerEntering(ActivePlayer player)
     {
-        stocks[player.Port] = new PlayerStock(player, initialStockCount);
-        
-        stocks[player.Port].onStockUpdated.AddListener(
-            count => OnPlayerStockUpdated(stocks[player.Port], count)
+        _stocks[player.Port] = new PlayerStock(player, _initialStockCount);
+
+        _stocks[player.Port].OnStockUpdated.AddListener(
+            count => OnPlayerStockUpdated(_stocks[player.Port], count)
         );
-        
-        stocks[player.Port].onStockZeroed.AddListener(
-            () => OnPlayerStockZeroed(stocks[player.Port])
+
+        _stocks[player.Port].OnStockZeroed.AddListener(
+            () => OnPlayerStockZeroed(_stocks[player.Port])
         );
-        
-        onPlayerEntering.Invoke(stocks[player.Port]);
+
+        onPlayerEntering.Invoke(_stocks[player.Port]);
     }
 
     protected override void OnPlayerExiting(ActivePlayer player)
     {
-        stocks[player.Port].ClearEvents();
-        
+        _stocks[player.Port].ClearEvents();
+
         onPlayerExiting.Invoke(player);
     }
 
@@ -55,29 +54,28 @@ public class StockMatchGameMode : GameMode
     {
         if (count <= 0)
             return;
-        
+
         stock.Player.Spawn();
     }
 
     private void OnPlayerStockZeroed(PlayerStock stock)
     {
         stock.Rank = GetAmountOfPlayersWithStock();
-        
+
         if (GetAmountOfPlayersWithStock() <= 1)
             MatchManager.EndMatch();
     }
 
-    private int GetAmountOfPlayersWithStock() =>
-        stocks.Values.ToList().ConvertAll(stock => stock.Stock > 0 ? 1 : 0).Sum();
+    private int GetAmountOfPlayersWithStock()
+    {
+        return _stocks.Values.ToList().ConvertAll(stock => stock.Stock > 0 ? 1 : 0).Sum();
+    }
 }
 
 public class PlayerStock
 {
-    public readonly UnityEvent<int> onStockUpdated = new();
-    public readonly UnityEvent onStockZeroed = new();
-    
-    public ActivePlayer Player { get; private set; }
-    public int Stock { get; private set; }
+    public readonly UnityEvent<int> OnStockUpdated = new();
+    public readonly UnityEvent OnStockZeroed = new();
     public int Rank;
 
     public PlayerStock(ActivePlayer player, int stock)
@@ -85,22 +83,25 @@ public class PlayerStock
         Player = player;
         Stock = stock;
         Rank = 0;
-        
+
         player.OnPlayerKilled.AddListener(_ => Decrease());
     }
+
+    public ActivePlayer Player { get; }
+    public int Stock { get; private set; }
 
     public void Decrease()
     {
         Stock--;
-        onStockUpdated.Invoke(Stock);
-        
+        OnStockUpdated.Invoke(Stock);
+
         if (Stock <= 0)
-            onStockZeroed.Invoke();
+            OnStockZeroed.Invoke();
     }
 
     public void ClearEvents()
     {
-        onStockUpdated.RemoveAllListeners();
-        onStockZeroed.RemoveAllListeners();
+        OnStockUpdated.RemoveAllListeners();
+        OnStockZeroed.RemoveAllListeners();
     }
 }

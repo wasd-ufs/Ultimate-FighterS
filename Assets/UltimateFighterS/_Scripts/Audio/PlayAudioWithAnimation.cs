@@ -5,24 +5,24 @@ public class PlayAudioWithAnimation : MonoBehaviour
 {
     [SerializeField] private float pitchRandomRadius = 0.1f;
     [SerializeField] private float volumeRandomRadius = 0.1f;
-    
-    private AudioSource audioSource;
-    
-    private float volume;
-    private float pitch;
-    
-    void Awake()
+
+    private AudioSource _audioSource;
+    private float _pitch;
+
+    private float _volume;
+
+    private void Awake()
     {
-        audioSource = GetComponent<AudioSource>();
-        volume = audioSource.volume;
-        pitch = audioSource.pitch;
+        _audioSource = GetComponent<AudioSource>();
+        _volume = _audioSource.volume;
+        _pitch = _audioSource.pitch;
     }
 
     public void PlayAudio()
     {
-        audioSource.pitch = pitch + Random.Range(-pitchRandomRadius, pitchRandomRadius);
-        audioSource.volume = volume + Random.Range(-volumeRandomRadius, volumeRandomRadius);
-        
-        audioSource.Play();
+        _audioSource.pitch = _pitch + Random.Range(-pitchRandomRadius, pitchRandomRadius);
+        _audioSource.volume = _volume + Random.Range(-volumeRandomRadius, volumeRandomRadius);
+
+        _audioSource.Play();
     }
 }

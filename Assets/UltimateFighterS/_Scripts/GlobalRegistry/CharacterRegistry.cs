@@ -6,7 +6,7 @@ using UnityEngine;
 public static class CharacterRegistry
 {
     private static readonly Dictionary<GameObject, Character> CharacterSet = new();
-    
+
     public static List<Character> Characters => CharacterSet.Values.ToList();
     public static int CharacterCount => CharacterSet.Count;
 
@@ -17,7 +17,7 @@ public static class CharacterRegistry
 
     public static void RegisterRange(IEnumerable<Character> characters)
     {
-        foreach (var character in characters)
+        foreach (Character character in characters)
             Register(character);
     }
 }

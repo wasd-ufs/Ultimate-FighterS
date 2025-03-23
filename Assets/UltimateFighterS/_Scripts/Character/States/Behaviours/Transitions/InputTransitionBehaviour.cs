@@ -1,6 +1,11 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
-public enum TriggerDirection
+/// <summary>
+/// Cada uma das direções possíveis de serem usadas
+/// </summary>
+/// TODO: Mover essa parte para a pasta de inputs
+public enum InputDirection
 {
     Neutral,
     Up,
@@ -14,7 +19,11 @@ public enum TriggerDirection
     None
 }
 
-public enum TriggerButton
+/// <summary>
+/// Cada um dos botões possíveis de serem usados
+/// </summary>
+/// TODO: Mover essa parte para a pasta de inputs
+public enum InputButton
 {
     None,
     Attack,
@@ -22,96 +31,142 @@ public enum TriggerButton
     Any
 }
 
+/// <summary>
+/// Realiza a transição assim que o combo de direção e input é performado pelo jogador
+/// </summary>
+/// TODO: Modificar esse comportamento para checar por movesets completos ao invés de um unico combo
 public class InputTransitionBehaviour : CharacterState
 {
+    [FormerlySerializedAs("useBuffer")]
     [Header("Buffer")] 
-    [SerializeField] public bool useBuffer = true;
+    [SerializeField] private bool _useBuffer = true;
 
-    [Header("Direction")]
-    [SerializeField] public TriggerDirection requiredDirection;
-    [SerializeField] public bool expandedTriggerAngle;
-    [SerializeField] public bool requireTap;
+    [FormerlySerializedAs("requiredDirection")]
+    [Header("Direction")] 
+    [SerializeField] private InputDirection _requiredDirection;
 
-    [Header("Button")] 
-    [SerializeField] public TriggerButton requiredButton;
+    [FormerlySerializedAs("expandedTriggerAngle")] [SerializeField] private bool _expandedTriggerAngle;
+    [FormerlySerializedAs("requireTap")] [SerializeField] private bool _requireTap;
 
-    [Header("Transition")] 
-    [SerializeField] public CharacterState next;
+    [FormerlySerializedAs("requiredButton")] [Header("Button")] [SerializeField] private InputButton _requiredButton;
 
-    private (bool, Vector2) lastTriggerTest = (false, Vector2.zero);
+    [FormerlySerializedAs("next")] [Header("Transition")] [SerializeField]
+    private CharacterState _next;
+
+    private (bool, Vector2) _lastTriggerTest = (false, Vector2.zero);
 
     public override void Enter()
     {
-        lastTriggerTest = (CurrentInputTriggers(), input.GetDirection().normalized);
+        _lastTriggerTest = (CurrentInputTriggers(), Input.GetDirection().normalized);
     }
 
-    public override void Process()
+    public override void StateUpdate()
     {
-        Run();
-    }
-
-    private void Run()
-    {
-        if (useBuffer && InputBufferTriggers())
+        if (_useBuffer && InputBufferTriggers())
         {
-            inputBuffer.Consume();
-            TransitionToNext();
-            
-            lastTriggerTest = (true, input.GetDirection().normalized);
+            InputBuffer.Consume();
+            Machine.TransitionTo(_next);
+
+            _lastTriggerTest = (true, Input.GetDirection().normalized);
             return;
         }
 
         if (CurrentInputTriggers())
         {
-            lastTriggerTest = (true, input.GetDirection().normalized);
-            TransitionToNext();
+            _lastTriggerTest = (true, Input.GetDirection().normalized);
+            Machine.TransitionTo(_next);
             return;
         }
 
-        lastTriggerTest = (false, input.GetDirection().normalized);
+        _lastTriggerTest = (false, Input.GetDirection().normalized);
     }
 
-    public void TransitionToNext()
+    /// <summary>
+    /// Observa se o input no frame atual faz parte do combo que causa transição
+    /// </summary>
+    /// <returns>se o input no frame atual faz parte do combo que causa transição</returns>
+    private bool CurrentInputTriggers()
     {
-        machine.TransitionTo(next);
+        return DirectionTriggers(Input.GetDirection().normalized) && (!_requireTap || !_lastTriggerTest.Item1 ||
+                                                                      Vector2.Dot(Input.GetDirection().normalized,
+                                                                          _lastTriggerTest.Item2.normalized) >= 0.01f)
+                                                                  && ButtonCombinationTriggers(
+                                                                      Input.IsAttackJustPressed(),
+                                                                      Input.IsSpecialJustPressed());
     }
 
-    public bool CurrentInputTriggers() =>
-        DirectionTriggers(input.GetDirection().normalized) && (!requireTap || !lastTriggerTest.Item1 || Vector2.Dot(input.GetDirection().normalized, lastTriggerTest.Item2.normalized) >= 0.01f)
-                                                && ButtonCombinationTriggers(input.IsAttackJustPressed(), input.IsSpecialJustPressed());
-
-    public bool InputBufferTriggers() => inputBuffer.Current is not null
-                                         && DirectionTriggers(inputBuffer.Current.direction)
-                                         && ButtonCombinationTriggers(inputBuffer.Current.isAttackJustPressed,
-                                             inputBuffer.Current.isSpecialJustPressed);
-
-    public bool ButtonCombinationTriggers(bool attack, bool special) => requiredButton switch
+    /// <summary>
+    /// Observa se o conteúdo do buffer de input possui o combo que causa transição
+    /// </summary>
+    /// <returns>se o conteúdo do buffer de input possui o combo que causa transição</returns>
+    private bool InputBufferTriggers()
     {
-        TriggerButton.None => true,
-        TriggerButton.Attack => attack,
-        TriggerButton.Special => special,
-        TriggerButton.Any => attack || special
-    };
+        return InputBuffer.Current is not null
+               && DirectionTriggers(InputBuffer.Current.direction)
+               && ButtonCombinationTriggers(InputBuffer.Current.isAttackJustPressed,
+                   InputBuffer.Current.isSpecialJustPressed);
+    }
 
-    public bool DirectionTriggers(Vector2 direction) => requiredDirection switch
+    /// <summary>
+    /// Indica se a combinação de botões faz parte do combo que gatilha causa a transição
+    /// </summary>
+    /// <param name="attack">se o botão de ataque está apertado</param>
+    /// <param name="special">se o botão especial está apertado</param>
+    /// <returns>Se o combo de botões faz parte do combo que causa transição</returns>
+    private bool ButtonCombinationTriggers(bool attack, bool special)
     {
-        TriggerDirection.None => true,
-        TriggerDirection.Neutral => direction.sqrMagnitude < 0.001f,
-        _ => Mathf.Abs(AngleOfDirection(requiredDirection) - Mathf.Atan2(direction.y, direction.x)) <= (expandedTriggerAngle ? 0.9 : 0.45),
-    };
+        return _requiredButton switch
+        {
+            InputButton.None => true,
+            InputButton.Attack => attack,
+            InputButton.Special => special,
+            InputButton.Any => attack || special
+        };
+    }
 
-    public float AngleOfDirection(TriggerDirection direction) => Mathf.Deg2Rad * direction switch
+    /// <summary>
+    /// Indica se a direção passada faz parte do combo que gatilha causa a transição
+    /// </summary>
+    /// <param name="direction">Direção a ser checada</param>
+    /// <returns>Se a direção faz parte do combo que causa transição</returns>
+    private bool DirectionTriggers(Vector2 direction)
     {
-        TriggerDirection.Up => 90f,
-        TriggerDirection.Down => -90f,
-        TriggerDirection.Forward => 180f - 180f * IsLookingForward(),
-        TriggerDirection.Backward => 180f * IsLookingForward(),
-        TriggerDirection.UpForward => 135f - 90f * IsLookingForward(),
-        TriggerDirection.UpBackward => 45f + 90f * IsLookingForward(),
-        TriggerDirection.DownForward => -135f + 90f * IsLookingForward(),
-        TriggerDirection.DownBackward => -45f - 90f * IsLookingForward(),
-        _ => 0f,
-    };
+        return _requiredDirection switch
+        {
+            InputDirection.None => true,
+            InputDirection.Neutral => direction.sqrMagnitude < 0.001f,
+            _ => Mathf.Abs(AngleOfDirection(_requiredDirection) - Mathf.Atan2(direction.y, direction.x)) <=
+                 (_expandedTriggerAngle ? 0.9 : 0.45)
+        };
+    }
 
-    public float IsLookingForward() => (Mathf.Sign(transform.lossyScale.x) + 1) / 2;
+    /// <summary>
+    /// Retorna, em radianos, o angulo que gera a direção no círculo trigonométrico
+    /// </summary>
+    /// <param name="direction">A direção a ser convertida</param>
+    /// <returns>O angulo no circulo trigonométrico que gera a direção</returns>
+    private float AngleOfDirection(InputDirection direction)
+    {
+        return Mathf.Deg2Rad * direction switch
+        {
+            InputDirection.Up => 90f,
+            InputDirection.Down => -90f,
+            InputDirection.Forward => 180f - 180f * IsLookingForward(),
+            InputDirection.Backward => 180f * IsLookingForward(),
+            InputDirection.UpForward => 135f - 90f * IsLookingForward(),
+            InputDirection.UpBackward => 45f + 90f * IsLookingForward(),
+            InputDirection.DownForward => -135f + 90f * IsLookingForward(),
+            InputDirection.DownBackward => -45f - 90f * IsLookingForward(),
+            _ => 0f
+        };
+    }
+
+    /// <summary>
+    /// Indica se o jogador está olhando para frente ou para trás
+    /// </summary>
+    /// <returns>0 se olha para a esquerda, 1 se olha para a direita</returns>
+    private float IsLookingForward()
+    {
+        return (Mathf.Sign(transform.lossyScale.x) + 1) / 2;
+    }
 }

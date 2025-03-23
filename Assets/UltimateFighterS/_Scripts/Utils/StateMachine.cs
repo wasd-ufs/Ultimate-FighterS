@@ -1,15 +1,15 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Collections;
 using UnityEngine;
 
-public abstract class StateMachine<TS> : MonoBehaviour where TS: State
+public abstract class StateMachine<TS> : MonoBehaviour where TS : State
 {
     [SerializeField] public TS initialState;
-    protected TS current;
 
-    public TS Current => current;
+    public TS Current { get; protected set; }
+
+    public void Reset()
+    {
+        TransitionTo(initialState);
+    }
 
     private void Start()
     {
@@ -17,27 +17,32 @@ public abstract class StateMachine<TS> : MonoBehaviour where TS: State
         OnStart();
     }
 
-    public void Reset()
-    {
-        TransitionTo(initialState);
-    }
-
     public void TransitionTo(TS next)
     {
-        current?.Exit();
+        Current?.Exit();
 
-        current = next;
+        Current = next;
         OnTransition();
-        
-        current.Enter();
+
+        Current.Enter();
     }
-    
-    protected virtual void OnStart() {}
-    protected virtual void OnTransition() {}
+
+    protected virtual void OnStart()
+    {
+    }
+
+    protected virtual void OnTransition()
+    {
+    }
 }
 
 public abstract class State : MonoBehaviour
 {
-    public virtual void Enter() {}
-    public virtual void Exit() {}
+    public virtual void Enter()
+    {
+    }
+
+    public virtual void Exit()
+    {
+    }
 }

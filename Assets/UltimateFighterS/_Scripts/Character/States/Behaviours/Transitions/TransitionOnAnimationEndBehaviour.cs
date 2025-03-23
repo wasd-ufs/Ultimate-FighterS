@@ -1,19 +1,23 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
+/// <summary>
+/// Realiza uma transição assim que a animação atual acaba
+/// </summary>
 [RequireComponent(typeof(Animator))]
 public class TransitionOnAnimationEndBehaviour : CharacterState
 {
-    private Animator animator;
-    [SerializeField] private CharacterState next;
+    [FormerlySerializedAs("next")] [SerializeField] private CharacterState _next;
+    private Animator _animator;
 
     public void Awake()
     {
-        animator = GetComponent<Animator>();
+        _animator = GetComponent<Animator>();
     }
 
-    public override void Process()
+    public override void StateUpdate()
     {
-        if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1f && !animator.IsInTransition(0))
-            machine.TransitionTo(next);
+        if (_animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1f && !_animator.IsInTransition(0))
+            Machine.TransitionTo(_next);
     }
 }

@@ -1,14 +1,20 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
+/// <summary>
+/// Acelera o corpo, durante o tempo desse estado como atual, a favor do vetor aceleração em sua base
+/// </summary>
 public class AccelerateBehaviour : CharacterState
 {
-    [Header("Acceleration")]
-    [SerializeField] public Vector2 acceleration;
-    [SerializeField] public CharacterBasis basis;
+    [FormerlySerializedAs("acceleration")] [Header("Acceleration")] [SerializeField]
+    private Vector2 _acceleration;
 
-    public override void PhysicsProcess()
+    // TODO: Encapsular a ideia de base numa classe ou record próprio
+    [FormerlySerializedAs("basis")] [SerializeField] private CharacterBasis _basis;
+
+    public override void StateFixedUpdate()
     {
-        var (forward, up) = GetBasis(basis);
-        body.Accelerate(acceleration.x * forward + acceleration.y * up);
+        (Vector2 forward, Vector2 up) = GetBasis(_basis);
+        Body.Accelerate(_acceleration.x * forward + _acceleration.y * up);
     }
 }

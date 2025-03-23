@@ -1,45 +1,45 @@
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class PlayerInputSystem : InputSystem
 {
-    private const string horizontalAxis = "Horizontal";
-    private const string verticalAxis = "Vertical";
-    private const string specialKey = "Jump";
-    private const string attackKey = "Fire";
+    private const string HORIZONTAL_AXIS = "Horizontal";
+    private const string VERTICAL_AXIS = "Vertical";
+    private const string SPECIAL_KEY = "Jump";
+    private const string ATTACK_KEY = "Fire";
 
-    public int defaultId = 0;
+    public int defaultId;
 
-    private string portHorizontalAxis;
-    private string portVerticalAxis;
-    private string portSpecialKey;
-    private string portAttackKey;
-
-    private readonly Vector2[] possibleDirections = {
+    private readonly Vector2[] _possibleDirections =
+    {
         Vector2.right, new Vector2(1, -1).normalized, Vector2.down, new Vector2(-1, -1).normalized, Vector2.left,
         new Vector2(-1, 1).normalized, Vector2.up, new Vector2(1, 1).normalized
     };
 
+    private string _portAttackKey;
+
+    private string _portHorizontalAxis;
+    private string _portSpecialKey;
+    private string _portVerticalAxis;
+
     public void Awake()
     {
-        var id = GetComponent<IdComponent>()?.id ?? defaultId;
-        
-        portHorizontalAxis = $"{horizontalAxis}{id}";
-        portVerticalAxis = $"{verticalAxis}{id}";
-        portSpecialKey = $"{specialKey}{id}";
-        portAttackKey = $"{attackKey}{id}";
+        int id = GetComponent<IdComponent>()?.id ?? defaultId;
+
+        _portHorizontalAxis = $"{HORIZONTAL_AXIS}{id}";
+        _portVerticalAxis = $"{VERTICAL_AXIS}{id}";
+        _portSpecialKey = $"{SPECIAL_KEY}{id}";
+        _portAttackKey = $"{ATTACK_KEY}{id}";
     }
-    
+
     public override Vector2 GetDirection()
     {
-        float horizontal = Input.GetAxis(portHorizontalAxis);
-        float vertical = Input.GetAxis(portVerticalAxis);
-        var direction = new Vector2(horizontal, vertical);
-        
+        float horizontal = Input.GetAxis(_portHorizontalAxis);
+        float vertical = Input.GetAxis(_portVerticalAxis);
+        Vector2 direction = new(horizontal, vertical);
+
         if (direction.sqrMagnitude < 0.05f)
             return Vector2.zero;
-        
+
         direction = direction.normalized;
         return direction;
         /*
@@ -49,23 +49,24 @@ public class PlayerInputSystem : InputSystem
         return possibleDirections[section];
         */
     }
-    public override bool IsSpecialBeingHeld() 
+
+    public override bool IsSpecialBeingHeld()
     {
-        return Input.GetButton(portSpecialKey);
+        return Input.GetButton(_portSpecialKey);
     }
 
-    public override bool IsSpecialJustPressed() 
+    public override bool IsSpecialJustPressed()
     {
-        return Input.GetButtonDown(portSpecialKey);
+        return Input.GetButtonDown(_portSpecialKey);
     }
 
-    public override bool IsAttackBeingHeld() 
+    public override bool IsAttackBeingHeld()
     {
-        return Input.GetButton(portAttackKey);
+        return Input.GetButton(_portAttackKey);
     }
 
-    public override bool IsAttackJustPressed() 
+    public override bool IsAttackJustPressed()
     {
-        return Input.GetButtonDown(portAttackKey);
+        return Input.GetButtonDown(_portAttackKey);
     }
 }

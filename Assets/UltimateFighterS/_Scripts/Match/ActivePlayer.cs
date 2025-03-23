@@ -1,18 +1,11 @@
-using System;
 using UnityEngine;
 using UnityEngine.Events;
 using Object = UnityEngine.Object;
 
 public class ActivePlayer
 {
-    public readonly UnityEvent<GameObject> OnPlayerSpawned = new();
     public readonly UnityEvent<GameObject> OnPlayerKilled = new();
-    
-    public int Port { get; private set; }
-    public InputType Input { get; private set; }
-    public GameObject InGameObject { get; private set; }
-    public Character Character { get; private set; }
-    public Transform SpawnPoint { get; private set; }
+    public readonly UnityEvent<GameObject> OnPlayerSpawned = new();
 
     public ActivePlayer(int port, InputType input, Character character, Transform spawnPoint)
     {
@@ -22,6 +15,12 @@ public class ActivePlayer
         SpawnPoint = spawnPoint;
         InGameObject = null;
     }
+
+    public int Port { get; }
+    public InputType Input { get; }
+    public GameObject InGameObject { get; private set; }
+    public Character Character { get; }
+    public Transform SpawnPoint { get; }
 
     ~ActivePlayer()
     {
@@ -33,26 +32,27 @@ public class ActivePlayer
     {
         if (InGameObject is not null)
             Object.Destroy(InGameObject);
-        
-        InGameObject = Object.Instantiate(Character.prefab, SpawnPoint.transform.position, SpawnPoint.transform.rotation);
-        
-        var idComponent = InGameObject.GetComponent<IdComponent>();
+
+        InGameObject =
+            Object.Instantiate(Character.prefab, SpawnPoint.transform.position, SpawnPoint.transform.rotation);
+
+        IdComponent idComponent = InGameObject.GetComponent<IdComponent>();
         if (idComponent is null)
         {
             Debug.LogError("No IdComponent attached to Player Prefab");
-            
+
             Object.Destroy(InGameObject);
             InGameObject = null;
             return;
         }
-        
+
         idComponent.id = Port;
 
-        var proxy = InGameObject.GetComponent<ProxyInputSystem>();
+        ProxyInputSystem proxy = InGameObject.GetComponent<ProxyInputSystem>();
         if (proxy is null)
         {
             Debug.LogError("No ProxyInputSystem attached to Player Prefab");
-            
+
             Object.Destroy(InGameObject);
             InGameObject = null;
             return;
@@ -65,7 +65,7 @@ public class ActivePlayer
             _ => null
         };
 
-        var obj = InGameObject;
+        GameObject obj = InGameObject;
         OnPlayerSpawned.Invoke(obj);
     }
 
@@ -74,13 +74,16 @@ public class ActivePlayer
         if (InGameObject is null)
             return;
 
-        var obj = InGameObject;
-        
+        GameObject obj = InGameObject;
+
         Object.Destroy(InGameObject);
         InGameObject = null;
-        
+
         OnPlayerKilled.Invoke(obj);
     }
-    
-    public bool IsInGameObjectAlive() => InGameObject is not null;
+
+    public bool IsInGameObjectAlive()
+    {
+        return InGameObject is not null;
+    }
 }

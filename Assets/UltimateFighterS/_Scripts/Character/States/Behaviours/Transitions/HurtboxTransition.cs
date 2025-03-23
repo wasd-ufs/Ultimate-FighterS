@@ -1,22 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-
+/// <summary>
+/// Realiza uma transição assim que uma Hitbox é entra em contato com a Hurtbox do corpo
+/// </summary>
 [RequireComponent(typeof(Hurtbox))]
 public class HurtboxTransition : CharacterState
 {
-    [SerializeField] private CharacterState next;
-    private Hurtbox hurtbox;
+    [FormerlySerializedAs("next")] [SerializeField] private CharacterState _next;
+    private Hurtbox _hurtbox;
 
-    void Awake()
+    private void Awake()
     {
-        hurtbox = GetComponent<Hurtbox>();
-        hurtbox.onHitBoxDetected.AddListener(OnHitboxDetected);
+        _hurtbox = GetComponent<Hurtbox>();
+        _hurtbox.onHitBoxDetected.AddListener(OnHitboxDetected);
     }
 
-    void OnHitboxDetected(GameObject obj)
+    private void OnHitboxDetected(GameObject obj)
     {
-        machine.TransitionTo(next);
+        Machine.TransitionTo(_next);
     }
 }

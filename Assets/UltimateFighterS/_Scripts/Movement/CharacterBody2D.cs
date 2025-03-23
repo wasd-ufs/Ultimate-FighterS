@@ -3,80 +3,122 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
-enum CollisionType { Floor, LeftWall, RightWall, Ceiling }
+internal enum CollisionType
+{
+    Floor,
+    LeftWall,
+    RightWall,
+    Ceiling
+}
 
+// TODO: Passar para o CharacterBody2D a Logica de Virar o Corpo
 [RequireComponent(typeof(Rigidbody2D))]
 public class CharacterBody2D : MonoBehaviour
 {
-    const float ErrorWindow = 0.05f;
-    
+    private const float ERROR_WINDOW = 0.05f;
+
     // Up direction and maxAngles define what is considered a floor, a left or right wall or a ceiling
     // A left direction is defined as being counterclockwise from up. Similarly, right when clockwise.
     // In case Up is Vector2.zero, all collisions will be recognized as Left Walls
-    [SerializeField] private Vector2 up = Vector2.up;
+    [FormerlySerializedAs("up")] [SerializeField] private Vector2 _up = Vector2.up;
+
+    [FormerlySerializedAs("maxFloorAngle")] [SerializeField] [Range(0, 90)] private float _maxFloorAngle = 45;
+    [FormerlySerializedAs("maxSnapLength")] [SerializeField] private float _maxSnapLength = 0.5f;
+
+    [FormerlySerializedAs("floors")] public List<Vector2> Floors = new();
+    [FormerlySerializedAs("leftWalls")] public List<Vector2> LeftWalls = new();
+    [FormerlySerializedAs("rightWalls")] public List<Vector2> RightWalls = new();
+    [FormerlySerializedAs("ceilings")] public List<Vector2> Ceilings = new();
+
+    // Events for Collision
+    // Enter events are only called if previously there were no correspondent colliders
+    // A new collider entering will not call Enter Events if there was already another collider
+    [FormerlySerializedAs("onFloorEnter")] [HideInInspector] public UnityEvent<Vector2> OnFloorEnter;
+    [FormerlySerializedAs("onLeftWallEnter")] [HideInInspector] public UnityEvent<Vector2> OnLeftWallEnter;
+    [FormerlySerializedAs("onRightWallEnter")] [HideInInspector] public UnityEvent<Vector2> OnRightWallEnter;
+    [FormerlySerializedAs("onCeilingEnter")] [HideInInspector] public UnityEvent<Vector2> OnCeilingEnter;
+
+    // Exit events are only called if currently there are no correspondent colliders
+    // A collider exiting will not call Exit Events if there still one or more colliders remaining
+    [FormerlySerializedAs("onFloorExit")] [HideInInspector] public UnityEvent<Vector2> OnFloorExit;
+    [FormerlySerializedAs("onLeftWallExit")] [HideInInspector] public UnityEvent<Vector2> OnLeftWallExit;
+    [FormerlySerializedAs("onRightWallExit")] [HideInInspector] public UnityEvent<Vector2> OnRightWallExit;
+    [FormerlySerializedAs("onCeilingExit")] [HideInInspector] public UnityEvent<Vector2> OnCeilingExit;
+
+    // RigidBody2D used by movement functions.
+    private readonly List<Collider2D> _colliders = new();
+    private Rigidbody2D _body;
+    private bool _skipSnapping;
 
     public Vector2 Up
     {
         set
         {
-            var newUp = value.normalized;
+            Vector2 newUp = value.normalized;
             RotateVelocity(newUp);
-            up = newUp;
+            _up = newUp;
         }
-        get => up;
+        get => _up;
     }
-    
-    public Vector2 Left => new(-up.y, up.x);
-    public Vector2 Right => new(up.y, -up.x);
-    public Vector2 Down => -up;
-    
-    [SerializeField, Range(0, 90)] private float maxFloorAngle = 45;
-    [SerializeField] private float maxSnapLength = 0.5f;
 
-    public List<Vector2> Floors = new();
-    public List<Vector2> LeftWalls = new();
-    public List<Vector2> RightWalls = new();
-    public List<Vector2> Ceilings = new();
-    
+    public Vector2 Left => new(-_up.y, _up.x);
+    public Vector2 Right => new(_up.y, -_up.x);
+    public Vector2 Down => -_up;
+
     // Normals calculated from lists above.
     // A zero vector means there is no contact points.
     public Vector2 FloorNormal { get; private set; } = Vector2.zero;
     public Vector2 LeftWallNormal { get; private set; } = Vector2.zero;
     public Vector2 RightWallNormal { get; private set; } = Vector2.zero;
     public Vector2 CeilingNormal { get; private set; } = Vector2.zero;
-    
-    // Events for Collision
-    // Enter events are only called if previously there were no correspondent colliders
-    // A new collider entering will not call Enter Events if there was already another collider
-    [HideInInspector] public UnityEvent<Vector2> onFloorEnter;
-    [HideInInspector] public UnityEvent<Vector2> onLeftWallEnter;
-    [HideInInspector] public UnityEvent<Vector2> onRightWallEnter;
-    [HideInInspector] public UnityEvent<Vector2> onCeilingEnter;
 
-    // Exit events are only called if currently there are no correspondent colliders
-    // A collider exiting will not call Exit Events if there still one or more colliders remaining
-    [HideInInspector] public UnityEvent<Vector2> onFloorExit;
-    [HideInInspector] public UnityEvent<Vector2> onLeftWallExit;
-    [HideInInspector] public UnityEvent<Vector2> onRightWallExit;
-    [HideInInspector] public UnityEvent<Vector2> onCeilingExit;
-    
-    // RigidBody2D used by movement functions.
-    private readonly List<Collider2D> colliders = new();
-    private Rigidbody2D body;
-    private bool skipSnapping;
-    
     public Vector2 LastVelocity { get; private set; }
+
+    public Vector2 Velocity => _body.velocity;
 
     private void Awake()
     {
-        body = GetComponent<Rigidbody2D>();
-        body.GetAttachedColliders(colliders);
-        body.sleepMode = RigidbodySleepMode2D.NeverSleep;
-        body.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
+        _body = GetComponent<Rigidbody2D>();
+        _body.GetAttachedColliders(_colliders);
+        _body.sleepMode = RigidbodySleepMode2D.NeverSleep;
+        _body.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
     }
 
-    public void MoveAndClamp(Vector2 axis, float direction, float acceleration, float turnAcceleration, float deceleration,
+    public void FixedUpdate()
+    {
+        Vector2 lastFloorNormal = FloorNormal;
+        Vector2 lastLeftWallNormal = LeftWallNormal;
+        Vector2 lastRightWallNormal = RightWallNormal;
+        Vector2 lastCeilingNormal = CeilingNormal;
+
+        GetContactsFromBody();
+        CalculateNormals();
+
+        if (!_skipSnapping && lastFloorNormal.sqrMagnitude >= ERROR_WINDOW && FloorNormal.sqrMagnitude < ERROR_WINDOW)
+            Snap();
+
+        _skipSnapping = false;
+
+        CheckAndCallEvent(lastFloorNormal, FloorNormal, OnFloorEnter, OnFloorExit);
+        CheckAndCallEvent(lastLeftWallNormal, LeftWallNormal, OnLeftWallEnter, OnLeftWallExit);
+        CheckAndCallEvent(lastRightWallNormal, RightWallNormal, OnRightWallEnter, OnRightWallExit);
+        CheckAndCallEvent(lastCeilingNormal, CeilingNormal, OnCeilingEnter, OnCeilingExit);
+
+        /*
+        if (IsOnFloor() && IsOnLeftWall())
+            SetSpeed(GetFloorLeft(), 0f);
+
+        if (IsOnFloor() && IsOnRightWall())
+            SetSpeed(GetFloorRight(), 0f);
+        */
+
+        LastVelocity = Velocity;
+    }
+
+    public void MoveAndClamp(Vector2 axis, float direction, float acceleration, float turnAcceleration,
+        float deceleration,
         float maxSpeed)
     {
         if (Mathf.Approximately(direction, 0f))
@@ -84,14 +126,15 @@ public class CharacterBody2D : MonoBehaviour
 
         else if ((GetSpeedOnAxis(axis) > 0f && direction < 0f) || (GetSpeedOnAxis(axis) < 0f && direction > 0f))
             Accelerate(axis * (direction * turnAcceleration));
-        
-        else 
+
+        else
             Accelerate(axis * (direction * acceleration));
-        
+
         ClampSpeed(axis, -maxSpeed, maxSpeed);
     }
-    
-    public void MoveSmoothly(Vector2 axis, float direction, float acceleration, float turnAcceleration, float deceleration,
+
+    public void MoveSmoothly(Vector2 axis, float direction, float acceleration, float turnAcceleration,
+        float deceleration,
         float maxSpeed)
     {
         if (Mathf.Approximately(direction, 0f))
@@ -99,14 +142,15 @@ public class CharacterBody2D : MonoBehaviour
 
         else if ((GetSpeedOnAxis(axis) > 0f && direction < 0f) || (GetSpeedOnAxis(axis) < 0f && direction > 0f))
             AccelerateUntil(axis * Mathf.Sign(direction), turnAcceleration, maxSpeed);
-        
-        else 
+
+        else
             AccelerateUntil(axis * Mathf.Sign(direction), acceleration, maxSpeed);
-        
+
         DecelerateUntil(axis, deceleration, maxSpeed);
     }
-    
-    public void MoveSmoothly(Vector2 axis, float direction, float acceleration, float turnAcceleration, float deceleration,
+
+    public void MoveSmoothly(Vector2 axis, float direction, float acceleration, float turnAcceleration,
+        float deceleration,
         float maxSpeed, float overspeedDeceleration)
     {
         if (Mathf.Approximately(direction, 0f))
@@ -114,14 +158,15 @@ public class CharacterBody2D : MonoBehaviour
 
         else if ((GetSpeedOnAxis(axis) > 0f && direction < 0f) || (GetSpeedOnAxis(axis) < 0f && direction > 0f))
             AccelerateUntil(axis * Mathf.Sign(direction), turnAcceleration, maxSpeed);
-        
-        else 
+
+        else
             AccelerateUntil(axis * Mathf.Sign(direction), acceleration, maxSpeed);
-        
+
         DecelerateUntil(axis, overspeedDeceleration, maxSpeed);
     }
-    
-    public void MoveSmoothly(Vector2 axis, float direction, float acceleration, float turnAcceleration, float deceleration,
+
+    public void MoveSmoothly(Vector2 axis, float direction, float acceleration, float turnAcceleration,
+        float deceleration,
         float maxSpeed, float overspeedDeceleration, float maxOverspeed)
     {
         if (Mathf.Approximately(direction, 0f))
@@ -129,10 +174,10 @@ public class CharacterBody2D : MonoBehaviour
 
         else if ((GetSpeedOnAxis(axis) > 0f && direction < 0f) || (GetSpeedOnAxis(axis) < 0f && direction > 0f))
             AccelerateUntil(axis * Mathf.Sign(direction), turnAcceleration, maxSpeed);
-        
-        else 
+
+        else
             AccelerateUntil(axis * Mathf.Sign(direction), acceleration, maxSpeed);
-        
+
         DecelerateUntil(axis, overspeedDeceleration, maxOverspeed);
     }
 
@@ -147,7 +192,7 @@ public class CharacterBody2D : MonoBehaviour
             magnitude => magnitude + acceleration * Time.fixedDeltaTime
         );
     }
-    
+
     public void Accelerate(float acceleration, Vector2 defaultDirection)
     {
         ModifyVelocityMagnitude(
@@ -158,21 +203,23 @@ public class CharacterBody2D : MonoBehaviour
 
     public void AccelerateUntil(Vector2 axis, float acceleration, float maxSpeed)
     {
-        ModifyVelocityOnAxis(axis, 
-            x => (x >= maxSpeed) ? x : Mathf.MoveTowards(x, maxSpeed, acceleration * Time.fixedDeltaTime)
+        ModifyVelocityOnAxis(axis,
+            x => x >= maxSpeed ? x : Mathf.MoveTowards(x, maxSpeed, acceleration * Time.fixedDeltaTime)
         );
     }
 
     public void AccelerateUntil(float acceleration, float maxSpeed)
     {
         ModifyVelocityMagnitude(
-            magnitude => (magnitude > maxSpeed) ? magnitude : Mathf.MoveTowards(magnitude, maxSpeed, magnitude * Time.fixedDeltaTime)
+            magnitude => magnitude > maxSpeed
+                ? magnitude
+                : Mathf.MoveTowards(magnitude, maxSpeed, magnitude * Time.fixedDeltaTime)
         );
     }
-    
+
     public void Decelerate(Vector2 axis, float deceleration)
     {
-        ModifyVelocityOnAxis(axis, 
+        ModifyVelocityOnAxis(axis,
             x => Mathf.MoveTowards(x, 0f, deceleration * Time.fixedDeltaTime)
         );
     }
@@ -186,21 +233,25 @@ public class CharacterBody2D : MonoBehaviour
 
     public void DecelerateUntil(Vector2 axis, float deceleration, float minSpeed)
     {
-        ModifyVelocityOnAxis(axis, 
-            x => (Mathf.Abs(x) <= minSpeed) ? x : Mathf.Sign(x) * Mathf.MoveTowards(Mathf.Abs(x), minSpeed, deceleration * Time.fixedDeltaTime)
+        ModifyVelocityOnAxis(axis,
+            x => Mathf.Abs(x) <= minSpeed
+                ? x
+                : Mathf.Sign(x) * Mathf.MoveTowards(Mathf.Abs(x), minSpeed, deceleration * Time.fixedDeltaTime)
         );
     }
-    
+
     public void DecelerateUntil(float deceleration, float minSpeed)
     {
         ModifyVelocityMagnitude(
-            magnitude => (magnitude < minSpeed) ? magnitude : Mathf.MoveTowards(magnitude, minSpeed, deceleration * Time.fixedDeltaTime)
+            magnitude => magnitude < minSpeed
+                ? magnitude
+                : Mathf.MoveTowards(magnitude, minSpeed, deceleration * Time.fixedDeltaTime)
         );
     }
 
     public void ApplyImpulse(Vector2 impulse)
     {
-        ModifyVelocity((velocity) => velocity + impulse);
+        ModifyVelocity(velocity => velocity + impulse);
     }
 
     public void ClampSpeed(Vector2 axis, float minimum, float maximum)
@@ -254,27 +305,27 @@ public class CharacterBody2D : MonoBehaviour
     }
 
     public void SetSpeed(Vector2 axis, float speed)
-    { 
-        ModifyVelocity((velocity) => VectorUtils.OnAxis(axis, velocity,
+    {
+        ModifyVelocity(velocity => VectorUtils.OnAxis(axis, velocity,
             x => speed
         ));
     }
 
     public void SetVelocity(Vector2 speed)
     {
-        body.velocity = speed;
+        _body.velocity = speed;
         UpdateCurrentContacts();
-        skipSnapping = !IsSurfaceStable(FloorNormal);
+        _skipSnapping = !IsSurfaceStable(FloorNormal);
     }
-    
+
     public void ModifyVelocity(Func<Vector2, Vector2> modification)
     {
-        SetVelocity(modification(body.velocity));
+        SetVelocity(modification(_body.velocity));
     }
-    
+
     public void ModifyVelocity(Func<float, float> modificationX, Func<float, float> modificationY)
     {
-        ModifyVelocity((velocity) => new Vector2(modificationX(velocity.x), modificationY(velocity.y)));
+        ModifyVelocity(velocity => new Vector2(modificationX(velocity.x), modificationY(velocity.y)));
     }
 
     public void ModifyVelocityX(Func<float, float> modification)
@@ -289,23 +340,26 @@ public class CharacterBody2D : MonoBehaviour
 
     public void ModifyVelocityOnAxis(Vector2 axis, Func<float, float> modification)
     {
-        ModifyVelocity((velocity) => VectorUtils.OnAxis(axis, velocity, modification));
+        ModifyVelocity(velocity => VectorUtils.OnAxis(axis, velocity, modification));
     }
 
     public void ModifyVelocityMagnitude(Func<float, float> modification)
     {
-        ModifyVelocity((velocity) => VectorUtils.OnMagnitude(velocity, modification));
+        ModifyVelocity(velocity => VectorUtils.OnMagnitude(velocity, modification));
     }
-    
+
     public void ModifyVelocityMagnitude(Func<float, float> modification, Vector2 defaultValue)
     {
-        ModifyVelocity((velocity) => velocity.sqrMagnitude < 0.001f ? defaultValue : VectorUtils.OnMagnitude(velocity, modification));
+        ModifyVelocity(velocity =>
+            velocity.sqrMagnitude < 0.001f ? defaultValue : VectorUtils.OnMagnitude(velocity, modification));
     }
 
-    public void FlipAxis(Vector2 axis) =>
+    public void FlipAxis(Vector2 axis)
+    {
         ModifyVelocityOnAxis(axis, a => -a);
+    }
 
-    
+
     public void RotateVelocity(Vector2 newUp)
     {
         RotateVelocity(Up, newUp);
@@ -313,8 +367,8 @@ public class CharacterBody2D : MonoBehaviour
 
     public void RotateVelocity(Vector2 from, Vector2 to)
     {
-        ModifyVelocity((velocity) => Vector2.Dot(velocity, from) * to + 
-                                     Vector2.Dot(velocity, new Vector2(from.y, -from.x)) * new Vector2(to.y, -to.x));
+        ModifyVelocity(velocity => Vector2.Dot(velocity, from) * to +
+                                   Vector2.Dot(velocity, new Vector2(from.y, -from.x)) * new Vector2(to.y, -to.x));
     }
 
     public void RotateVelocity(float angle)
@@ -326,7 +380,7 @@ public class CharacterBody2D : MonoBehaviour
     {
         ModifyVelocity(delegate(Vector2 velocity)
         {
-            var direction = Mathf.Sign(VectorUtils.Wedge(Velocity, towards));
+            float direction = Mathf.Sign(VectorUtils.Wedge(Velocity, towards));
             return VectorUtils.Rotated(velocity, direction * angle);
         });
     }
@@ -335,41 +389,10 @@ public class CharacterBody2D : MonoBehaviour
     {
         ModifyVelocity(delegate(Vector2 velocity)
         {
-            var angle = Mathf.Acos(Vector2.Dot(target.normalized, velocity.normalized));
-            var direction = Mathf.Sign(VectorUtils.Wedge(Velocity, target));
+            float angle = Mathf.Acos(Vector2.Dot(target.normalized, velocity.normalized));
+            float direction = Mathf.Sign(VectorUtils.Wedge(Velocity, target));
             return VectorUtils.Rotated(velocity, direction * angle);
         });
-    }
-
-    public void FixedUpdate()
-    {
-        var lastFloorNormal = FloorNormal;
-        var lastLeftWallNormal = LeftWallNormal;
-        var lastRightWallNormal = RightWallNormal;
-        var lastCeilingNormal = CeilingNormal;
-
-        GetContactsFromBody();
-        CalculateNormals();
-        
-        if (!skipSnapping && lastFloorNormal.sqrMagnitude >= ErrorWindow && FloorNormal.sqrMagnitude < ErrorWindow)
-            Snap();
-        
-        skipSnapping = false;
-        
-        CheckAndCallEvent(lastFloorNormal, FloorNormal, onFloorEnter, onFloorExit);
-        CheckAndCallEvent(lastLeftWallNormal, LeftWallNormal, onLeftWallEnter, onLeftWallExit);
-        CheckAndCallEvent(lastRightWallNormal, RightWallNormal, onRightWallEnter, onRightWallExit);
-        CheckAndCallEvent(lastCeilingNormal, CeilingNormal, onCeilingEnter, onCeilingExit);
-        
-        /*
-        if (IsOnFloor() && IsOnLeftWall())
-            SetSpeed(GetFloorLeft(), 0f);
-        
-        if (IsOnFloor() && IsOnRightWall())
-            SetSpeed(GetFloorRight(), 0f);
-        */
-
-        LastVelocity = Velocity;
     }
 
     public void UpdateCurrentContacts()
@@ -380,18 +403,18 @@ public class CharacterBody2D : MonoBehaviour
         Ceilings = Ceilings.Where(IsSurfaceStable).ToList();
         CalculateNormals();
     }
-    
+
     private void GetContactsFromBody()
     {
         ClearCollisions();
-        
-        var contacts = new List<ContactPoint2D>();
-        body.GetContacts(contacts);
 
-        foreach (var normal in contacts.ConvertAll(contact => contact.normal).Where(IsSurfaceStable))
+        List<ContactPoint2D> contacts = new();
+        _body.GetContacts(contacts);
+
+        foreach (Vector2 normal in contacts.ConvertAll(contact => contact.normal).Where(IsSurfaceStable))
             AddCollision(normal);
     }
-    
+
     private void ClearCollisions()
     {
         Floors.Clear();
@@ -399,14 +422,16 @@ public class CharacterBody2D : MonoBehaviour
         RightWalls.Clear();
         Ceilings.Clear();
     }
-    
-    private bool IsSurfaceStable(Vector2 normal) =>
-        Vector2.Dot(body.velocity.normalized, normal) < ErrorWindow;
+
+    private bool IsSurfaceStable(Vector2 normal)
+    {
+        return Vector2.Dot(_body.velocity.normalized, normal) < ERROR_WINDOW;
+    }
 
     public void AddCollision(Vector2 point)
     {
-        var type = GetContactType(point);
-            
+        CollisionType type = GetContactType(point);
+
         switch (type)
         {
             case CollisionType.Floor:
@@ -416,7 +441,7 @@ public class CharacterBody2D : MonoBehaviour
             case CollisionType.LeftWall:
                 LeftWalls.Add(point);
                 break;
-                
+
             case CollisionType.RightWall:
                 RightWalls.Add(point);
                 break;
@@ -429,37 +454,39 @@ public class CharacterBody2D : MonoBehaviour
 
     private CollisionType GetContactType(Vector2 normal)
     {
-        var maxFloorCosine = Mathf.Cos(maxFloorAngle * Mathf.Deg2Rad);
+        float maxFloorCosine = Mathf.Cos(_maxFloorAngle * Mathf.Deg2Rad);
 
-        if (Vector2.Dot(up, normal) > maxFloorCosine)
+        if (Vector2.Dot(_up, normal) > maxFloorCosine)
             return CollisionType.Floor;
 
-        if (Vector2.Dot(-up, normal) > maxFloorCosine)
+        if (Vector2.Dot(-_up, normal) > maxFloorCosine)
             return CollisionType.Ceiling;
 
         return IsNormalLeft(normal) ? CollisionType.LeftWall : CollisionType.RightWall;
     }
 
-    private void CheckAndCallEvent(Vector2 lastNormal, Vector2 currentNormal, UnityEvent<Vector2> enter, UnityEvent<Vector2> exit)
+    private void CheckAndCallEvent(Vector2 lastNormal, Vector2 currentNormal, UnityEvent<Vector2> enter,
+        UnityEvent<Vector2> exit)
     {
-        if (lastNormal.sqrMagnitude < ErrorWindow && currentNormal.sqrMagnitude >= ErrorWindow) enter.Invoke(currentNormal);
-        else if (lastNormal.sqrMagnitude >= ErrorWindow && currentNormal.sqrMagnitude < ErrorWindow)
+        if (lastNormal.sqrMagnitude < ERROR_WINDOW && currentNormal.sqrMagnitude >= ERROR_WINDOW)
+            enter.Invoke(currentNormal);
+        else if (lastNormal.sqrMagnitude >= ERROR_WINDOW && currentNormal.sqrMagnitude < ERROR_WINDOW)
             exit.Invoke(lastNormal);
     }
 
     public void Snap()
     {
-        var hits = Cast(Down, maxSnapLength);
+        List<RaycastHit2D> hits = Cast(Down, _maxSnapLength);
         if (hits.Count == 0)
             return;
-        
-        var hit = hits[0];
+
+        RaycastHit2D hit = hits[0];
         if (GetContactType(hit.normal) != CollisionType.Floor)
             return;
-        
-        body.position += hit.distance * Down;
-        
-        var direction = Mathf.Sign(hit.normal.x * Velocity.y - hit.normal.y * Velocity.x);
+
+        _body.position += hit.distance * Down;
+
+        float direction = Mathf.Sign(hit.normal.x * Velocity.y - hit.normal.y * Velocity.x);
         ModifyVelocity(velocity => direction * VectorUtils.Orthogonal(hit.normal) * Velocity.magnitude);
         FloorNormal = hit.normal;
         SetSpeed(-FloorNormal, 10f);
@@ -467,11 +494,11 @@ public class CharacterBody2D : MonoBehaviour
 
     public List<RaycastHit2D> Cast(Vector2 direction, float distance)
     {
-        var hits = new List<RaycastHit2D>();
-        body.Cast(direction, hits, distance);
-        
+        List<RaycastHit2D> hits = new();
+        _body.Cast(direction, hits, distance);
+
         return hits
-            .Where(hit => body.IsTouchingLayers(hit.collider.gameObject.layer))
+            .Where(hit => _body.IsTouchingLayers(hit.collider.gameObject.layer))
             .Where(hit => hit.normal.sqrMagnitude > 0.01f && hit.distance > 0.01f)
             .ToList();
     }
@@ -486,78 +513,246 @@ public class CharacterBody2D : MonoBehaviour
 
     public void SkipSnappingFrame()
     {
-        skipSnapping = true;
+        _skipSnapping = true;
     }
 
     public void Pause()
     {
-        body.simulated = false;
+        _body.simulated = false;
     }
 
     public void Resume()
     {
-        body.simulated = true;
+        _body.simulated = true;
     }
 
-    private Vector2 AvarageNormal(List<Vector2> vectors) => VectorUtils.Average(vectors).normalized;
-    
-    public Vector2 GetLeftWallUp() => VectorUtils.Orthogonal(LeftWallNormal) * Mathf.Sign(Vector2.Dot(up, Vector2.up));
-    public Vector2 GetLeftWallDown() => -GetLeftWallUp();
-    
-    public Vector2 GetRightWallUp() => -VectorUtils.Orthogonal(RightWallNormal) * Mathf.Sign(Vector2.Dot(up, Vector2.up));
-    public Vector2 GetRightWallDown() => -GetRightWallUp();
+    private Vector2 AvarageNormal(List<Vector2> vectors)
+    {
+        return VectorUtils.Average(vectors).normalized;
+    }
 
-    public Vector2 GetFloorRight() => -VectorUtils.Orthogonal(FloorNormal) * Mathf.Sign(Vector2.Dot(up, Vector2.up));
-    public Vector2 GetFloorLeft() => -GetFloorRight();
+    public Vector2 GetLeftWallUp()
+    {
+        return VectorUtils.Orthogonal(LeftWallNormal) * Mathf.Sign(Vector2.Dot(_up, Vector2.up));
+    }
 
-    public Vector2 GetCeilingRight() => VectorUtils.Orthogonal(CeilingNormal) * Mathf.Sign(Vector2.Dot(up, Vector2.up));
-    public Vector2 GetCeilingLeft() => -GetCeilingRight();
+    public Vector2 GetLeftWallDown()
+    {
+        return -GetLeftWallUp();
+    }
 
-    public bool IsOnFloor() => FloorNormal.sqrMagnitude >= ErrorWindow;
-    public bool IsOnLeftWall() => LeftWallNormal.sqrMagnitude >= ErrorWindow;
-    public bool IsOnRightWall() => RightWallNormal.sqrMagnitude >= ErrorWindow;
-    public bool IsOnCeiling() => CeilingNormal.sqrMagnitude >= ErrorWindow;
-    
-    public bool IsOnFloorOnly() => IsOnFloor() && !IsOnLeftWall() && !IsOnRightWall() && !IsOnCeiling();
-    public bool IsOnCeilingOnly() => !IsOnFloor() && !IsOnLeftWall() && !IsOnRightWall() && IsOnCeiling();
-    public bool IsOnLeftWallOnly() => !IsOnFloor() && IsOnLeftWall() && !IsOnRightWall() && !IsOnCeiling();
-    public bool IsOnRightWallOnly() => !IsOnFloor() && !IsOnLeftWall() && IsOnRightWall() && !IsOnCeiling();
+    public Vector2 GetRightWallUp()
+    {
+        return -VectorUtils.Orthogonal(RightWallNormal) * Mathf.Sign(Vector2.Dot(_up, Vector2.up));
+    }
 
-    public bool IsLeavingFloor() => IsOnFloor() && Vector2.Dot(FloorNormal, Velocity) > 0.001f;
-    public bool IsLeavingLeftWall() => IsOnLeftWall() && Vector2.Dot(LeftWallNormal, Velocity) > 0.001f;
-    public bool IsLeavingRightWall() => IsOnRightWall() && Vector2.Dot(RightWallNormal, Velocity) > 0.001f;
-    public bool IsLeavingCeiling() => IsOnCeiling() && Vector2.Dot(CeilingNormal, Velocity) > 0.001f;
+    public Vector2 GetRightWallDown()
+    {
+        return -GetRightWallUp();
+    }
 
-    public bool IsGoingUp() => Vector2.Dot(Velocity, up) > 0.001f;
-    public bool IsGoingDown() => Vector2.Dot(Velocity, Down) > 0.001f;
-    public bool HasNoVerticalSpeed() => Mathf.Approximately(0f, Vector2.Dot(Velocity, up));
-    public bool IsGoingLeft() => Vector2.Dot(Velocity, Left) > 0.001f;
-    public bool IsGoingRight() => Vector2.Dot(Velocity, Right) > 0.001f;
-    public bool HasNoHorizontalSpeed() => Mathf.Approximately(0f, Vector2.Dot(Velocity, Left));
+    public Vector2 GetFloorRight()
+    {
+        return -VectorUtils.Orthogonal(FloorNormal) * Mathf.Sign(Vector2.Dot(_up, Vector2.up));
+    }
 
-    public Vector2 Velocity => body.velocity;
-    
-    public float GetSpeedUp() => GetSpeedOnAxis(Up);
-    public float GetSpeedDown() => GetSpeedOnAxis(Down);
-    public float GetSpeedLeft() => GetSpeedOnAxis(Left);
-    public float GetSpeedRight() => GetSpeedOnAxis(Right);
-    
-    public float GetSpeedOnFloorNormal() => GetSpeedOnAxis(FloorNormal);
-    public float GetSpeedOnLeftWallNormal() => GetSpeedOnAxis(LeftWallNormal);
-    public float GetSpeedOnRightWallNormal() => GetSpeedOnAxis(RightWallNormal);
-    public float GetSpeedOnCeilingNormal() => GetSpeedOnAxis(CeilingNormal);
-    public float GetSpeedOnFloorRight() => GetSpeedOnAxis(GetFloorRight());
-    public float GetSpeedOnFloorLeft() => GetSpeedOnAxis(GetFloorLeft());
-    
-    public float GetSpeedOnCeilingRight() => GetSpeedOnAxis(GetCeilingRight());
-    public float GetSpeedOnCeilingLeft() => GetSpeedOnAxis(GetCeilingLeft());
-    public float GetSpeedOnLeftWallUp() => GetSpeedOnAxis(GetLeftWallUp());
-    public float GetSpeedOnLeftWallDown() => GetSpeedOnAxis(GetLeftWallDown());
-    public float GetSpeedOnRightWallUp() => GetSpeedOnAxis(GetRightWallUp());
-    public float GetSpeedOnRightWallDown() => GetSpeedOnAxis(GetRightWallDown());
-    
-    public float GetSpeedOnAxis(Vector2 axis) => Vector2.Dot(axis, Velocity);
+    public Vector2 GetFloorLeft()
+    {
+        return -GetFloorRight();
+    }
 
-    private bool IsNormalLeft(Vector2 normal) => Vector2.Dot(normal, Right) > 0.001f;
-    private bool IsNormalRight(Vector2 normal) => Vector2.Dot(normal, Left) > 0.001f;
+    public Vector2 GetCeilingRight()
+    {
+        return VectorUtils.Orthogonal(CeilingNormal) * Mathf.Sign(Vector2.Dot(_up, Vector2.up));
+    }
+
+    public Vector2 GetCeilingLeft()
+    {
+        return -GetCeilingRight();
+    }
+
+    public bool IsOnFloor()
+    {
+        return FloorNormal.sqrMagnitude >= ERROR_WINDOW;
+    }
+
+    public bool IsOnLeftWall()
+    {
+        return LeftWallNormal.sqrMagnitude >= ERROR_WINDOW;
+    }
+
+    public bool IsOnRightWall()
+    {
+        return RightWallNormal.sqrMagnitude >= ERROR_WINDOW;
+    }
+
+    public bool IsOnCeiling()
+    {
+        return CeilingNormal.sqrMagnitude >= ERROR_WINDOW;
+    }
+
+    public bool IsOnFloorOnly()
+    {
+        return IsOnFloor() && !IsOnLeftWall() && !IsOnRightWall() && !IsOnCeiling();
+    }
+
+    public bool IsOnCeilingOnly()
+    {
+        return !IsOnFloor() && !IsOnLeftWall() && !IsOnRightWall() && IsOnCeiling();
+    }
+
+    public bool IsOnLeftWallOnly()
+    {
+        return !IsOnFloor() && IsOnLeftWall() && !IsOnRightWall() && !IsOnCeiling();
+    }
+
+    public bool IsOnRightWallOnly()
+    {
+        return !IsOnFloor() && !IsOnLeftWall() && IsOnRightWall() && !IsOnCeiling();
+    }
+
+    public bool IsLeavingFloor()
+    {
+        return IsOnFloor() && Vector2.Dot(FloorNormal, Velocity) > 0.001f;
+    }
+
+    public bool IsLeavingLeftWall()
+    {
+        return IsOnLeftWall() && Vector2.Dot(LeftWallNormal, Velocity) > 0.001f;
+    }
+
+    public bool IsLeavingRightWall()
+    {
+        return IsOnRightWall() && Vector2.Dot(RightWallNormal, Velocity) > 0.001f;
+    }
+
+    public bool IsLeavingCeiling()
+    {
+        return IsOnCeiling() && Vector2.Dot(CeilingNormal, Velocity) > 0.001f;
+    }
+
+    public bool IsGoingUp()
+    {
+        return Vector2.Dot(Velocity, _up) > 0.001f;
+    }
+
+    public bool IsGoingDown()
+    {
+        return Vector2.Dot(Velocity, Down) > 0.001f;
+    }
+
+    public bool HasNoVerticalSpeed()
+    {
+        return Mathf.Approximately(0f, Vector2.Dot(Velocity, _up));
+    }
+
+    public bool IsGoingLeft()
+    {
+        return Vector2.Dot(Velocity, Left) > 0.001f;
+    }
+
+    public bool IsGoingRight()
+    {
+        return Vector2.Dot(Velocity, Right) > 0.001f;
+    }
+
+    public bool HasNoHorizontalSpeed()
+    {
+        return Mathf.Approximately(0f, Vector2.Dot(Velocity, Left));
+    }
+
+    public float GetSpeedUp()
+    {
+        return GetSpeedOnAxis(Up);
+    }
+
+    public float GetSpeedDown()
+    {
+        return GetSpeedOnAxis(Down);
+    }
+
+    public float GetSpeedLeft()
+    {
+        return GetSpeedOnAxis(Left);
+    }
+
+    public float GetSpeedRight()
+    {
+        return GetSpeedOnAxis(Right);
+    }
+
+    public float GetSpeedOnFloorNormal()
+    {
+        return GetSpeedOnAxis(FloorNormal);
+    }
+
+    public float GetSpeedOnLeftWallNormal()
+    {
+        return GetSpeedOnAxis(LeftWallNormal);
+    }
+
+    public float GetSpeedOnRightWallNormal()
+    {
+        return GetSpeedOnAxis(RightWallNormal);
+    }
+
+    public float GetSpeedOnCeilingNormal()
+    {
+        return GetSpeedOnAxis(CeilingNormal);
+    }
+
+    public float GetSpeedOnFloorRight()
+    {
+        return GetSpeedOnAxis(GetFloorRight());
+    }
+
+    public float GetSpeedOnFloorLeft()
+    {
+        return GetSpeedOnAxis(GetFloorLeft());
+    }
+
+    public float GetSpeedOnCeilingRight()
+    {
+        return GetSpeedOnAxis(GetCeilingRight());
+    }
+
+    public float GetSpeedOnCeilingLeft()
+    {
+        return GetSpeedOnAxis(GetCeilingLeft());
+    }
+
+    public float GetSpeedOnLeftWallUp()
+    {
+        return GetSpeedOnAxis(GetLeftWallUp());
+    }
+
+    public float GetSpeedOnLeftWallDown()
+    {
+        return GetSpeedOnAxis(GetLeftWallDown());
+    }
+
+    public float GetSpeedOnRightWallUp()
+    {
+        return GetSpeedOnAxis(GetRightWallUp());
+    }
+
+    public float GetSpeedOnRightWallDown()
+    {
+        return GetSpeedOnAxis(GetRightWallDown());
+    }
+
+    public float GetSpeedOnAxis(Vector2 axis)
+    {
+        return Vector2.Dot(axis, Velocity);
+    }
+
+    private bool IsNormalLeft(Vector2 normal)
+    {
+        return Vector2.Dot(normal, Right) > 0.001f;
+    }
+
+    private bool IsNormalRight(Vector2 normal)
+    {
+        return Vector2.Dot(normal, Left) > 0.001f;
+    }
 }

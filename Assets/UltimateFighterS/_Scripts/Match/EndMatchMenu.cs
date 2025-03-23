@@ -1,55 +1,53 @@
-using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
-using TMPro;
 
 public class EndMatchMenu : MonoBehaviour
 {
+    private static Sprite _winnerImage;
 
-    public Button Rematch;
-    public Button MenuSelectPlayer;
-    public Button Back;
-    public TextMeshProUGUI PlayerWinner;
-    private bool Player1Winner;
-    public Image WinnerDisplayImage;
-    private static Sprite WinnerImage;
+    [FormerlySerializedAs("Rematch")] public Button rematch;
+    [FormerlySerializedAs("MenuSelectPlayer")] public Button menuSelectPlayer;
+    [FormerlySerializedAs("Back")] public Button back;
+    [FormerlySerializedAs("PlayerWinner")] public TextMeshProUGUI playerWinner;
+    [FormerlySerializedAs("WinnerDisplayImage")] public Image winnerDisplayImage;
+    private bool _player1Winner;
 
     private void Awake()
     {
-        Rematch.onClick.AddListener(RematchAction);
-        MenuSelectPlayer.onClick.AddListener(MenuSelectPlayerAction);
-        Back.onClick.AddListener(BackAction);
+        rematch.onClick.AddListener(RematchAction);
+        menuSelectPlayer.onClick.AddListener(MenuSelectPlayerAction);
+        back.onClick.AddListener(BackAction);
         SetPlayerWinner();
         SetWinnerImage();
     }
 
-    void SetPlayerWinner() {
-        if (Player1Winner) {
-            PlayerWinner.text = "PLAYER 1 WINNER";
-        }
-        else 
-         PlayerWinner.text = "PLAYER 2 WINNER";
+    private void SetPlayerWinner()
+    {
+        if (_player1Winner)
+            playerWinner.text = "PLAYER 1 WINNER";
+        else
+            playerWinner.text = "PLAYER 2 WINNER";
     }
 
-    void SetWinnerImage() {
-        if (WinnerImage != null) {
-            WinnerDisplayImage.sprite = WinnerImage;
-        }
+    private void SetWinnerImage()
+    {
+        if (_winnerImage != null) winnerDisplayImage.sprite = _winnerImage;
     }
 
-    void RematchAction()
+    private void RematchAction()
     {
         SceneManager.LoadScene("Cena da Tela de Luta");
     }
 
-     void MenuSelectPlayerAction()
+    private void MenuSelectPlayerAction()
     {
         SceneManager.LoadScene("Cena do Menu de Seleção de Personagem");
     }
 
-     void BackAction()
+    private void BackAction()
     {
         SceneManager.LoadScene("Cena de tela Inicial");
     }

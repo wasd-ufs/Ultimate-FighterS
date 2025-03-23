@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -9,23 +6,26 @@ public class Passenger : MonoBehaviour
     [SerializeField] private Train train;
     [SerializeField] private float offsetX;
     [SerializeField] private float offsetY;
-    private float height;
-    private float trainLength;
-    private Vector3 restPoint;
+    private float _height;
+    private Vector3 _restPoint;
+    private float _trainLength;
 
     private void Awake()
     {
-        height = train.GetSpawnPoint().y;
-        trainLength = train.GetTrainLength();
-        restPoint = train.GetRestPoint();
+        _height = train.GetSpawnPoint().y;
+        _trainLength = train.GetTrainLength();
+        _restPoint = train.GetRestPoint();
         MoveToRestPoint();
     }
 
     public void MoveToPlataform()
     {
-        float randomPlace = Random.Range((-trainLength / 2)+offsetX, (trainLength / 2)-offsetX);
-        this.transform.position = new Vector3(randomPlace, height+offsetY, 0);
-    }               
+        float randomPlace = Random.Range(-_trainLength / 2 + offsetX, _trainLength / 2 - offsetX);
+        transform.position = new Vector3(randomPlace, _height + offsetY, 0);
+    }
+
     public void MoveToRestPoint()
-        => this.transform.position = restPoint;
+    {
+        transform.position = _restPoint;
+    }
 }

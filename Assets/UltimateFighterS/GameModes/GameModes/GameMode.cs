@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,8 +11,19 @@ public abstract class GameMode : MonoBehaviour
         MatchManager.OnPlayerExiting.AddListener(OnPlayerExiting);
     }
 
-    protected virtual void OnMatchStarting() {}
-    protected virtual void OnMatchEnding(List<ActivePlayer> players) {}
-    protected virtual void OnPlayerEntering(ActivePlayer player) {}
-    protected virtual void OnPlayerExiting(ActivePlayer player) {}
+    protected virtual void OnMatchStarting()
+    {
+    }
+
+    protected virtual void OnMatchEnding(List<ActivePlayer> players)
+    {
+    }
+
+    protected virtual void OnPlayerEntering(ActivePlayer player)
+    {
+    }
+
+    protected virtual void OnPlayerExiting(ActivePlayer player)
+    {
+    }
 }

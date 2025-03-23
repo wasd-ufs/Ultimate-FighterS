@@ -3,28 +3,23 @@ using UnityEngine;
 
 public class Volume : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI textMeshPro;
-    private AudioManager audioManager;
+    [SerializeField] private TextMeshProUGUI textMeshPro;
     public float percent = 50;
+
+    private AudioManager _audioManager;
+
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        audioManager = FindObjectOfType<AudioManager>();
+        _audioManager = FindObjectOfType<AudioManager>();
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
-        if (Input.GetKey(KeyCode.LeftArrow) && percent > 0)
-        {
-            percent--;
-        }
+        if (Input.GetKey(KeyCode.LeftArrow) && percent > 0) percent--;
 
-        if (Input.GetKey(KeyCode.RightArrow) && percent < 100)
-        {
-            percent++;
-        }
+        if (Input.GetKey(KeyCode.RightArrow) && percent < 100) percent++;
         //audioManager.SetGlobalVolume(percent);
         textMeshPro.text = percent.ToString();
     }

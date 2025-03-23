@@ -1,5 +1,3 @@
-using System;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,23 +5,23 @@ using UnityEngine.UI;
 public class ShowCharacterAtRank : MonoBehaviour
 {
     [SerializeField] private int rank;
-    private RawImage image;
+    private RawImage _image;
 
     private void Awake()
     {
-        image = GetComponent<RawImage>();
+        _image = GetComponent<RawImage>();
     }
-    
+
     private void Start()
     {
-        var character = GetCharacter(rank);
+        Character character = GetCharacter(rank);
         if (character is null)
         {
-            image.color = new Color(1, 1, 1, 0);
+            _image.color = new Color(1, 1, 1, 0);
             return;
         }
 
-        image.texture = character.icon;
+        _image.texture = character.icon;
     }
 
     private Character GetCharacter(int rank)

@@ -1,52 +1,49 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class CatController : MonoBehaviour
 {
-    [Header("Tempo para o ovento")]
-    [SerializeField] private float TimeStart;
-    [SerializeField] private float TimeSpeed;
+    [FormerlySerializedAs("TimeStart")] [Header("Tempo para o ovento")] [SerializeField]
+    private float timeStart;
 
-    [Header("Conometro")]
-    [SerializeField]private float TimeEvent;
+    [FormerlySerializedAs("TimeSpeed")] [SerializeField] private float timeSpeed;
 
-    [SerializeField] private List<CatBaseMoves> CatMoves = new List<CatBaseMoves>();
+    [FormerlySerializedAs("TimeEvent")] [Header("Conometro")] [SerializeField] private float timeEvent;
+
+    [FormerlySerializedAs("CatMoves")] [SerializeField] private List<CatBaseMoves> catMoves = new();
 
     public int randomIndex;
 
 
-    void Start()
+    private void Start()
     {
-        TimeEvent = TimeStart;        
+        timeEvent = timeStart;
     }
 
 
-    void Update()
+    private void Update()
     {
-        TimeEvent -= Time.deltaTime * TimeSpeed;
+        timeEvent -= Time.deltaTime * timeSpeed;
 
-        if (TimeEvent <= 0)
+        if (timeEvent <= 0)
         {
-          
-            randomIndex = UnityEngine.Random.Range(0, CatMoves.Count);
+            randomIndex = Random.Range(0, catMoves.Count);
 
-            if (CatMoves[randomIndex] != null && TimeEvent <= 0)
+            if (catMoves[randomIndex] != null && timeEvent <= 0)
             {
-                CatMoves[randomIndex].Execute();
-                TimeEvent = TimeStart;
+                catMoves[randomIndex].Execute();
+                timeEvent = timeStart;
             }
 
             //StartCoroutine(HideAnimation());
-          
         }
     }
-    IEnumerator HideAnimation()
-    {
-        yield return new WaitForSeconds (3f);
-        CatMoves[randomIndex].Hide();
-    }
 
+    private IEnumerator HideAnimation()
+    {
+        yield return new WaitForSeconds(3f);
+        catMoves[randomIndex].Hide();
+    }
 }
-    

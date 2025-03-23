@@ -1,39 +1,37 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Timer))]
 public class InputBuffer : MonoBehaviour
 {
     [SerializeField] private InputSystem input;
+    private Timer _timer;
     public InputSystemMemento Current { get; private set; }
-    private Timer timer;
 
-    void Awake()
+    private void Awake()
     {
-        timer = gameObject.GetComponent<Timer>();
-        timer.onTimerFinish.AddListener(Consume);
+        _timer = gameObject.GetComponent<Timer>();
+        _timer.onTimerFinish.AddListener(Consume);
     }
 
-    void Update()
+    private void Update()
     {
         if (input.IsAttackJustPressed())
             Register();
-        
+
         if (input.IsSpecialJustPressed())
             Register();
     }
 
     public void Register()
     {
-        timer.Init();
+        _timer.Init();
         Current = input.GetMemento();
     }
 
     public void Consume()
     {
-        timer.Finish();
+        _timer.Finish();
         Current = null;
     }
 
@@ -41,7 +39,7 @@ public class InputBuffer : MonoBehaviour
     {
         if (Current == null || !condition(Current))
             return;
-        
+
         beforeConsumption(Current);
         Consume();
     }

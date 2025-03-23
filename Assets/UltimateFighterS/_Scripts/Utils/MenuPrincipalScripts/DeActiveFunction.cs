@@ -1,17 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DeActiveFunction : MonoBehaviour
 {
-
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            gameObject.SetActive(false);
-        }
-            
+        if (Input.GetKeyDown(KeyCode.Escape)) gameObject.SetActive(false);
     }
 }

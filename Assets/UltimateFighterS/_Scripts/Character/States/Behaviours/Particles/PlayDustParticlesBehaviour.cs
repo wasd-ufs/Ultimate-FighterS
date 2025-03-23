@@ -1,32 +1,37 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
+/// <summary>
+/// Roda a animação de partículas quando a velocidade num eixo excede um limite e o timer de cooldown estiver livre.
+/// </summary>
 [RequireComponent(typeof(Timer))]
 public class PlayDustParticlesBehaviour : CharacterState
 {
-    [SerializeField] private float speedThreshold;
-    [SerializeField] private float speedPerCooldownSeconds = 10;
-    
-    [SerializeField] private Vector2 axis;
-    [SerializeField] private CharacterBasis basis;
+    [FormerlySerializedAs("speedThreshold")] [SerializeField] private float _speedThreshold;
+    [FormerlySerializedAs("speedPerCooldownSeconds")] [SerializeField] private float _speedPerCooldownSeconds = 10;
 
-    private Timer cooldown;
+    [FormerlySerializedAs("axis")] [SerializeField] private Vector2 _axis;
+    // TODO: Encapsular a ideia de base numa classe ou record próprio
+    [FormerlySerializedAs("basis")] [SerializeField] private CharacterBasis _basis;
+
+    private Timer _cooldown;
 
     public void Awake()
     {
-        cooldown = GetComponent<Timer>();
+        _cooldown = GetComponent<Timer>();
     }
 
-    public override void PhysicsProcess()
+    public override void StateFixedUpdate()
     {
-        var (forward, up) = GetBasis(basis);
-        var finalAxis = forward * axis.x + up * axis.y;
+        (Vector2 forward, Vector2 up) = GetBasis(_basis);
+        Vector2 finalAxis = forward * _axis.x + up * _axis.y;
 
-        if (Mathf.Abs(body.GetSpeedOnAxis(finalAxis)) >= speedThreshold && cooldown.IsFinished())
+        if (Mathf.Abs(Body.GetSpeedOnAxis(finalAxis)) >= _speedThreshold && _cooldown.IsFinished())
         {
             DustParticles.Play();
-            
-            cooldown.waitTime = body.GetSpeedOnAxis(finalAxis) / speedPerCooldownSeconds;
-            cooldown.Init();
+
+            _cooldown.waitTime = Body.GetSpeedOnAxis(finalAxis) / _speedPerCooldownSeconds;
+            _cooldown.Init();
         }
     }
 }
