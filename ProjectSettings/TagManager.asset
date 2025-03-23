@@ -8,6 +8,9 @@ TagManager:
   - StageLimits
   - Hitbox
   - Hurtbox
+  - CatBoxPhase
+  - UfsPhase
+  - TestStagePhase
   layers:
   - Default
   - TransparentFX

@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using UnityEngine.Rendering;
 
 /// <summary>
 /// Responsavel por gerenciar os audios do jogo
@@ -12,10 +13,14 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager audioManagerInstance;
 
+    [Header("AudioMixer")]
+    [SerializeField] private AudioMixer _audioMixer;
+
     [Header("BackGroundMusic")]
     [SerializeField] private AudioSource _audioSourceBg;
     [SerializeField] private List<SettingBaseAudio> _settingBaseAudioList;
     [SerializeField] private List<SceneAudioData> _sceneAudioDataList;
+    [SerializeField] private List<SceneAudioData> _scenePhaseAudioDataList;
     private bool _isPaused;
     private bool _isPhase = false;
 
@@ -37,14 +42,12 @@ public class AudioManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
-        _isPhase = SceneManager.GetActiveScene().buildIndex == 3 ? true : false;
     }
 
     void Start()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
-        UpdateMusicListScene(SceneManager.GetActiveScene().name);
+        DetectedSceneOrPhase();
         PlayRadomBackGroudMusic();
     }
 
@@ -64,28 +67,50 @@ public class AudioManager : MonoBehaviour
     /// <return>void</return>
     /// <author>Wallisson de jesus</author>
     public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    { 
-        UpdateMusicListScene(scene.name);
+    {
+        DetectedSceneOrPhase();
         PlayRadomBackGroudMusic();
     }
-    
+
+    /// <summary>
+    /// Responsavel por definir a fase atual e muda as musicas
+    /// </summary>
+    /// <param name="phaseName">Nome da fase atual</param>
+    /// <return>void</return>
+    /// <author>Wallisson de jesus</author>
+    public void SetCurrentPhase(string phaseName)
+    {
+        _isPhase = true;
+        UpdateMusicListScene(phaseName, _isPhase);
+        PlayRadomBackGroudMusic();
+    }
+
+    /// <summary>
+    /// Responsavel por definir se é uma cena normal ou uma fase
+    /// </summary>
+    /// <return>void</return>
+    /// <author>Wallisson de jesus</author>
+    private void DetectedSceneOrPhase()
+    {
+        _isPhase = false;
+        string sceneName = SceneManager.GetActiveScene().name;
+        UpdateMusicListScene(sceneName, _isPhase);
+    }
+
     /// <summary>
     /// Atualiza a lista de musicas do background para a configuracao de musicas da cena atual
     /// </summary>
     /// <param name="sceneName">Nome da cena atual</param>
     /// <returns>void</returns>
     /// <author>Wallisson de jesus</author>
-    /// TODO: Implementar a verificacao se é fase ou cena
-    public void UpdateMusicListScene(string sceneName)
+    public void UpdateMusicListScene(string sceneName,bool isPhase)
     {
-        SceneAudioData data = _sceneAudioDataList.Find(d => d.SceneName == sceneName);
-        if (data != null)
-        {
-            _settingBaseAudioList = data.BackGroundClipList;
-            return;     
-        }
+        SceneAudioData audioData;
 
-        _settingBaseAudioList = null;
+        audioData = !isPhase ? _sceneAudioDataList.Find(d => d.SceneName == sceneName)
+                             : _scenePhaseAudioDataList.Find(d => d.SceneName == sceneName);
+
+        _settingBaseAudioList = audioData != null ? audioData.BackGroundClipList : null;
     }
 
     /// <summary>
@@ -95,6 +120,8 @@ public class AudioManager : MonoBehaviour
     /// <author>Wallisson de jesus</author>
     private void PlayRadomBackGroudMusic()
     {
+        if (_settingBaseAudioList == null || _settingBaseAudioList.Count == 0){ return; }
+
         SettingBaseAudio setting = _settingBaseAudioList[UnityEngine.Random.Range(0, _settingBaseAudioList.Count)];
        if (_coroutine != null)
        {
@@ -120,10 +147,12 @@ public class AudioManager : MonoBehaviour
             }
         }
 
+        float decibel = Mathf.Log10(Mathf.Clamp(settingBaseAudio.Volume, 0.0001f, 1f)) * 20;
+
         _audioSourceBg.clip = settingBaseAudio.Clip;
         _audioSourceBg.loop = settingBaseAudio.IsLoop;
-        _audioSourceBg.volume = settingBaseAudio.Volume;
-        _audioSourceBg.pitch = settingBaseAudio.Pitch;
+        _audioMixer.SetFloat("MusicVolume", decibel);
+        _audioMixer.SetFloat("MusicPitch", settingBaseAudio.Pitch);
         _audioSourceBg.Play();
 
 

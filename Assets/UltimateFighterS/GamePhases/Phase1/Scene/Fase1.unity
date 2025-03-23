@@ -474,7 +474,7 @@ Transform:
   m_GameObject: {fileID: 1849528445}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.2630926, y: -3.4666455, z: -9.8219595}
+  m_LocalPosition: {x: -0.013154631, y: -0.17333227, z: -9.991098}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -586,7 +586,7 @@ Transform:
   m_GameObject: {fileID: 1910850910}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.2630926, y: -3.4666455, z: -9.8219595}
+  m_LocalPosition: {x: -0.02065814, y: -0.2533341, z: -9.991098}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -678,10 +678,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2533030033754223756, guid: 4c9a264af2f79f3c38e01df8610e470a, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3023656418273063420, guid: 4c9a264af2f79f3c38e01df8610e470a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -725,14 +721,6 @@ PrefabInstance:
     - target: {fileID: 3839404611912806755, guid: 4c9a264af2f79f3c38e01df8610e470a, type: 3}
       propertyPath: m_Name
       value: CatBox
-      objectReference: {fileID: 0}
-    - target: {fileID: 5971050296812096415, guid: 4c9a264af2f79f3c38e01df8610e470a, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7531801893436148294, guid: 4c9a264af2f79f3c38e01df8610e470a, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
