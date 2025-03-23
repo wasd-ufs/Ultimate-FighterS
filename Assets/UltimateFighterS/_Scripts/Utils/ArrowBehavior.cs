@@ -32,27 +32,32 @@ public class ArrowBehavior : MonoBehaviour
     void Start()
     {
         _playerIdentifier= _idComponent.id;
-        if(_playerIdentifier== 0){_arrowColor = Color.red;}
-        if(_playerIdentifier== 1){_arrowColor = Color.blue;}
-        if(_playerIdentifier== 2){_arrowColor = Color.yellow;}
-        if(_playerIdentifier== 3){_arrowColor = Color.green;}
+        Dictionary<int, Color> _playerColors = new Dictionary<int, Color>
+        {
+            { 0, Color.red },
+            { 1, Color.blue },
+            { 2, Color.yellow },
+            { 3, Color.green }
+        };
+        _arrowColor = _playerColors.TryGetValue(_playerIdentifier, out Color color) ? color : _arrowColor;
         
         _mySpriteRenderer.sprite = _spriteList[1];
         _mySpriteRenderer.color = _arrowColor;
-        var fatherSprite = GetComponentInChildren<SpriteRenderer>();
-        var spriteLength = fatherSprite.bounds.size.y;
-        gameObject.transform.position = new Vector3(transform.position.x, (transform.position.y + spriteLength + 0.2f) , transform.position.z);
+        SpriteRenderer _fatherSprite = GetComponentInChildren<SpriteRenderer>();
+        float _fatherSpriteLength = _fatherSprite.bounds.size.y;
+        gameObject.transform.position = new Vector3(transform.position.x, (transform.position.y + _fatherSpriteLength + 0.2f) , transform.position.z);
     
     }
+    
     /// <summary>
     /// Atuliza a posição da sete (mantendo-a acima do player) e altera o seu sprite quando necessario.
     /// </summary>
     /// <author>JOÃO CARLOS</author>
     void Update()
     {   
-        float distanceDiference = (transform.position - _camera.transform.position).z;
-        _leftCameraPosition = _camera.ViewportToWorldPoint(new Vector3(0f, 0f, distanceDiference)).x;
-        _rightCameraPosition = _camera.ViewportToWorldPoint(new Vector3(1f, 0f, distanceDiference)).x;
+        float _distanceDiference = (transform.position - _camera.transform.position).z;
+        _leftCameraPosition = _camera.ViewportToWorldPoint(new Vector3(0f, 0f, _distanceDiference)).x;
+        _rightCameraPosition = _camera.ViewportToWorldPoint(new Vector3(1f, 0f, _distanceDiference)).x;
         
         _fatherPositionX = transform.parent.position.x;
 
