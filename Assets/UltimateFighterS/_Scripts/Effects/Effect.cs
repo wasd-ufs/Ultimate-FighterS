@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class Effect : MonoBehaviour
+public abstract class BaseEffect : MonoBehaviour
 {
     public abstract void Apply(GameObject gameObject);
 }

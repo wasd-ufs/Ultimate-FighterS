@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class DamageEffect : Effect
+public class DamageEffect : BaseEffect
 {
     [SerializeField] private float damageAmount;
 

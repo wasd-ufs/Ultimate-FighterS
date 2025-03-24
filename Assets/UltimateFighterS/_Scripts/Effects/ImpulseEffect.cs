@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class ImpulseEffect : Effect
+public class ImpulseEffect : BaseEffect
 {
     public Vector2 impulse;
     public bool flipWithObject = true;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using UnityEngine;
 
-public class DeathEffect : Effect
+public class DeathEffect : BaseEffect
 {
     public override void Apply(GameObject gameObject)
     {

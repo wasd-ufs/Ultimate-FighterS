@@ -28,9 +28,9 @@ public class ShowCharacterAtRank : MonoBehaviour
 
     private Character GetCharacter(int rank)
     {
-        if (!MatchResult.Results.ContainsKey(rank))
+        if (!MatchResultManager.matchResults.ContainsKey(rank))
             return null;
 
-        return MatchConfiguration.Characters[MatchResult.Results[rank]];
+        return MatchConfiguration.Characters[MatchResultManager.matchResults[rank]];
     }
 }

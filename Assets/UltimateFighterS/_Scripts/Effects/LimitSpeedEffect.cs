@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class LimitSpeedEffect : Effect
+public class LimitSpeedEffect : BaseEffect
 {
     public Vector2 axis;
     public float maximum;

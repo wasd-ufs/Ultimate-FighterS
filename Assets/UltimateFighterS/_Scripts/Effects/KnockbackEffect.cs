@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class KnockbackEffect : Effect
+public class KnockbackEffect : BaseEffect
 {
     [SerializeField] public Knockback Knockback;
 

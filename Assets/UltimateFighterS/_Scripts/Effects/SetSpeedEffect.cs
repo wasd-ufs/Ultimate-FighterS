@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class SetSpeedEffect : Effect
+public class SetSpeedEffect : BaseEffect
 {
     public Vector2 axis;
     public float speed;

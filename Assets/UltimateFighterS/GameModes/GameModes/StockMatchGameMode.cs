@@ -18,14 +18,14 @@ public class StockMatchGameMode : GameMode
 
     protected override void OnMatchEnding(List<ActivePlayer> players)
     {
-        MatchResult.Results.Clear();
+        MatchResultManager.matchResults.Clear();
 
         foreach (var stock in stocks.Values)
         {
             var rank = stock.Rank;
             var port = stock.Player.Port;
             
-            MatchResult.Results[rank] = port;
+            MatchResultManager.matchResults[rank] = port;
         }
     }
 
