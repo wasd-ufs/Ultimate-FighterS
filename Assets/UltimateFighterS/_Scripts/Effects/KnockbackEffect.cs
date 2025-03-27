@@ -8,9 +8,9 @@ public class KnockbackEffect : Effect
 
     public override void Apply(GameObject gameObject)
     {
-        var direction = new Vector2(Mathf.Sign(transform.lossyScale.x) * Knockback.direction.x, Knockback.direction.y);
+        var direction = new Vector2(Mathf.Sign(transform.lossyScale.x) * Knockback.Direction.x, Knockback.Direction.y);
 
-        var finalKnockback = new Knockback(direction, Knockback.setKnockback, Knockback.knockbackScaling);
+        var finalKnockback = new Knockback(direction, Knockback.SetKnockback, Knockback.KnockbackScaling);
         gameObject.GetComponent<KnockbackComponent>()?.ApplyKnockback(finalKnockback);
     }
 

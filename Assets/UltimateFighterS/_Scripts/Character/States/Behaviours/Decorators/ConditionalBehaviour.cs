@@ -17,10 +17,10 @@ public class ConditionalBehaviour : CharacterState
 
     private void Configure(CharacterState state)
     {
-        state.machine = machine;
-        state.body = body;
-        state.input = input;
-        state.inputBuffer = inputBuffer;
+        state.Machine = Machine;
+        state.Body = Body;
+        state.Input = Input;
+        state.InputBuffer = InputBuffer;
         state.FlipPivotPoint = FlipPivotPoint;
         state.DustParticles = DustParticles;
     }

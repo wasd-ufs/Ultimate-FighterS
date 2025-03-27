@@ -21,9 +21,9 @@ public class ImpulseBehaviour : CharacterState
     {
         var impulse = GetFinalImpulse();
         ApplyMomentumPreservation(impulse);
-        body.ApplyImpulse(impulse);
+        Body.ApplyImpulse(impulse);
         
-        body.FixedUpdate();
+        Body.FixedUpdate();
     }
 
     private Vector2 GetFinalImpulse()
@@ -37,15 +37,15 @@ public class ImpulseBehaviour : CharacterState
         switch (momentumPreservation)
         {
             case MomentumPreservation.None:
-                body.SetVelocity(Vector2.zero);
+                Body.SetVelocity(Vector2.zero);
                 break;
             
             case MomentumPreservation.KeepImpulseTangent:
-                body.SetSpeed(impulse.normalized, 0f);
+                Body.SetSpeed(impulse.normalized, 0f);
                 break;
             
             case MomentumPreservation.KeepImpulseDirection:
-                body.SetSpeed(VectorUtils.Orthogonal(impulse).normalized, 0f);
+                Body.SetSpeed(VectorUtils.Orthogonal(impulse).normalized, 0f);
                 break;
         }
     }

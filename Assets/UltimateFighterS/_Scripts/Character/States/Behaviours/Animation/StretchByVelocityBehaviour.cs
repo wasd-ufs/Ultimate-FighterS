@@ -18,7 +18,7 @@ public class StretchByVelocityBehaviour : CharacterState
         var (right, up) = GetBasis(basis);
         var finalAxis = axis.x * right + axis.y * up;
         
-        var speed = Mathf.Abs(body.GetSpeedOnAxis(finalAxis));
+        var speed = Mathf.Abs(Body.GetSpeedOnAxis(finalAxis));
         transform.localScale = baseScale + stretchFactor * speed;
     }
 

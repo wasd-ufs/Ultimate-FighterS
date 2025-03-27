@@ -9,7 +9,7 @@ public class DecelerateBehaviour : CharacterState
     public override void PhysicsProcess()
     {
         var (forward, up) = GetBasis(basis);
-        body.Decelerate(forward, deceleration.x);
-        body.Decelerate(up, deceleration.y);
+        Body.Decelerate(forward, deceleration.x);
+        Body.Decelerate(up, deceleration.y);
     }
 }

@@ -21,11 +21,11 @@ public class PlayDustParticlesBehaviour : CharacterState
         var (forward, up) = GetBasis(basis);
         var finalAxis = forward * axis.x + up * axis.y;
 
-        if (Mathf.Abs(body.GetSpeedOnAxis(finalAxis)) >= speedThreshold && cooldown.IsFinished())
+        if (Mathf.Abs(Body.GetSpeedOnAxis(finalAxis)) >= speedThreshold && cooldown.IsFinished())
         {
             DustParticles.Play();
             
-            cooldown.waitTime = body.GetSpeedOnAxis(finalAxis) / speedPerCooldownSeconds;
+            cooldown.waitTime = Body.GetSpeedOnAxis(finalAxis) / speedPerCooldownSeconds;
             cooldown.Init();
         }
     }

@@ -36,17 +36,17 @@ public class SpeedThresholdTransitionBehavior : CharacterState
     private void TryTransition()
     {
         if (ShouldTransition())
-            machine.TransitionTo(next);
+            Machine.TransitionTo(next);
 
-        lastSpeed = body.GetSpeedOnAxis(GetFinalAxis());
+        lastSpeed = Body.GetSpeedOnAxis(GetFinalAxis());
     }
 
     private bool ShouldTransition() => comparison switch
     {
-        SpeedComparisonType.ApproximatelyEqual => Approximately(body.GetSpeedOnAxis(GetFinalAxis()), threshold),
-        SpeedComparisonType.ApproximatelyDifferent => !Approximately(body.GetSpeedOnAxis(GetFinalAxis()), threshold),
-        SpeedComparisonType.Higher => body.GetSpeedOnAxis(GetFinalAxis()) > threshold,
-        SpeedComparisonType.Lower => body.GetSpeedOnAxis(GetFinalAxis()) < threshold,
+        SpeedComparisonType.ApproximatelyEqual => Approximately(Body.GetSpeedOnAxis(GetFinalAxis()), threshold),
+        SpeedComparisonType.ApproximatelyDifferent => !Approximately(Body.GetSpeedOnAxis(GetFinalAxis()), threshold),
+        SpeedComparisonType.Higher => Body.GetSpeedOnAxis(GetFinalAxis()) > threshold,
+        SpeedComparisonType.Lower => Body.GetSpeedOnAxis(GetFinalAxis()) < threshold,
         _ => false
     };
 

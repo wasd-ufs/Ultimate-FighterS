@@ -39,6 +39,6 @@ public class TimedTransitionBehaviour : CharacterState
         if (skip)
             return;
         
-        machine.TransitionTo(next);
+        Machine.TransitionTo(next);
     }
 }

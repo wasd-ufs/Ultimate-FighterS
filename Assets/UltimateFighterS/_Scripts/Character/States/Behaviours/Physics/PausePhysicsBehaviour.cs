@@ -4,11 +4,11 @@ public class PausePhysicsBehaviour : CharacterState
 {
     public override void Enter()
     {
-        body.Pause();
+        Body.Pause();
     }
 
     public override void Exit()
     {
-        body.Resume();
+        Body.Resume();
     }
 }

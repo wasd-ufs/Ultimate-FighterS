@@ -43,10 +43,10 @@ public class CompositeState : CharacterState
     
     private void Configure(CharacterState state)
     {
-        state.body = body;
-        state.input = input;
-        state.machine = machine;
-        state.inputBuffer = inputBuffer;
+        state.Body = Body;
+        state.Input = Input;
+        state.Machine = Machine;
+        state.InputBuffer = InputBuffer;
         state.FlipPivotPoint = FlipPivotPoint;
         state.DustParticles = DustParticles;
     }

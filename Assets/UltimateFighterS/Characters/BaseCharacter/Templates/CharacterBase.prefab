@@ -3998,7 +3998,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f632e6192617bd2c7ac1a351514ca69f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  knockbackMultiplier: 1
+  _knockbackMultiplier: 1
   onKnockback:
     m_PersistentCalls:
       m_Calls: []
@@ -4027,8 +4027,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d08ce9961c13dcd49b81890f1fc7479b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitlagstate: {fileID: 6187945852662238548}
-  hitstopstate: {fileID: 2539208492008461159}
+  OnHitLag: {fileID: 0}
+  OnHitStop: {fileID: 0}
   onHitlag:
     m_PersistentCalls:
       m_Calls: []
@@ -4059,7 +4059,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a35637e38e1c344f99628314e45d118, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  input: {fileID: 2478494695088328788}
+  _input: {fileID: 2478494695088328788}
 --- !u!114 &4611888578287252269
 MonoBehaviour:
   m_ObjectHideFlags: 0

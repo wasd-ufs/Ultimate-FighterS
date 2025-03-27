@@ -26,9 +26,9 @@ public class SetFacingDirectionBehaviour : CharacterState
         FacingDirection.Flip => true
     };
 
-    private Vector2 GetWallNormal() => (body.IsOnLeftWall())
-        ? body.LeftWallNormal
-        : body.RightWallNormal;
+    private Vector2 GetWallNormal() => (Body.IsOnLeftWall())
+        ? Body.LeftWallNormal
+        : Body.RightWallNormal;
     
     private void Flip()
     {

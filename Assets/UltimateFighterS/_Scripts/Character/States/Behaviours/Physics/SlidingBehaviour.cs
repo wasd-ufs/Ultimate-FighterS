@@ -9,9 +9,9 @@ public class SlidingBehaviour : CharacterState
 
     public override void PhysicsProcess()
     {
-        var down = body.IsOnLeftWall() 
-            ? body.GetLeftWallDown() : body.IsOnRightWall() ? body.GetRightWallDown() : body.Down;
+        var down = Body.IsOnLeftWall() 
+            ? Body.GetLeftWallDown() : Body.IsOnRightWall() ? Body.GetRightWallDown() : Body.Down;
         
-        body.ConvergeSpeed(down, acceleration, deceleration, targetSpeed);
+        Body.ConvergeSpeed(down, acceleration, deceleration, targetSpeed);
     }
 }

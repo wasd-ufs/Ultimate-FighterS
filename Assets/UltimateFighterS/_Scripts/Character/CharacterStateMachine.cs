@@ -32,10 +32,10 @@ public class CharacterStateMachine : StateMachine<CharacterState>
         if (Current is null)
             return;
         
-        Current.machine = this;
-        Current.body = body;
-        Current.input = input;
-        Current.inputBuffer = inputBuffer;
+        Current.Machine = this;
+        Current.Body = body;
+        Current.Input = input;
+        Current.InputBuffer = inputBuffer;
         Current.FlipPivotPoint = flipPivotPoint;
         Current.DustParticles = dustParticles;
     }

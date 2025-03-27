@@ -6,6 +6,6 @@ public class InstantTransitionBehaviour : CharacterState
 
     public override void Enter()
     {
-        machine.TransitionTo(next);
+        Machine.TransitionTo(next);
     }
 }

@@ -4,6 +4,6 @@ public class InstantResetBehaviour : CharacterState
 {
     public override void Enter()
     {
-        machine.Reset();
+        Machine.Reset();
     }
 }

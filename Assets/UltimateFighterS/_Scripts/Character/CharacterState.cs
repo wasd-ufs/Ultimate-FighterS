@@ -1,11 +1,15 @@
 using UnityEngine;
 
+///<summary>
+/// Classe base para os estados do personagem.
+/// Define propriedades e métodos comuns para a transição e processamento dos estados.
+///</summary>
 public abstract class CharacterState : State
 {
-    public StateMachine<CharacterState> machine { get; set; }
-    public InputSystem input { get; set; }
-    public CharacterBody2D body { get; set; }
-    public InputBuffer inputBuffer { get; set; }
+    public StateMachine<CharacterState> Machine { get; set; }
+    public InputSystem Input { get; set; }
+    public CharacterBody2D Body { get; set; }
+    public InputBuffer InputBuffer { get; set; }
     public Transform FlipPivotPoint { get; set; }
     public ParticleSystem DustParticles { get; set; }
 
@@ -36,16 +40,22 @@ public abstract class CharacterState : State
         Input,
         Velocity
     }
-    
+
+    ///<summary>
+    /// Retorna os vetores base correspondentes ao referencial escolhido.
+    ///</summary>
+    ///<param name="basis">O referencial desejado.</param>
+    ///<returns>Um par de vetores que representam a direção primária e sua ortogonal associada.</returns>
+    ///<author>Davi Fontes</author>
     public (Vector2, Vector2) GetBasis(CharacterBasis basis) => basis switch
     {
-        CharacterBasis.Floor => (body.GetFloorRight(), body.FloorNormal),
-        CharacterBasis.Wall => body.IsOnLeftWall() ? (body.LeftWallNormal, body.GetLeftWallUp()) : (body.RightWallNormal, body.GetRightWallUp()),
-        CharacterBasis.Ceiling => (body.GetCeilingLeft(), body.CeilingNormal),
-        CharacterBasis.Body => (body.Right, body.Up),
-        CharacterBasis.BodyForward => (body.Right * Mathf.Sign(FlipPivotPoint.lossyScale.x), body.Up),
+        CharacterBasis.Floor => (Body.GetFloorRight(), Body.FloorNormal),
+        CharacterBasis.Wall => Body.IsOnLeftWall() ? (Body.LeftWallNormal, Body.GetLeftWallUp()) : (Body.RightWallNormal, Body.GetRightWallUp()),
+        CharacterBasis.Ceiling => (Body.GetCeilingLeft(), Body.CeilingNormal),
+        CharacterBasis.Body => (Body.Right, Body.Up),
+        CharacterBasis.BodyForward => (Body.Right * Mathf.Sign(FlipPivotPoint.lossyScale.x), Body.Up),
         CharacterBasis.XY => (Vector2.right, Vector2.up),
-        CharacterBasis.Input => (input.GetDirection(), VectorUtils.Orthogonal(input.GetDirection())),
-        CharacterBasis.Velocity => (body.Velocity.normalized, VectorUtils.Orthogonal(body.Velocity.normalized))
+        CharacterBasis.Input => (Input.GetDirection(), VectorUtils.Orthogonal(Input.GetDirection())),
+        CharacterBasis.Velocity => (Body.Velocity.normalized, VectorUtils.Orthogonal(Body.Velocity.normalized))
     };
 }
