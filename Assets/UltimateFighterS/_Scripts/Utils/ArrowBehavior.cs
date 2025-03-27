@@ -1,69 +1,80 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
+///<summary>
+/// Controla o movimento da seta que fica acima do jogador e sua coloração.
+///</summary>
 public class ArrowBehavior : MonoBehaviour
 {
-    private int id;
-    private int sumCoef;
+    private int _playerIdentifier;
+    private float _fatherPositionX;
+    private float _leftCameraPosition;
+    private float _rightCameraPosition;
+    private Color _arrowColor = Color.white;
+    [SerializeField] private IdComponent _idComponent;
+    [SerializeField] private List<Sprite> _spriteList;
+    [SerializeField] private SpriteRenderer _mySpriteRenderer;
+    private Camera _camera;
     
-    private float fatherPosX;
-    private float leftCamPosition;
-    private float rightCamPosition;
-    private Color color = Color.white;
-    [SerializeField] private IdComponent idcomponent;
-    [SerializeField] private List<Sprite> sprites;
-    [SerializeField] private SpriteRenderer myRenderer;
-    private Camera cam;
-
+    /// <summary>
+    /// Pega o componente Camera na cena. 
+    /// </summary>
+    /// <author>Cubidev</author>
     private void Awake()
     {
-        cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        _camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
     }
-
+    
+    /// <summary>
+    /// Define a cor da seta correspodente ao playerIdentifier, o sprite inicial da seta, e coloca ela na posição relativa ao player. 
+    /// </summary>
+    /// <author>JOÃO CARLOS</author>
     void Start()
     {
-        id = idcomponent.id;
-        sumCoef = id * 3;
+        _playerIdentifier= _idComponent.id;
+        Dictionary<int, Color> _playerColors = new Dictionary<int, Color>
+        {
+            { 0, Color.red },
+            { 1, Color.blue },
+            { 2, Color.yellow },
+            { 3, Color.green }
+        };
+        _arrowColor = _playerColors.TryGetValue(_playerIdentifier, out Color color) ? color : _arrowColor;
         
-        if(id == 0){color = Color.red;}
-        if(id == 1){color = Color.blue;}
-        if(id == 2){color = Color.yellow;}
-        if(id == 3){color = Color.green;}
-        
-        myRenderer.sprite = sprites[1];
-        myRenderer.color = color;
-        var fatherSprite = GetComponentInChildren<SpriteRenderer>();
-        var spriteLength = fatherSprite.bounds.size.y;
-        print(spriteLength);
-        gameObject.transform.position = new Vector3(transform.position.x, (transform.position.y + spriteLength + 0.2f) , transform.position.z);
+        _mySpriteRenderer.sprite = _spriteList[1];
+        _mySpriteRenderer.color = _arrowColor;
+        SpriteRenderer _fatherSprite = GetComponentInChildren<SpriteRenderer>();
+        float _fatherSpriteLength = _fatherSprite.bounds.size.y;
+        gameObject.transform.position = new Vector3(transform.position.x, (transform.position.y + _fatherSpriteLength + 0.2f) , transform.position.z);
     
     }
     
+    /// <summary>
+    /// Atuliza a posição da sete (mantendo-a acima do player) e altera o seu sprite quando necessario.
+    /// </summary>
+    /// <author>JOÃO CARLOS</author>
     void Update()
     {   
-        float distanceDif = (transform.position - cam.transform.position).z;
-        leftCamPosition = cam.ViewportToWorldPoint(new Vector3(0f, 0f, distanceDif)).x;
-        rightCamPosition = cam.ViewportToWorldPoint(new Vector3(1f, 0f, distanceDif)).x;
+        float _distanceDiference = (transform.position - _camera.transform.position).z;
+        _leftCameraPosition = _camera.ViewportToWorldPoint(new Vector3(0f, 0f, _distanceDiference)).x;
+        _rightCameraPosition = _camera.ViewportToWorldPoint(new Vector3(1f, 0f, _distanceDiference)).x;
         
-        fatherPosX = transform.parent.position.x;
+        _fatherPositionX = transform.parent.position.x;
 
-        if (fatherPosX <= leftCamPosition)
+        if (_fatherPositionX <= _leftCameraPosition)
         {
-            myRenderer.sprite = sprites[0 + sumCoef];
-            gameObject.transform.position = new Vector3(leftCamPosition + 0.5f, gameObject.transform.position.y , gameObject.transform.position.z);
+            _mySpriteRenderer.sprite = _spriteList[_playerIdentifier * 3];
+            gameObject.transform.position = new Vector3(_leftCameraPosition + 0.5f, gameObject.transform.position.y , gameObject.transform.position.z);
         }
-        else if(fatherPosX >= rightCamPosition)
+        else if(_fatherPositionX >= _rightCameraPosition)
         {
-            myRenderer.sprite = sprites[2 + sumCoef];
-            gameObject.transform.position = new Vector3(rightCamPosition - 0.5f, gameObject.transform.position.y , gameObject.transform.position.z);
+            _mySpriteRenderer.sprite = _spriteList[2 + _playerIdentifier * 3];
+            gameObject.transform.position = new Vector3(_rightCameraPosition - 0.5f, gameObject.transform.position.y , gameObject.transform.position.z);
         }
         else
         {
-            myRenderer.sprite = sprites[1 + sumCoef];
-            gameObject.transform.position = new Vector3(fatherPosX, gameObject.transform.position.y , gameObject.transform.position.z);
+            _mySpriteRenderer.sprite = _spriteList[1 + _playerIdentifier * 3];
+            gameObject.transform.position = new Vector3(_fatherPositionX, gameObject.transform.position.y , gameObject.transform.position.z);
         }
         
     }
