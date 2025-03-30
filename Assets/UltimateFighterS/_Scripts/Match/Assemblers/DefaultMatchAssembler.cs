@@ -1,9 +1,7 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class DefaultMatchAssembler : MonoBehaviour
 {
@@ -19,33 +17,37 @@ public class DefaultMatchAssembler : MonoBehaviour
 
         AudioManager.audioManagerInstance.SetCurrentPhase(MatchConfiguration.ScenePrefab.tag);
         
-        var success = AddPlayers();
-        if (!success)
+        if (!CanAddPlayers())
             MatchManager.EndMatch();
+        else
+            AddPlayers();
         
         MatchManager.ForEachPlayer(player => player.Spawn());
         SceneChangerController.FadeIn();
     }
 
-    private bool AddPlayers()
+    private bool CanAddPlayers()
     {
-        var spawns = GetSpawnPoints();
+        List<Transform> spawns = GetSpawnPoints();
         if (spawns.Count < MatchConfiguration.Characters.Count)
         {
-            Debug.LogError($"Not enough spawn points for all players! Point Count = {spawns.Count}. Player Count = {MatchConfiguration.Characters.Count}");
+            Debug.LogError(
+                $"Not enough spawn points for all players! Point Count = {spawns.Count}. Player Count = {MatchConfiguration.Characters.Count}");
             return false;
         }
-
+        return true;
+    }
+    private void AddPlayers()
+    {
+        List<Transform> spawns = GetSpawnPoints();
         int spawnPointIndex = 0;
-        foreach (var (port, character) in MatchConfiguration.Characters)
+        foreach ((int port, Character character) in MatchConfiguration.Characters)
         {
-            var spawnPoint = spawns[spawnPointIndex];
+            Transform spawnPoint = spawns[spawnPointIndex];
             MatchManager.AddPlayer(port, MatchConfiguration.PlayerInputTypes[port], character, spawnPoint);
             
             spawnPointIndex++;
         }
-
-        return true;
     }
     
     private List<Transform> GetSpawnPoints() => GameObject.FindGameObjectsWithTag(SpawnPointTag).ToList()
