@@ -4,15 +4,12 @@ using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using System.Collections;
-using UnityEngine.Rendering;
 
 /// <summary>
 /// Responsavel por gerenciar os audios do jogo
 /// </summary>
-public class AudioManager : MonoBehaviour
+public class AudioManager : ManagerBase<AudioManager>
 {
-    public static AudioManager audioManagerInstance;
-
     [Header("AudioMixer")]
     [SerializeField] private AudioMixer _audioMixer;
 
@@ -30,19 +27,6 @@ public class AudioManager : MonoBehaviour
     [Header("CrossFade Settings")]
     [SerializeField] private float _fadeDuration = 1f;
     private Coroutine _coroutine;
-    
-
-    void Awake() 
-    {
-        if (audioManagerInstance == null){ 
-            audioManagerInstance = this;
-            DontDestroyOnLoad(gameObject);  
-        }
-        else {
-            Destroy(gameObject);
-            return;
-        }
-    }
 
     void Start()
     {
@@ -86,7 +70,7 @@ public class AudioManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Responsavel por definir se é uma cena normal ou uma fase
+    /// Responsavel por definir se ï¿½ uma cena normal ou uma fase
     /// </summary>
     /// <return>void</return>
     /// <author>Wallisson de jesus</author>
@@ -146,15 +130,8 @@ public class AudioManager : MonoBehaviour
                 yield return null;
             }
         }
-
-        float decibel = Mathf.Log10(Mathf.Clamp(settingBaseAudio.Volume, 0.0001f, 1f)) * 20;
-
-        _audioSourceBg.clip = settingBaseAudio.Clip;
-        _audioSourceBg.loop = settingBaseAudio.IsLoop;
-        _audioMixer.SetFloat("MusicVolume", decibel);
-        _audioMixer.SetFloat("MusicPitch", settingBaseAudio.Pitch);
-        _audioSourceBg.Play();
-
+        
+        AddSettingsMusic(settingBaseAudio);
 
         for (float t = 0; t < _fadeDuration; t += Time.deltaTime)
         {
@@ -165,6 +142,21 @@ public class AudioManager : MonoBehaviour
         _audioSourceBg.volume = 1f;
     }
 
+    /// <summary>
+    /// Adiciona as configuracoes para o audio Source e Mixer
+    /// </summary>
+    /// <returns>void</returns>
+    /// <author>Wallisson</author>
+    private void AddSettingsMusic(SettingBaseAudio settingBaseAudio)
+    {
+        float decibel = Mathf.Log10(Mathf.Clamp(settingBaseAudio.Volume, 0.0001f, 1f)) * 20;
+        _audioSourceBg.clip = settingBaseAudio.Clip;
+        _audioSourceBg.loop = settingBaseAudio.IsLoop;
+        _audioMixer.SetFloat("MusicVolume", !PlayerPrefs.HasKey("MusicVolumeSlider") ? decibel : PlayerPrefs.GetFloat("MusicVolumeSlider"));
+        _audioMixer.SetFloat("MusicPitch", settingBaseAudio.Pitch);
+        _audioSourceBg.Play();
+    }
+    
     /// <summary>
     /// Executa uma audioClip especifico
     /// </summary>
