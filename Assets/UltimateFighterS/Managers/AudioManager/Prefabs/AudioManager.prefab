@@ -50,15 +50,15 @@ MonoBehaviour:
   _audioSourceBg: {fileID: -5612924717373002793}
   _settingBaseAudioList: []
   _sceneAudioDataList:
-  - {fileID: 11400000, guid: 1517f817afcecb749a36d5d992fc90cd, type: 2}
-  - {fileID: 11400000, guid: 63cbe7593497b994e8a7a054065eae68, type: 2}
-  - {fileID: 11400000, guid: 11f396df570051c4a829a872de58eccc, type: 2}
-  - {fileID: 11400000, guid: 8ed9f25493f2bf84aaa66c52656d5eb7, type: 2}
+  - {fileID: 11400000, guid: b9a70e5c2c137b146a89ace3a09ce8e2, type: 2}
+  - {fileID: 11400000, guid: cbf62b946fd5edb44af1000263354fd9, type: 2}
+  - {fileID: 11400000, guid: 9ba0d53aa0c4351458b18c8f2a65e742, type: 2}
+  - {fileID: 11400000, guid: 4364544a06c361a4eb6951c06a004271, type: 2}
+  - {fileID: 11400000, guid: 5311be1fa7fba3241a849dc785265525, type: 2}
   _scenePhaseAudioDataList:
   - {fileID: 11400000, guid: c8174ff6d5cf3734c996a4e91e92ce49, type: 2}
   - {fileID: 11400000, guid: 2d90cf645284dbc4fb75135c966939ff, type: 2}
   - {fileID: 11400000, guid: 79528531e86f24f488d7f14d05b05fc6, type: 2}
-  _isPhase: 0
   _audioSourceExf: {fileID: -787522829728624148}
   _fadeDuration: 1
 --- !u!82 &-5612924717373002793

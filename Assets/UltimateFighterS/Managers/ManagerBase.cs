@@ -18,8 +18,10 @@ public abstract class ManagerBase <T> : MonoBehaviour where T : ManagerBase<T>
 			_instance = this as T;
 			DontDestroyOnLoad(_instance);
 		}
-		
-		Destroy(gameObject);
+		else
+		{
+			Destroy(gameObject);	
+		}
 	}
 
 }
