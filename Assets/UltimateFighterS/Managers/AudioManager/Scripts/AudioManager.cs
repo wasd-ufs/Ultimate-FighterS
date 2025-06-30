@@ -15,8 +15,8 @@ public class AudioManager : ManagerBase<AudioManager>
 
     [Header("BackGroundMusic")]
     [SerializeField] private AudioSource _audioSourceBg;
-    [SerializeField] private List<SettingBaseAudio> _settingBaseAudioList;
-    [SerializeField] private List<SceneAudioData> _sceneAudioDataList;
+    [SerializeField] private List<SettingBaseAudio> _settingBaseAudioList = new List<SettingBaseAudio>();
+    [SerializeField] private List<SceneAudioData> _sceneAudioDataList = new List<SceneAudioData>();
     [SerializeField] private List<SceneAudioData> _scenePhaseAudioDataList;
     private bool _isPaused;
     private bool _isPhase = false;
