@@ -56,9 +56,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4364544a06c361a4eb6951c06a004271, type: 2}
   - {fileID: 11400000, guid: 5311be1fa7fba3241a849dc785265525, type: 2}
   _scenePhaseAudioDataList:
-  - {fileID: 11400000, guid: c8174ff6d5cf3734c996a4e91e92ce49, type: 2}
-  - {fileID: 11400000, guid: 2d90cf645284dbc4fb75135c966939ff, type: 2}
-  - {fileID: 11400000, guid: 79528531e86f24f488d7f14d05b05fc6, type: 2}
+  - {fileID: 11400000, guid: 14fe4ee3f00100148817bcff492d7210, type: 2}
+  - {fileID: 11400000, guid: d1d84067d62d0794e9dd30d96b9440ad, type: 2}
+  - {fileID: 11400000, guid: 94e6ce166491539439db5221d7aa498c, type: 2}
   _audioSourceExf: {fileID: -787522829728624148}
   _fadeDuration: 1
 --- !u!82 &-5612924717373002793
