@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: UfsBaseAudio
   m_EditorClassIdentifier: 
   _clip: {fileID: 8300000, guid: 4b1ee808aeb157d4790330f8c4d286f1, type: 3}
-  _volume: 0.25
+  _volume: 0.05
   _pitch: 1
   _isLoop: 1

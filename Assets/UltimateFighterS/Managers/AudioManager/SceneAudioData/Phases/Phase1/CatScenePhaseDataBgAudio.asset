@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: CatScenePhaseDataBgAudio
   m_EditorClassIdentifier: Assembly-CSharp::SceneAudioData
-  _sceneName: CatPhase
+  _sceneName: CatBoxPhase
   _backGroundClipList:
   - {fileID: 11400000, guid: 4727abda261ac884482911a8ff9fd0cb, type: 2}

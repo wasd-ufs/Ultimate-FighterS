@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: TestScenePhaseDataBgAudio
   m_EditorClassIdentifier: Assembly-CSharp::SceneAudioData
-  _sceneName: TestPhase
+  _sceneName: TestStagePhase
   _backGroundClipList:
   - {fileID: 11400000, guid: 7b289c77b0f5bc74eaf0e5d162b49f67, type: 2}
