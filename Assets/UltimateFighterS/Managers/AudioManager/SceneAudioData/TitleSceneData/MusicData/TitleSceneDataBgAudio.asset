@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a26b92800c26a1e42bfa480188713cf9, type: 3}
-  m_Name: CharacterSceneDataAudio
-  m_EditorClassIdentifier: 
-  _sceneName: CharacterSelect
+  m_Script: {fileID: 0}
+  m_Name: TitleSceneDataBgAudio
+  m_EditorClassIdentifier: Assembly-CSharp::SceneAudioData
+  _sceneName: TitleScreen
   _backGroundClipList:
-  - {fileID: 11400000, guid: 7b5713483dc94ae448a599d938b5257d, type: 2}
+  - {fileID: 11400000, guid: 4d66ba2d96f36ae44a56eef803a51452, type: 2}

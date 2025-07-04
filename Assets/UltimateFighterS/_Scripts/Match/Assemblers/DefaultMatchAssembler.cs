@@ -15,7 +15,7 @@ public class DefaultMatchAssembler : MonoBehaviour
         Instantiate(MatchConfiguration.ScenePrefab);
         MatchManager.StartMatch();
 
-        AudioManager.audioManagerInstance.SetCurrentPhase(MatchConfiguration.ScenePrefab.tag);
+        AudioManager.Instance.SetCurrentPhase(MatchConfiguration.ScenePrefab.tag);
         
         if (!CanAddPlayers())
             MatchManager.EndMatch();

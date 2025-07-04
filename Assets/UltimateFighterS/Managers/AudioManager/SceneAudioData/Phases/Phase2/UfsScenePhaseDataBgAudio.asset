@@ -9,10 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d9a7ecca0fbfec46be0232a88832bbb, type: 3}
-  m_Name: MatchBaseAudio
-  m_EditorClassIdentifier: 
-  _clip: {fileID: 8300000, guid: 28fd512538ac2ec4881b07dbae78dccd, type: 3}
-  _volume: 0.5
-  _pitch: 1
-  _isLoop: 1
+  m_Script: {fileID: 0}
+  m_Name: UfsScenePhaseDataBgAudio
+  m_EditorClassIdentifier: Assembly-CSharp::SceneAudioData
+  _sceneName: UfsPhase
+  _backGroundClipList:
+  - {fileID: 11400000, guid: db0c790d706515a409a02724136bcfa6, type: 2}
